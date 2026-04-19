@@ -798,8 +798,7 @@ async function buildManifestFromSourceDir(sourceDir: string): Promise<{
     promptObjective: prompt.objective,
     promptPersona: prompt.persona,
     qualityChecklist,
-    sourceToolIds
-    ,
+    sourceToolIds,
     whenToUse
   });
 

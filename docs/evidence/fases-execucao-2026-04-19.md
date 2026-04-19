@@ -38,7 +38,7 @@ Escopo executado a partir dos checklists HTML em `C:\Users\Marks\Desktop\CHECKLI
 
 | Auditor | Antes | Depois |
 | --- | ---: | ---: |
-| 01 Multi-tenancy | 67 | 52 |
+| 01 Multi-tenancy | 67 | 44 |
 | 12 Design system | 491 | 413 |
 | 14 Console log | 241 | 240 |
 | 15 Env vars | 97 | 81 |
@@ -48,7 +48,7 @@ Escopo executado a partir dos checklists HTML em `C:\Users\Marks\Desktop\CHECKLI
 ## Pendencias explicitas
 
 - Auditor 02 ainda aponta 2 ocorrencias em historico Git por busca `-S api_key/password`; o working tree passou no scanner de credenciais inline. Purga historica e rotacao de credenciais dependem de decisao operacional.
-- Auditor 01 ainda lista 52 achados criticos de multitenancy em varios modulos. A rodada atual fechou mais um bloco de auth/admin, mas nao reescreveu todos os servicos catalogados.
+- Auditor 01 ainda lista 44 achados criticos de multitenancy em varios modulos. A rodada atual fechou mais um bloco de auth/admin, mas nao reescreveu todos os servicos catalogados.
 - Suites RLS de banco foram puladas porque `DATABASE_URL` nao estava definido no ambiente local.
 
 ## Artefatos

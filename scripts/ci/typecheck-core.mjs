@@ -2,7 +2,7 @@
 
 import path from "node:path";
 
-import { portableNodeExecutable, projectRoot, run } from "./shared.mjs";
+import { portableNodeExecutable, projectRoot, run, runPnpm } from "./shared.mjs";
 
 const typescriptCli = path.join(projectRoot, "node_modules", "typescript", "bin", "tsc");
 
@@ -21,6 +21,10 @@ const coreTypecheckWorkspaces = [
   "packages/testing",
   "apps/worker"
 ];
+
+// packages/testing imports the published database surface, so the lane must
+// materialize the database package before invoking raw tsc in each workspace.
+runPnpm(["--filter", "@birthub/database", "build"]);
 
 for (const workspacePath of coreTypecheckWorkspaces) {
   run(portableNodeExecutable, [typescriptCli, "-p", "tsconfig.json", "--noEmit"], {

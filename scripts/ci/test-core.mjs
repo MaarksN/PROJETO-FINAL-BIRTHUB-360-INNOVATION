@@ -2,7 +2,7 @@
 
 import path from "node:path";
 
-import { portableNodeExecutable, projectRoot, run } from "./shared.mjs";
+import { portableNodeExecutable, projectRoot, run, runPnpm } from "./shared.mjs";
 
 const coreTestWorkspaces = [
   { cwd: "packages/config", args: ["src/**/*.test.ts"] },
@@ -19,6 +19,10 @@ const coreTestWorkspaces = [
   { cwd: "packages/testing", args: ["src/**/*.test.ts"] },
   { cwd: "apps/worker", args: ["src/**/*.test.ts", "test/**/*.test.ts"] }
 ];
+
+// packages/testing exercises the database runtime through the package surface,
+// so we bootstrap the database build once before the workspace test sweep.
+runPnpm(["--filter", "@birthub/database", "build"]);
 
 for (const workspace of coreTestWorkspaces) {
   run(portableNodeExecutable, ["--import", "tsx", "--test", ...workspace.args], {

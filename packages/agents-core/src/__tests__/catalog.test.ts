@@ -5,7 +5,6 @@ import path from "node:path";
 import test from "node:test";
 
 import {
-  GLOBAL_PREMIUM_PROTOCOL_MARKER,
   agentIdsMatch,
   canonicalizeAgentId,
   findManifestCatalogEntryByAgentId,
@@ -16,6 +15,7 @@ import {
   type ManifestCatalogEntry
 } from "../manifest/catalog.js";
 import { parseAgentManifest } from "../manifest/parser.js";
+import { GLOBAL_PREMIUM_PROTOCOL_MARKER } from "../runtime/premiumProtocol.js";
 import { MANIFEST_VERSION, type AgentManifest } from "../manifest/schema.js";
 
 type ManifestOverrides = {
