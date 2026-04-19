@@ -15,7 +15,26 @@ jobs:
     if: github.event.pull_request.merged == true
     steps:
       - name: Delete Branch
-        uses: dawidd6/action-delete-branch@v3
-        with:
-          github_token: ${{secrets.GITHUB_TOKEN}}
-          numbers: ${{github.event.pull_request.number}}
+        env:
+          BRANCH_NAME: ${{ github.event.pull_request.head.ref }}
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          HEAD_REPOSITORY: ${{ github.event.pull_request.head.repo.full_name }}
+          TARGET_REPOSITORY: ${{ github.repository }}
+        run: |
+          set -euo pipefail
+
+          if [[ "${HEAD_REPOSITORY}" != "${TARGET_REPOSITORY}" ]]; then
+            echo "Skipping cleanup for fork branch ${HEAD_REPOSITORY}:${BRANCH_NAME}."
+            exit 0
+          fi
+
+          case "${BRANCH_NAME}" in
+            main|develop|master)
+              echo "::notice title=Branch cleanup skipped::Refusing to delete protected branch ${BRANCH_NAME}."
+              exit 0
+              ;;
+          esac
+
+          gh api -X DELETE "repos/${TARGET_REPOSITORY}/git/refs/heads/${BRANCH_NAME}" || {
+            echo "::warning title=Branch cleanup skipped::Branch ${BRANCH_NAME} could not be deleted, possibly because it was already removed."
+          }
