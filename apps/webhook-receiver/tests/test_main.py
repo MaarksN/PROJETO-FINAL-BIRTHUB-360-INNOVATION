@@ -166,6 +166,8 @@ def test_runtime_resolvers_cover_fallbacks_and_strict_guards(monkeypatch):
 
 
 def test_verify_svix_signature_covers_missing_secret_headers_and_invalid_signature(monkeypatch):
+    monkeypatch.delenv("SVIX_WEBHOOK_SECRET", raising=False)
+
     with pytest.raises(HTTPException, match="SVIX_WEBHOOK_SECRET is not configured") as missing_secret:
         webhook_main._verify_svix_signature(b"{}", "evt_1", "1700000000", "sig")
 

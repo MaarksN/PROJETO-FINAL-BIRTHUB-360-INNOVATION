@@ -2,6 +2,13 @@
 
 Use este arquivo quando qualquer `apps/*/package.json`, `packages/*/package.json` ou `agents/*/package.json` for alterado.
 
+## 2026-04-19
+
+### Database Prisma bootstrap in CI
+
+- `@birthub/database` agora executa `db:generate` no `prebuild`, garantindo que o Prisma Client tipado exista antes do `tsc` em installs frios, Docker builds e workflows reutilizáveis de CI.
+- simplificado o `postinstall` raiz para confiar na ordem correta do lifecycle do pacote `database`, evitando compilar o workspace antes da geração do client do schema canônico.
+
 ## 2026-04-15
 
 ### Workflows core dependencies
