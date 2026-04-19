@@ -47,8 +47,8 @@ def scan():
                 if "scripts/" not in str_path and "test" not in str_path and "tests" not in str_path:
                      ops_debt.append(f"{path} -> console statement")
 
-        except:
-            pass
+        except OSError as exc:
+            ops_debt.append(f"{path} -> erro ao ler arquivo: {exc}")
 
 def packages():
     for pkg in ROOT.glob("packages/*"):

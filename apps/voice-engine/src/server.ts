@@ -11,6 +11,7 @@ import { WebSocketServer } from "ws";
 export type VoiceEngineEnv = {
   DEEPGRAM_API_KEY: string;
   ELEVENLABS_API_KEY: string;
+  NODE_ENV: "development" | "production" | "test";
   PORT: number;
   REDIS_URL: string;
   TWILIO_ACCOUNT_SID: string;
@@ -96,15 +97,21 @@ export function readVoiceEngineEnv(env: NodeJS.ProcessEnv = process.env): VoiceE
 
       return [key, value];
     })
-  ) as Omit<VoiceEngineEnv, "PORT">;
+  ) as Omit<VoiceEngineEnv, "NODE_ENV" | "PORT">;
 
   const port = Number(env.PORT ?? "3012");
   if (!Number.isInteger(port) || port < 0 || port > 65535) {
     throw new Error(`Invalid PORT value: ${env.PORT ?? ""}`);
   }
 
+  const nodeEnv = env.NODE_ENV ?? "development";
+  if (!["development", "production", "test"].includes(nodeEnv)) {
+    throw new Error(`Invalid NODE_ENV value: ${nodeEnv}`);
+  }
+
   return {
     ...values,
+    NODE_ENV: nodeEnv as VoiceEngineEnv["NODE_ENV"],
     PORT: port
   };
 }
@@ -178,7 +185,7 @@ export function createVoiceEngineRuntime(options: {
   wss.on("connection", (socket, request) => {
     // Determine boundary/authentication or mock it if needed
     const authHeader = request.headers["authorization"];
-    if (authHeader !== `Bearer ${env.TWILIO_AUTH_TOKEN}` && process.env.NODE_ENV !== "test") {
+    if (authHeader !== `Bearer ${env.TWILIO_AUTH_TOKEN}` && env.NODE_ENV !== "test") {
       logger.error("Unauthorized websocket connection attempt");
       socket.close(1008, "Unauthorized");
       return;
@@ -294,10 +301,10 @@ export function createVoiceEngineRuntime(options: {
   };
 }
 
-if (
-  process.env.NODE_ENV !== "test" &&
-  process.env.BIRTHUB_DISABLE_VOICE_ENGINE_AUTOSTART !== "1"
-) {
+const bootstrapNodeEnv = process.env.NODE_ENV ?? "development";
+const bootstrapAutostartDisabled = process.env.BIRTHUB_DISABLE_VOICE_ENGINE_AUTOSTART ?? "0";
+
+if (bootstrapNodeEnv !== "test" && bootstrapAutostartDisabled !== "1") {
   const runtime = createVoiceEngineRuntime();
   runtime.start().catch((error) => {
     const logger = createLogger("voice-engine");

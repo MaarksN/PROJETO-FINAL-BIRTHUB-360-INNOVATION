@@ -98,7 +98,14 @@ def tracked_files() -> list[Path]:
     if code != 0:
         raise RuntimeError(output or "Falha ao listar arquivos com git ls-files")
 
-    raw_paths = [Path(line.strip()) for line in output.splitlines() if line.strip()]
+    other_code, other_output = run(["git", "ls-files", "--others", "--exclude-standard"], timeout=15)
+    working_tree_output = output
+    if other_code == 0 and other_output:
+        working_tree_output = f"{output}\n{other_output}"
+
+    raw_paths = list(
+        dict.fromkeys(Path(line.strip()) for line in working_tree_output.splitlines() if line.strip())
+    )
     raw_set = {str(p).replace("\\", "/") for p in raw_paths}
     files: list[Path] = []
 

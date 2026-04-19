@@ -33,6 +33,10 @@ import {
 
 type WorkflowRouteRegistrar = (router: Router, config: ApiConfig) => void;
 
+function isWorkflowNotPublishedError(cause: unknown): boolean {
+  return cause instanceof Error && cause.message === "WORKFLOW_NOT_PUBLISHED";
+}
+
 function requireTenantId(request: Request): string {
   const tenantId = request.context.tenantId;
   if (!tenantId) {
@@ -269,7 +273,7 @@ function registerRunWorkflowRoute(router: Router, config: ApiConfig): void {
           ...result
         });
       } catch (error) {
-        if (error instanceof Error && error.message === "WORKFLOW_NOT_PUBLISHED") {
+        if (isWorkflowNotPublishedError(error)) {
           throw new ProblemDetailsError({
             detail: "Only published workflows can be executed.",
             status: 409,
@@ -386,4 +390,3 @@ export function createWorkflowsRouter(config: ApiConfig): Router {
 
   return router;
 }
-

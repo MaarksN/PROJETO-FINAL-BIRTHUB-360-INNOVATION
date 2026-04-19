@@ -41,8 +41,8 @@ if command_results_path.exists():
         data = json.loads(command_results_path.read_text(encoding="utf-8"))
         for row in data:
             command_results[row.get("name", "")] = row.get("exitCode")
-    except Exception:
-        pass
+    except (OSError, json.JSONDecodeError) as exc:
+        command_results["_load_error"] = str(exc)
 
 ci_yml = (ROOT / ".github" / "workflows" / "ci.yml").read_text(encoding="utf-8", errors="ignore") if files_exist["CI_WF"] else ""
 security_yml = (ROOT / ".github" / "workflows" / "security-scan.yml").read_text(encoding="utf-8", errors="ignore") if files_exist["SECURITY_SCAN_WF"] else ""
@@ -69,7 +69,7 @@ for base in [ROOT / "apps", ROOT / "packages", ROOT / "agents"]:
             continue
         try:
             txt = p.read_text(encoding="utf-8", errors="ignore")
-        except Exception:
+        except OSError:
             continue
         if "@birthub/db" in txt:
             legacy_hits.append(str(p.relative_to(ROOT)).replace("\\", "/"))

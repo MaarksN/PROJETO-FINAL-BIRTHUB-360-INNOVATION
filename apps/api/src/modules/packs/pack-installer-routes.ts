@@ -12,6 +12,12 @@ import { requireStringValue } from "../../lib/request-values.js";
 import { LimitExceededError } from "../billing/index.js";
 import { packInstallerService } from "./pack-installer.service.js";
 
+const PACK_IN_USE_ERROR_PREFIX = "Cannot uninstall pack because it is being used by active workflows";
+
+function isPackInUseError(cause: unknown): boolean {
+  return cause instanceof Error && cause.message.startsWith(PACK_IN_USE_ERROR_PREFIX);
+}
+
 export function createPackInstallerRouter(): Router {
   const router = Router();
 
@@ -103,9 +109,9 @@ export function createPackInstallerRouter(): Router {
           ...result
         });
       } catch (error) {
-        if (error instanceof Error && error.message.startsWith("Cannot uninstall pack because it is being used by active workflows")) {
+        if (isPackInUseError(error)) {
           throw new ProblemDetailsError({
-            detail: error.message,
+            detail: "Cannot uninstall pack because it is being used by active workflows.",
             status: 409,
             title: "Pack in Use"
           });
@@ -212,4 +218,3 @@ export function createPackInstallerRouter(): Router {
 
   return router;
 }
-

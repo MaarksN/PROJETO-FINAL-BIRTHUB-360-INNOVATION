@@ -20,7 +20,7 @@ import { asyncHandler, ProblemDetailsError } from "../lib/problem-details.js";
 import { contentTypeMiddleware } from "../middleware/content-type.js";
 import { csrfProtection } from "../middleware/csrf.js";
 import { breakGlassAuditMiddleware } from "../middleware/break-glass-audit.js";
-import { errorHandler, notFoundMiddleware } from "../middleware/error-handler.js";
+import { errorHandler, notFoundMiddleware } from "../middleware/global-error-filter.js";
 import { authenticationMiddleware } from "../middleware/authentication.js";
 import { originValidationMiddleware } from "../middleware/origin-check.js";
 import {

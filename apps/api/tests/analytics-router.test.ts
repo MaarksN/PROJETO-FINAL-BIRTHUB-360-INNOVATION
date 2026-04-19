@@ -18,6 +18,8 @@ type ProblemBody = {
 
 type DateRangeInput = {
   from?: Date;
+  organizationId?: string;
+  tenantId?: string;
   to?: Date;
 };
 
@@ -69,6 +71,8 @@ void test("analytics router parses usage date range filters before delegating to
     assertDateRangeInput(received);
     assert.ok(received.from instanceof Date);
     assert.ok(received.to instanceof Date);
+    assert.equal(received.organizationId, "org_1");
+    assert.equal(received.tenantId, "tenant_1");
     assert.deepEqual(response.body, {
       items: [
         {
@@ -93,6 +97,40 @@ void test("analytics router blocks super-admin routes for regular admins", async
   assert.equal(response.body.title, "Forbidden");
 });
 
+void test("analytics router passes tenant scope to admin analytics reports", async () => {
+  let received: unknown = null;
+  const restore = stubMethod(analyticsRouterService, "getExecutiveMetrics", (input: unknown) => {
+    received = input;
+    return Promise.resolve({
+      arrCents: 12_000,
+      churnRate: 0,
+      mrrCents: 1_000,
+      trialConversionRate: 1
+    });
+  });
+
+  try {
+    const response = await request(createAnalyticsTestApp())
+      .get("/api/v1/analytics/executive")
+      .expect(200);
+
+    assertDateRangeInput(received);
+    assert.equal(received.organizationId, "org_1");
+    assert.equal(received.tenantId, "tenant_1");
+    assert.deepEqual(response.body, {
+      metrics: {
+        arrCents: 12_000,
+        churnRate: 0,
+        mrrCents: 1_000,
+        trialConversionRate: 1
+      },
+      requestId: "req_analytics"
+    });
+  } finally {
+    restore();
+  }
+});
+
 void test("analytics router exports billing csv for super admins", async () => {
   let received: unknown = null;
   const restore = stubMethod(analyticsRouterService, "exportBillingCsv", (input: unknown) => {
@@ -110,6 +148,8 @@ void test("analytics router exports billing csv for super admins", async () => {
 
     assertDateRangeInput(received);
     assert.ok(received.from instanceof Date);
+    assert.equal(received.organizationId, "org_1");
+    assert.equal(received.tenantId, "tenant_1");
     assert.match(String(response.headers["content-type"] ?? ""), /text\/csv/i);
     assert.match(String(response.headers["content-disposition"] ?? ""), /billing-export\.csv/i);
     assert.equal(response.text, "tenant,amount\nacme,1200\n");

@@ -188,8 +188,8 @@ export function AnalyticsProvider({ children }: Readonly<{ children: ReactNode }
 
   useEffect(() => {
     const session = getStoredSession();
-    const apiKey = process.env.NEXT_PUBLIC_POSTHOG_KEY;
-    const host = process.env.NEXT_PUBLIC_POSTHOG_HOST;
+    const apiKey = process.env.NEXT_PUBLIC_POSTHOG_KEY ?? "";
+    const host = process.env.NEXT_PUBLIC_POSTHOG_HOST ?? "";
     const userId = session?.userId;
     const tenantId = session?.tenantId;
 
@@ -265,4 +265,3 @@ export function AnalyticsProvider({ children }: Readonly<{ children: ReactNode }
 export function useAnalytics(): AnalyticsContextValue {
   return useContext(AnalyticsContext);
 }
-
