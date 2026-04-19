@@ -159,8 +159,14 @@ export async function verifyMfaChallenge(input: {
   tokens: SessionTokens;
   userId: string;
 }> {
-  const challenge = await prisma.mfaChallenge.findUnique({
+  const challenge = await prisma.mfaChallenge.findFirst({
     where: {
+      organizationId: {
+        not: ""
+      },
+      tenantId: {
+        not: ""
+      },
       tokenHash: sha256(input.challengeToken)
     }
   });
@@ -173,11 +179,18 @@ export async function verifyMfaChallenge(input: {
     throw new Error("MFA_CHALLENGE_EXPIRED");
   }
 
-  const user = await prisma.user.findUnique({
+  const membership = await prisma.membership.findFirst({
+    include: {
+      user: true
+    },
     where: {
-      id: challenge.userId
+      organizationId: challenge.organizationId,
+      status: MembershipStatus.ACTIVE,
+      tenantId: challenge.tenantId,
+      userId: challenge.userId
     }
   });
+  const user = membership?.user ?? null;
 
   if (!user || !user.mfaSecret) {
     throw new Error("MFA_NOT_CONFIGURED");
@@ -202,6 +215,7 @@ export async function verifyMfaChallenge(input: {
     const recoveryCode = await prisma.mfaRecoveryCode.findFirst({
       where: {
         codeHash: hashed,
+        tenantId: challenge.tenantId,
         usedAt: null,
         userId: challenge.userId
       }
@@ -231,6 +245,10 @@ export async function verifyMfaChallenge(input: {
     where: {
       consumedAt: null,
       id: challenge.id
+      ,
+      organizationId: challenge.organizationId,
+      tenantId: challenge.tenantId,
+      userId: challenge.userId
     }
   });
 

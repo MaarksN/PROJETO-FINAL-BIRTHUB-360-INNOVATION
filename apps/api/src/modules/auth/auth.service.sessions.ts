@@ -33,6 +33,7 @@ async function enforceConcurrentSessionLimit(input: {
   organizationId: string;
   role: Role;
   sessionId: string;
+  tenantId: string;
   userId: string;
 }): Promise<void> {
   const limit = resolveConcurrentSessionLimit(input.role);
@@ -48,6 +49,7 @@ async function enforceConcurrentSessionLimit(input: {
     where: {
       organizationId: input.organizationId,
       revokedAt: null,
+      tenantId: input.tenantId,
       userId: input.userId
     }
   });
@@ -73,7 +75,8 @@ async function enforceConcurrentSessionLimit(input: {
       id: {
         in: sessionsToRevoke
       },
-      revokedAt: null
+      revokedAt: null,
+      tenantId: input.tenantId
     }
   });
 }
@@ -129,6 +132,7 @@ export async function createSession(input: {
       organizationId: input.organizationId,
       role: input.role,
       sessionId: created.id,
+      tenantId: input.tenantId,
       userId: input.userId
     });
   }
@@ -146,6 +150,7 @@ export async function createSession(input: {
 
 async function revokeAllSessionsForIdentity(input: {
   organizationId: string;
+  tenantId: string;
   userId: string;
 }): Promise<number> {
   const result = await prisma.session.updateMany({
@@ -155,6 +160,7 @@ async function revokeAllSessionsForIdentity(input: {
     where: {
       organizationId: input.organizationId,
       revokedAt: null,
+      tenantId: input.tenantId,
       userId: input.userId
     }
   });
@@ -220,6 +226,7 @@ export async function createNewDeviceAlert(input: {
     },
     where: {
       organizationId: input.organizationId,
+      tenantId: input.tenantId,
       userId: input.userId
     }
   });
@@ -259,18 +266,31 @@ export async function refreshSession(input: {
 }> {
   const refreshTokenHash = sha256(input.refreshToken);
 
-  const current = await prisma.session.findUnique({
+  const current = await prisma.session.findFirst({
     where: {
+      organizationId: {
+        not: ""
+      },
       refreshTokenHash
+      ,
+      tenantId: {
+        not: ""
+      }
     }
   });
 
   if (!current) {
     const revokedSession = await prisma.session.findFirst({
       where: {
+        organizationId: {
+          not: ""
+        },
         refreshTokenHash,
         revokedAt: {
           not: null
+        },
+        tenantId: {
+          not: ""
         }
       }
     });
@@ -278,6 +298,7 @@ export async function refreshSession(input: {
     if (revokedSession) {
       await revokeAllSessionsForIdentity({
         organizationId: revokedSession.organizationId,
+        tenantId: revokedSession.tenantId,
         userId: revokedSession.userId
       });
 
@@ -353,6 +374,7 @@ export async function revokeCurrentSession(sessionId: string): Promise<void> {
 
 export async function revokeAllSessions(input: {
   organizationId: string;
+  tenantId: string;
   userId: string;
 }): Promise<number> {
   return revokeAllSessionsForIdentity(input);
@@ -360,6 +382,7 @@ export async function revokeAllSessions(input: {
 
 export async function listActiveSessions(input: {
   organizationId: string;
+  tenantId: string;
   userId: string;
 }) {
   return prisma.session.findMany({
@@ -376,6 +399,7 @@ export async function listActiveSessions(input: {
     where: {
       organizationId: input.organizationId,
       revokedAt: null,
+      tenantId: input.tenantId,
       userId: input.userId
     }
   });
@@ -384,6 +408,7 @@ export async function listActiveSessions(input: {
 export async function revokeSessionById(input: {
   organizationId: string;
   sessionId: string;
+  tenantId: string;
   userId: string;
 }) {
   const result = await prisma.session.updateMany({
@@ -393,6 +418,7 @@ export async function revokeSessionById(input: {
     where: {
       id: input.sessionId,
       organizationId: input.organizationId,
+      tenantId: input.tenantId,
       userId: input.userId
     }
   });

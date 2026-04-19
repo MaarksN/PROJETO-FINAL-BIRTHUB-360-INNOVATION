@@ -27,12 +27,13 @@ type ApiKeyAuditResult = {
 };
 
 function requireAuthScope(request: {
-  context: { organizationId?: string | null; userId?: string | null };
-}): { organizationId: string; userId: string } {
+  context: { organizationId?: string | null; tenantId?: string | null; userId?: string | null };
+}): { organizationId: string; tenantId: string; userId: string } {
   const organizationId = request.context.organizationId;
+  const tenantId = request.context.tenantId;
   const userId = request.context.userId;
 
-  if (!organizationId || !userId) {
+  if (!organizationId || !tenantId || !userId) {
     throw new ProblemDetailsError({
       detail: "A valid authenticated session is required.",
       status: 401,
@@ -42,6 +43,7 @@ function requireAuthScope(request: {
 
   return {
     organizationId,
+    tenantId,
     userId
   };
 }
@@ -126,6 +128,7 @@ export function createApiKeysRouter(config: ApiConfig): Router {
           label: body.label,
           organizationId: scope.organizationId,
           scopes: body.scopes,
+          tenantId: scope.tenantId,
           userId: scope.userId
         });
         const payload = apiKeyCreateResponseSchema.parse({
@@ -154,6 +157,7 @@ export function createApiKeysRouter(config: ApiConfig): Router {
           config,
           id,
           organizationId: scope.organizationId,
+          tenantId: scope.tenantId,
           userId: scope.userId
         });
         const payload = apiKeyCreateResponseSchema.parse({
@@ -181,6 +185,7 @@ export function createApiKeysRouter(config: ApiConfig): Router {
         await revokeTenantApiKey({
           id,
           organizationId: scope.organizationId,
+          tenantId: scope.tenantId,
           userId: scope.userId
         });
 

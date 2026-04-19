@@ -50,6 +50,7 @@ export async function createTenantApiKey(input: {
 
 export async function listTenantApiKeys(input: {
   organizationId: string;
+  tenantId: string;
   userId: string;
 }) {
   return prisma.apiKey.findMany({
@@ -67,6 +68,7 @@ export async function listTenantApiKeys(input: {
     take: TENANT_API_KEY_LIST_LIMIT,
     where: {
       organizationId: input.organizationId,
+      tenantId: input.tenantId,
       userId: input.userId
     }
   });
@@ -76,12 +78,14 @@ export async function rotateTenantApiKey(input: {
   config: ApiConfig;
   id: string;
   organizationId: string;
+  tenantId: string;
   userId: string;
 }) {
   const current = await prisma.apiKey.findFirst({
     where: {
       id: input.id,
       organizationId: input.organizationId,
+      tenantId: input.tenantId,
       userId: input.userId
     }
   });
@@ -131,6 +135,7 @@ export async function rotateTenantApiKey(input: {
 export async function revokeTenantApiKey(input: {
   id: string;
   organizationId: string;
+  tenantId: string;
   userId: string;
 }) {
   await prisma.apiKey.updateMany({
@@ -141,6 +146,7 @@ export async function revokeTenantApiKey(input: {
     where: {
       id: input.id,
       organizationId: input.organizationId,
+      tenantId: input.tenantId,
       userId: input.userId
     }
   });
@@ -154,9 +160,16 @@ export async function introspectApiKey(rawToken: string): Promise<{
   userId: string | null;
 }> {
   const hashed = sha256(rawToken);
-  const apiKey = await prisma.apiKey.findUnique({
+  const apiKey = await prisma.apiKey.findFirst({
     where: {
+      organizationId: {
+        not: ""
+      },
       keyHash: hashed
+      ,
+      tenantId: {
+        not: ""
+      }
     }
   });
 
@@ -217,4 +230,3 @@ export async function introspectApiKey(rawToken: string): Promise<{
     userId: apiKey.userId
   };
 }
-

@@ -32,21 +32,6 @@ export async function listConversations(input: {
   const query = normalizeSearch(input.query);
   const limit = Math.min(Math.max(input.limit ?? DEFAULT_CONVERSATION_LIMIT, 1), 50);
   const items = await prisma.conversationThread.findMany({
-    include: {
-      _count: {
-        select: {
-          messages: true
-        }
-      },
-      messages: {
-        orderBy: {
-          createdAt: "desc"
-        },
-        take: 1
-      }
-    },
-    orderBy: [{ updatedAt: "desc" }, { createdAt: "desc" }],
-    take: limit,
     where: {
       organizationId: input.organizationId,
       tenantId: input.tenantId,
@@ -86,7 +71,22 @@ export async function listConversations(input: {
             ]
           }
         : {})
-    }
+    },
+    include: {
+      _count: {
+        select: {
+          messages: true
+        }
+      },
+      messages: {
+        orderBy: {
+          createdAt: "desc"
+        },
+        take: 1
+      }
+    },
+    orderBy: [{ updatedAt: "desc" }, { createdAt: "desc" }],
+    take: limit
   });
 
   return items.map((item) => ({
@@ -110,6 +110,11 @@ export async function getConversationById(input: {
   tenantId: string;
 }) {
   const conversation = await prisma.conversationThread.findFirst({
+    where: {
+      id: input.conversationId,
+      organizationId: input.organizationId,
+      tenantId: input.tenantId
+    },
     include: {
       messages: {
         orderBy: {
@@ -117,11 +122,6 @@ export async function getConversationById(input: {
         },
         take: 200
       }
-    },
-    where: {
-      id: input.conversationId,
-      organizationId: input.organizationId,
-      tenantId: input.tenantId
     }
   });
 
@@ -293,4 +293,3 @@ export async function updateConversationStatus(input: {
     }
   });
 }
-

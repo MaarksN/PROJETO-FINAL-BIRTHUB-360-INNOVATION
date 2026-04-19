@@ -371,6 +371,7 @@ export function createUsersRouter(): Router {
       });
       await revokeAllSessions({
         organizationId: organization.id,
+        tenantId: organization.tenantId,
         userId: targetUserId
       });
       await prisma.apiKey.updateMany({
@@ -479,4 +480,3 @@ export function createUsersRouter(): Router {
 
   return router;
 }
-

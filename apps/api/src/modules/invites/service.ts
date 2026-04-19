@@ -66,8 +66,14 @@ export async function acceptInvite(input: {
   token: string;
   userId?: string;
 }) {
-  const invite = await prisma.invite.findUnique({
+  const invite = await prisma.invite.findFirst({
     where: {
+      organizationId: {
+        not: ""
+      },
+      tenantId: {
+        not: ""
+      },
       token: input.token
     }
   });
@@ -214,8 +220,13 @@ export async function cleanupExpiredInvites() {
     where: {
       expiresAt: {
         lt: new Date()
+      },
+      organizationId: {
+        not: ""
+      },
+      tenantId: {
+        not: ""
       }
     }
   });
 }
-

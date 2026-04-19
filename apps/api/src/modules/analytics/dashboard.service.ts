@@ -16,10 +16,24 @@ async function getMasterAdminDashboard() {
 
   const [organizationsCount, subscriptions, workflowWau, workflowMau, agentWau, agentMau, usageRows] =
     await Promise.all([
-      prisma.organization.count(),
+      prisma.organization.count({
+        where: {
+          tenantId: {
+            not: ""
+          }
+        }
+      }),
       prisma.subscription.findMany({
         include: {
           plan: true
+        },
+        where: {
+          organizationId: {
+            not: ""
+          },
+          tenantId: {
+            not: ""
+          }
         },
         take: MASTER_DASHBOARD_SUBSCRIPTION_LIMIT
       }),
@@ -30,6 +44,12 @@ async function getMasterAdminDashboard() {
         },
         take: DASHBOARD_TENANT_SNAPSHOT_LIMIT,
         where: {
+          organizationId: {
+            not: ""
+          },
+          tenantId: {
+            not: ""
+          },
           startedAt: {
             gte: weekAgo
           }
@@ -42,6 +62,12 @@ async function getMasterAdminDashboard() {
         },
         take: DASHBOARD_TENANT_SNAPSHOT_LIMIT,
         where: {
+          organizationId: {
+            not: ""
+          },
+          tenantId: {
+            not: ""
+          },
           startedAt: {
             gte: monthAgo
           }
@@ -54,6 +80,12 @@ async function getMasterAdminDashboard() {
         },
         take: DASHBOARD_TENANT_SNAPSHOT_LIMIT,
         where: {
+          organizationId: {
+            not: ""
+          },
+          tenantId: {
+            not: ""
+          },
           startedAt: {
             gte: weekAgo
           }
@@ -66,6 +98,12 @@ async function getMasterAdminDashboard() {
         },
         take: DASHBOARD_TENANT_SNAPSHOT_LIMIT,
         where: {
+          organizationId: {
+            not: ""
+          },
+          tenantId: {
+            not: ""
+          },
           startedAt: {
             gte: monthAgo
           }
@@ -78,6 +116,12 @@ async function getMasterAdminDashboard() {
         },
         take: DASHBOARD_USAGE_ROW_LIMIT,
         where: {
+          organizationId: {
+            not: ""
+          },
+          tenantId: {
+            not: ""
+          },
           occurredAt: {
             gte: monthAgo
           }
@@ -128,6 +172,12 @@ async function getOperationsDashboard() {
     },
     take: DASHBOARD_TENANT_SNAPSHOT_LIMIT,
     where: {
+      organizationId: {
+        not: ""
+      },
+      tenantId: {
+        not: ""
+      },
       startedAt: {
         gte: since
       }
@@ -138,7 +188,14 @@ async function getOperationsDashboard() {
     await Promise.all([
       prisma.outputArtifact.count({
         where: {
+          organizationId: {
+            not: ""
+          },
           status: "WAITING_APPROVAL"
+          ,
+          tenantId: {
+            not: ""
+          }
         }
       }),
       prisma.agentBudgetEvent.findMany({
@@ -149,6 +206,12 @@ async function getOperationsDashboard() {
         where: {
           kind: {
             in: ["WARN_80", "BLOCK_100"]
+          },
+          organizationId: {
+            not: ""
+          },
+          tenantId: {
+            not: ""
           }
         }
       }),
@@ -167,7 +230,13 @@ async function getOperationsDashboard() {
           createdAt: {
             gte: new Date(Date.now() - 24 * 60 * 60 * 1000)
           },
-          kind: "CONSUME"
+          kind: "CONSUME",
+          organizationId: {
+            not: ""
+          },
+          tenantId: {
+            not: ""
+          }
         }
       }),
       Promise.all(
@@ -209,4 +278,3 @@ export const analyticsDashboardService = {
   getMasterAdminDashboard,
   getOperationsDashboard
 } as const;
-

@@ -41,9 +41,10 @@ export function createSessionsRouter(config: ApiConfig): Router {
     requireAuthenticatedSession,
     asyncHandler(async (request, response) => {
       const organizationId = request.context.organizationId;
+      const tenantId = request.context.tenantId;
       const userId = request.context.userId;
 
-      if (!organizationId || !userId) {
+      if (!organizationId || !tenantId || !userId) {
         throw new ProblemDetailsError({
           detail: "A valid authenticated session is required.",
           status: 401,
@@ -53,6 +54,7 @@ export function createSessionsRouter(config: ApiConfig): Router {
 
       const sessions = await listActiveSessions({
         organizationId,
+        tenantId,
         userId
       });
 
@@ -75,9 +77,10 @@ export function createSessionsRouter(config: ApiConfig): Router {
     requireAuthenticatedSession,
     asyncHandler(async (request, response) => {
       const organizationId = request.context.organizationId;
+      const tenantId = request.context.tenantId;
       const userId = request.context.userId;
 
-      if (!organizationId || !userId) {
+      if (!organizationId || !tenantId || !userId) {
         throw new ProblemDetailsError({
           detail: "A valid authenticated session is required.",
           status: 401,
@@ -102,6 +105,7 @@ export function createSessionsRouter(config: ApiConfig): Router {
       const revokedSessions = await revokeSessionById({
         organizationId,
         sessionId,
+        tenantId,
         userId
       });
 
@@ -116,9 +120,10 @@ export function createSessionsRouter(config: ApiConfig): Router {
 
   const logoutAllHandler = asyncHandler(async (request, response) => {
     const organizationId = request.context.organizationId;
+    const tenantId = request.context.tenantId;
     const userId = request.context.userId;
 
-    if (!organizationId || !userId) {
+    if (!organizationId || !tenantId || !userId) {
       throw new ProblemDetailsError({
         detail: "A valid authenticated session is required.",
         status: 401,
@@ -128,6 +133,7 @@ export function createSessionsRouter(config: ApiConfig): Router {
 
     const revokedSessions = await revokeAllSessions({
       organizationId,
+      tenantId,
       userId
     });
 

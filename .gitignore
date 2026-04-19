@@ -1,6 +1,8 @@
 node_modules
 .pnpm-store
 .tools/
+.codex/
+.gha-diagnostico/
 .turbo
 **/.turbo
 .next
@@ -36,6 +38,7 @@ __pycache__/
 .env.*.local
 .DS_Store
 *.log
+*.bak
 pnpm-debug.log*
 npm-debug.log*
 artifacts/**/*.bak

@@ -212,7 +212,8 @@ export function isClinicalWorkspaceEnabledForE2E(): boolean {
   return isEnvEnabled(
     process.env.E2E_ENABLE_CLINICAL_WORKSPACE ??
       process.env.NEXT_PUBLIC_ENABLE_CLINICAL_WORKSPACE ??
-      process.env.BIRTHUB_ENABLE_CLINICAL_WORKSPACE
+      process.env.BIRTHUB_ENABLE_CLINICAL_WORKSPACE ??
+      "false"
   );
 }
 
@@ -220,7 +221,8 @@ export function isPrivacyAdvancedEnabledForE2E(): boolean {
   return isEnvEnabled(
     process.env.E2E_ENABLE_PRIVACY_ADVANCED ??
       process.env.NEXT_PUBLIC_ENABLE_PRIVACY_ADVANCED ??
-      process.env.BIRTHUB_ENABLE_PRIVACY_ADVANCED
+      process.env.BIRTHUB_ENABLE_PRIVACY_ADVANCED ??
+      "false"
   );
 }
 
@@ -228,7 +230,8 @@ export function isFhirFacadeEnabledForE2E(): boolean {
   return isEnvEnabled(
     process.env.E2E_ENABLE_FHIR_FACADE ??
       process.env.NEXT_PUBLIC_ENABLE_FHIR_FACADE ??
-      process.env.BIRTHUB_ENABLE_FHIR_FACADE
+      process.env.BIRTHUB_ENABLE_FHIR_FACADE ??
+      "false"
   );
 }
 

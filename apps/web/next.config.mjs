@@ -4,9 +4,9 @@ import path from "node:path";
 import { fileURLToPath, pathToFileURL } from "node:url";
 
 const nextPublicApiUrl = process.env.NEXT_PUBLIC_API_URL ?? "http://localhost:3333";
-const cspReportUri = process.env.CSP_REPORT_URI;
+const cspReportUri = process.env.CSP_REPORT_URI ?? "";
 const immutableAssetCache = "public, max-age=31536000, immutable";
-const posthogHost = process.env.NEXT_PUBLIC_POSTHOG_HOST;
+const posthogHost = process.env.NEXT_PUBLIC_POSTHOG_HOST ?? "";
 const nextPublicEnvironment = process.env.NEXT_PUBLIC_ENVIRONMENT ?? "development";
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
 const repoRoot = path.join(__dirname, "..", "..");
@@ -144,4 +144,3 @@ const nextConfig = {
 };
 
 export default nextConfig;
-
