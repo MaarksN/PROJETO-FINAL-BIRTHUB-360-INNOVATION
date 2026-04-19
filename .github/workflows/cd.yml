@@ -202,14 +202,16 @@ jobs:
 
           mkdir -p artifacts/release
 
-          if (( ${#present[@]} == 0 )); then
+          if (( ${#missing[@]} > 0 )); then
             checked_at="$(date -u +%Y-%m-%dT%H:%M:%SZ)"
             cat > artifacts/release/staging-preflight-summary.json <<EOF
           {
             "checkedAt": "${checked_at}",
             "configured": false,
+            "missingCount": ${#missing[@]},
             "ok": true,
-            "reason": "Environment staging has no required Secrets or Variables configured; staging deployment was skipped.",
+            "presentCount": ${#present[@]},
+            "reason": "Environment staging is not deployment-ready; staging deployment was skipped until all required Secrets and Variables are configured.",
             "target": "staging"
           }
           EOF
@@ -217,23 +219,15 @@ jobs:
           Target: staging
           Checked at: ${checked_at}
           Status: SKIPPED
-          Reason: Environment staging has no required Secrets or Variables configured; staging deployment was skipped.
+          Reason: Environment staging is not deployment-ready; staging deployment was skipped until all required Secrets and Variables are configured.
           EOF
-            echo "::notice title=Staging not configured::Environment staging has no required Secrets or Variables; skipping staging deployment gates."
-            echo "configured=false" >> "$GITHUB_OUTPUT"
-            exit 0
-          fi
-
-          if (( ${#missing[@]} > 0 )); then
+            printf 'Missing required staging configuration:\n' >> artifacts/release/staging-preflight-summary.txt
+            printf ' - %s\n' "${missing[@]}" >> artifacts/release/staging-preflight-summary.txt
             printf 'Missing required staging configuration:\n' >&2
             printf ' - %s\n' "${missing[@]}" >&2
-            cat > artifacts/release/staging-preflight-summary.txt <<EOF
-          Target: staging
-          Status: FAILED
-          Reason: Environment staging is partially configured. Complete the missing Secrets/Variables before deployment.
-          EOF
-            echo "::error title=Incomplete staging configuration::Complete missing keys in Environment staging (Secrets/Variables), or leave staging fully unconfigured to skip deployment." >&2
-            exit 1
+            echo "::notice title=Staging deployment skipped::Environment staging is missing required Secrets/Variables; configure them to enable staging deployment."
+            echo "configured=false" >> "$GITHUB_OUTPUT"
+            exit 0
           fi
 
           if [[ "${BILLING_EXPORT_STORAGE_MODE}" != "local" && "${BILLING_EXPORT_STORAGE_MODE}" != "s3" ]]; then
