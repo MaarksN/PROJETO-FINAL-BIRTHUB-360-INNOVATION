@@ -1,6 +1,6 @@
 import { redirect } from "next/navigation";
 
-import { fetchProductJson } from "./product-api.server.js";
+import { fetchProductJson } from "./product-api.server";
 
 export type AppRole = "READONLY" | "MEMBER" | "ADMIN" | "OWNER" | "SUPER_ADMIN";
 

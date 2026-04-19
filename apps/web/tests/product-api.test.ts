@@ -6,7 +6,7 @@ import { JSDOM } from "jsdom";
 import {
   fetchConversationList,
   fetchSearchResults
-} from "../lib/product-api.js";
+} from "../lib/product-api";
 
 function restoreEnvValue(key: string, value: string | undefined) {
   if (value === undefined) {

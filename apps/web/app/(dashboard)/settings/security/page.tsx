@@ -2,8 +2,8 @@
 
 import { useEffect, useState } from "react";
 
-import { fetchWithSession } from "../../../../lib/auth-client.js";
-import { useThemeMode } from "../../../../providers/ThemeProvider.js";
+import { fetchWithSession } from "../../../../lib/auth-client";
+import { useThemeMode } from "../../../../providers/ThemeProvider";
 
 interface SessionItem {
   id: string;

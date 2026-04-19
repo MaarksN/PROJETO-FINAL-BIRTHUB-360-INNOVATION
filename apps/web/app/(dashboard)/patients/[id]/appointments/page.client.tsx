@@ -2,7 +2,7 @@
 
 import { use } from "react";
 
-import { AppointmentsBoard } from "../../appointments-board.js";
+import { AppointmentsBoard } from "../../appointments-board";
 
 export default function PatientAppointmentsPageClient({
   params

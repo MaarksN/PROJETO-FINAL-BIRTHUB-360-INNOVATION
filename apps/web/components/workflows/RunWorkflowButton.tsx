@@ -4,7 +4,7 @@ import { Play } from "lucide-react";
 import { useRouter } from "next/navigation";
 import { useState, useTransition } from "react";
 
-import { runWorkflow } from "../../lib/product-api.js";
+import { runWorkflow } from "../../lib/product-api";
 
 export function RunWorkflowButton({ workflowId }: Readonly<{ workflowId: string }>) {
   const router = useRouter();

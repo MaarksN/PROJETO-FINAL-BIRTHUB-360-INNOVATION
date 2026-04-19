@@ -3,12 +3,12 @@
 import { useEffect, useState } from "react";
 import Link from "next/link";
 
-import { fetchWithSession } from "../../../lib/auth-client.js";
+import { fetchWithSession } from "../../../lib/auth-client";
 import {
   EXECUTIVE_PREMIUM_COLLECTION_HREF,
   EXECUTIVE_PREMIUM_SHARED_LAYER_COUNT,
   isExecutivePremiumPack
-} from "../../../lib/executive-premium.js";
+} from "../../../lib/executive-premium";
 
 type PackStatus = {
   installedVersion: string;

@@ -5,7 +5,7 @@ import {
   validateDag as rawValidateDag
 } from "@birthub/workflows-core/nextjs";
 
-import { fetchWithSession } from "../../../../../lib/auth-client.js";
+import { fetchWithSession } from "../../../../../lib/auth-client";
 
 export type BuilderNodeData = {
   category: "action" | "condition" | "trigger";

@@ -5,7 +5,7 @@ import {
   parseSupportedLocale,
   resolveLocale,
   type SupportedLocale
-} from "./i18n.js";
+} from "./i18n";
 
 export async function getRequestLocale(): Promise<SupportedLocale> {
   const requestCookies = await cookies();

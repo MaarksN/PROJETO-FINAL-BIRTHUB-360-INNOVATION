@@ -3,13 +3,13 @@
 import type { CSSProperties, ReactNode } from "react";
 import { Info, LoaderCircle, Send, Sparkles } from "lucide-react";
 
-import type { SupportedLocale } from "../../lib/i18n.js";
-import type { SdrAutomaticLead } from "./sdr-automatic-data.js";
+import type { SupportedLocale } from "../../lib/i18n";
+import type { SdrAutomaticLead } from "./sdr-automatic-data";
 import {
   resolveSlaLabel,
   type LeadColumnId,
   type LeadDashboardCopy
-} from "./sdr-automatic-dashboard.js";
+} from "./sdr-automatic-dashboard";
 import {
   buildScoreFillColor,
   buildLeadSequenceDetail,
@@ -17,7 +17,7 @@ import {
   buildStageColor,
   type LeadInsightState,
   type LeadSequenceState
-} from "./SdrLeadScoreWorkspace.helpers.js";
+} from "./SdrLeadScoreWorkspace.helpers";
 import shellStyles from "./sdr-automatic-platform.module.css";
 import styles from "./sdr-lead-score.module.css";
 

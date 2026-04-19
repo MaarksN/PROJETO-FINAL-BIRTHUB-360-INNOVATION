@@ -5,7 +5,7 @@ import {
   getProductCapabilities,
   isDashboardNavigationItemEnabled,
   sanitizeCapabilityScopedLink
-} from "../lib/product-capabilities.js";
+} from "../lib/product-capabilities";
 
 void test("web product capabilities default to the supported product surface", () => {
   const capabilities = getProductCapabilities({

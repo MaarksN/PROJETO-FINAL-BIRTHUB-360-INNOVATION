@@ -7,9 +7,9 @@ import { CheckCheck, Settings2 } from "lucide-react";
 import {
   ProductEmptyState,
   ProductPageHeader
-} from "../../../components/dashboard/page-fragments.js";
-import { useNotificationStore } from "../../../stores/notification-store.js";
-import { useUserPreferencesStore } from "../../../stores/user-preferences-store.js";
+} from "../../../components/dashboard/page-fragments";
+import { useNotificationStore } from "../../../stores/notification-store";
+import { useUserPreferencesStore } from "../../../stores/user-preferences-store";
 
 function groupByDay<T extends { createdAt: string }>(items: T[]) {
   return items.reduce<Array<{ items: T[]; label: string }>>((groups, item) => {

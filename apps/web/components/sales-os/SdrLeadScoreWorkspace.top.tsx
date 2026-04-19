@@ -20,15 +20,15 @@ import {
   YAxis
 } from "recharts";
 
-import type { SdrAutomaticCopy, SdrAutomaticLead } from "./sdr-automatic-data.js";
+import type { SdrAutomaticCopy, SdrAutomaticLead } from "./sdr-automatic-data";
 import type {
   LeadDashboardCopy,
   LiveDashboardMetrics,
   TrendPoint
-} from "./sdr-automatic-dashboard.js";
+} from "./sdr-automatic-dashboard";
 import shellStyles from "./sdr-automatic-platform.module.css";
 import styles from "./sdr-lead-score.module.css";
-import { SdrFunnelChart } from "./SdrFunnelChart.js";
+import { SdrFunnelChart } from "./SdrFunnelChart";
 
 type SdrLeadScoreWorkspaceTopProps = {
   copy: SdrAutomaticCopy;

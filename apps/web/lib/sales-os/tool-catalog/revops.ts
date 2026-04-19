@@ -1,4 +1,4 @@
-﻿import type { Tool } from "../types.js";
+import type { Tool } from "../types";
 
 export const REVOPS_TOOLS: Tool[] = [
   {

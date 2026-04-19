@@ -1,17 +1,17 @@
 import Link from "next/link";
 
-import { ExecutivePremiumSpotlight } from "../../../components/agents/ExecutivePremiumSpotlight.js";
-import { ProductPageHeader } from "../../../components/dashboard/page-fragments.js";
-import { SalesOsShell } from "../../../components/sales-os/SalesOsShell.js";
+import { ExecutivePremiumSpotlight } from "../../../components/agents/ExecutivePremiumSpotlight";
+import { ProductPageHeader } from "../../../components/dashboard/page-fragments";
+import { SalesOsShell } from "../../../components/sales-os/SalesOsShell";
 import {
   buildExecutivePremiumAgentHref,
   EXECUTIVE_PREMIUM_COLLECTION_HREF,
   EXECUTIVE_PREMIUM_SHARED_LAYER_COUNT,
   EXECUTIVE_PREMIUM_SPOTLIGHT_PAGE_SIZE
-} from "../../../lib/executive-premium.js";
-import { fetchExecutivePremiumCollection } from "../../../lib/marketplace-api.server.js";
-import { SALES_OS_MODULES, salesOsTools } from "../../../lib/sales-os/catalog.js";
-import { getRequestLocale } from "../../../lib/i18n.server.js";
+} from "../../../lib/executive-premium";
+import { fetchExecutivePremiumCollection } from "../../../lib/marketplace-api.server";
+import { SALES_OS_MODULES, salesOsTools } from "../../../lib/sales-os/catalog";
+import { getRequestLocale } from "../../../lib/i18n.server";
 
 const toolCount = salesOsTools.length;
 const moduleCount = SALES_OS_MODULES.length;

@@ -1,8 +1,8 @@
 "use client";
 import React, { useState } from "react";
 import styles from "./sdr-automatic-platform.module.css";
-import { SdrLeadScoreView, SdrAssistenteView, SdrAgendadorView, SdrHandoffView } from "./SdrAutomaticViews.js";
-import { getSdrAutomaticConfig } from "./sdr-automatic-data.js";
+import { SdrLeadScoreView, SdrAssistenteView, SdrAgendadorView, SdrHandoffView } from "./SdrAutomaticViews";
+import { getSdrAutomaticConfig } from "./sdr-automatic-data";
 
 export function SdrAutomaticPlatform({ locale }: { locale: "en-US" | "pt-BR" }) {
   const [activeTab, setActiveTab] = useState("score");

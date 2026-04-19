@@ -1,7 +1,7 @@
 import { NextResponse } from "next/server";
 
-import { executeSalesOsChat } from "../../../../lib/sales-os/engine.js";
-import type { SalesOsModuleId } from "../../../../lib/sales-os/types.js";
+import { executeSalesOsChat } from "../../../../lib/sales-os/engine";
+import type { SalesOsModuleId } from "../../../../lib/sales-os/types";
 
 export async function POST(request: Request) {
   try {

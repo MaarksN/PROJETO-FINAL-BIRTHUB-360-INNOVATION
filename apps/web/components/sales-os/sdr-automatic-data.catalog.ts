@@ -1,11 +1,11 @@
-﻿import type { SupportedLocale } from "../../lib/i18n.js";
+import type { SupportedLocale } from "../../lib/i18n";
 
 import type {
   CrmRegionSnapshot,
   SdrAutomaticCopy,
   SdrAutomaticLeadSeed,
   SdrAutomaticTimeSlot
-} from "./sdr-automatic-data.js";
+} from "./sdr-automatic-data";
 
 export const SDR_AUTOMATIC_COPY: Record<SupportedLocale, SdrAutomaticCopy> = {
   "en-US": {

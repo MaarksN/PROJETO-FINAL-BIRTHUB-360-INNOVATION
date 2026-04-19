@@ -5,24 +5,24 @@ import { useRouter, useSearchParams } from "next/navigation";
 
 import {
   ProductPageHeader
-} from "../../../components/dashboard/page-fragments.js";
+} from "../../../components/dashboard/page-fragments";
 import {
   appendConversationNote,
   createConversation,
   fetchConversationDetail,
   fetchConversationList,
   updateConversationStatus
-} from "../../../lib/product-api.js";
+} from "../../../lib/product-api";
 import {
   ConversationDetailPanel,
   ConversationListPanel
-} from "./conversation-panels.js";
+} from "./conversation-panels";
 import type {
   ConversationDetail,
   ConversationFiltersState,
   ConversationListItem,
   FilterPayload
-} from "./conversation.types.js";
+} from "./conversation.types";
 
 function buildListFilters(filters: ConversationFiltersState, deferredQuery: string): FilterPayload {
   const nextFilters: FilterPayload = {};

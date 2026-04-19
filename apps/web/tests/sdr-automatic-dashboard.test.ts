@@ -1,7 +1,7 @@
 import assert from "node:assert/strict";
 import test from "node:test";
 
-import { getSdrAutomaticConfig } from "../components/sales-os/sdr-automatic-data.js";
+import { getSdrAutomaticConfig } from "../components/sales-os/sdr-automatic-data";
 import {
   applyPollingFrameToTrend,
   buildChurnSummaryFallback,
@@ -16,8 +16,8 @@ import {
   getRegionalPerformance,
   LEAD_POLLING_FRAMES,
   paginateLeads
-} from "../components/sales-os/sdr-automatic-dashboard.js";
-import { buildLeadSequenceDetail } from "../components/sales-os/SdrLeadScoreWorkspace.helpers.js";
+} from "../components/sales-os/sdr-automatic-dashboard";
+import { buildLeadSequenceDetail } from "../components/sales-os/SdrLeadScoreWorkspace.helpers";
 
 void test("lead dashboard filters by stage, score band, email, region, and creation date", () => {
   const { leads } = getSdrAutomaticConfig("pt-BR");

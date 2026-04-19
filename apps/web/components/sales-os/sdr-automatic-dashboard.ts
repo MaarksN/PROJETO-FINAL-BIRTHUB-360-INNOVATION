@@ -1,22 +1,22 @@
-﻿import type { SupportedLocale } from "../../lib/i18n.js";
+import type { SupportedLocale } from "../../lib/i18n";
 
 import type {
   CrmRegionSnapshot,
   LeadRegionId,
   LeadSequenceStatus,
   SdrAutomaticLead
-} from "./sdr-automatic-data.js";
+} from "./sdr-automatic-data";
 import {
   getLeadDashboardCopy,
   isEnglish,
   resolveSlaLabel
-} from "./sdr-automatic-dashboard.copy.js";
+} from "./sdr-automatic-dashboard.copy";
 
 export { getLeadDashboardCopy, isEnglish, resolveSlaLabel };
 export {
   buildSupportReply,
   createLeadInsightFallback
-} from "./sdr-automatic-support.js";
+} from "./sdr-automatic-support";
 
 export const AVAILABLE_LEAD_COLUMNS = [
   "lead",

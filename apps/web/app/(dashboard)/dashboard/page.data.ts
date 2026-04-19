@@ -1,5 +1,5 @@
-import { fetchProductJson } from "../../../lib/product-api.server.js";
-import { getProductCapabilities } from "../../../lib/product-capabilities.js";
+import { fetchProductJson } from "../../../lib/product-api.server";
+import { getProductCapabilities } from "../../../lib/product-capabilities";
 
 export type DashboardMetricsPayload = {
   finance: Array<{

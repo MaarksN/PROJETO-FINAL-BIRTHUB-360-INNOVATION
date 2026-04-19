@@ -3,7 +3,7 @@ import Link from "next/link";
 import {
   EXECUTIVE_PREMIUM_SHARED_LAYER_COUNT,
   type ExecutivePremiumResultLike
-} from "../../lib/executive-premium.js";
+} from "../../lib/executive-premium";
 
 type ExecutivePremiumMetric = {
   description?: string;

@@ -3,7 +3,7 @@ import { cookies } from "next/headers";
 import { redirect } from "next/navigation";
 
 import { fetchWithTimeout } from "@birthub/utils/fetch";
-import { ACTIVE_TENANT_COOKIE_NAME } from "./session-context.js";
+import { ACTIVE_TENANT_COOKIE_NAME } from "./session-context";
 
 const PRODUCT_API_TIMEOUT_MS = 8_000;
 

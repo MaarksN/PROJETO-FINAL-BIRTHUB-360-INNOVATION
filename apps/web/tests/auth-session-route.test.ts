@@ -3,8 +3,8 @@ import test from "node:test";
 
 import { NextRequest } from "next/server";
 
-import { isSupportedSessionAction } from "../app/api/auth/session-actions.js";
-import { GET, POST } from "../app/api/auth/[...session]/route.js";
+import { isSupportedSessionAction } from "../app/api/auth/session-actions";
+import { GET, POST } from "../app/api/auth/[...session]/route";
 
 function restoreEnvValue(key: string, value: string | undefined) {
   if (value === undefined) {

@@ -16,7 +16,7 @@ import {
   type RetentionExecution,
   type RetentionPolicy,
   type RetentionRunResult
-} from "./privacy-settings-page.data.js";
+} from "./privacy-settings-page.data";
 
 const sectionCardStyle: CSSProperties = {
   background: "rgba(255,255,255,0.78)",

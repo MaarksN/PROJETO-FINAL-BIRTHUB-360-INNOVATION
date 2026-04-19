@@ -1,6 +1,6 @@
 import type { ReactNode } from "react";
 
-import { requireAuthenticatedWebSession } from "../../../../lib/web-session.js";
+import { requireAuthenticatedWebSession } from "../../../../lib/web-session";
 
 export default async function SettingsUsersLayout({
   children

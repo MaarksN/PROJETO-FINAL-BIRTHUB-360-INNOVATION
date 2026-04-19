@@ -3,7 +3,7 @@ import test from "node:test";
 
 import { NextRequest } from "next/server";
 
-import { GET, POST } from "../app/api/bff/[...path]/route.js";
+import { GET, POST } from "../app/api/bff/[...path]/route";
 
 function restoreEnvValue(key: string, value: string | undefined) {
   if (value === undefined) {

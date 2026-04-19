@@ -4,7 +4,7 @@ import { getWebConfig } from "@birthub/config/web";
 
 import { fetchWithTimeout } from "@birthub/utils/fetch";
 
-import { isBffPathAllowed } from "../policy.js";
+import { isBffPathAllowed } from "../policy";
 
 const webConfig = getWebConfig();
 const BFF_PROXY_TIMEOUT_MS = 8_000;

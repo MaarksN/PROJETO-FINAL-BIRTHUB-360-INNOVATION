@@ -1,4 +1,4 @@
-import { fetchWithSession } from "../../../../../lib/auth-client.js";
+import { fetchWithSession } from "../../../../../lib/auth-client";
 
 export type WebhookEndpoint = {
   _count?: {

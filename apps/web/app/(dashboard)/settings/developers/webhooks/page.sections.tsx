@@ -3,7 +3,7 @@ import {
   suggestedTopics,
   type WebhookDelivery,
   type WebhookEndpoint
-} from "./page.data.js";
+} from "./page.data";
 
 export function UnauthenticatedState() {
   return (

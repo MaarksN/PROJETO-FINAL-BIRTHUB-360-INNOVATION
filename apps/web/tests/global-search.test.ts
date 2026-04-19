@@ -5,7 +5,7 @@ import {
   getGlobalSearchCopy,
   getLocalSearchShortcuts,
   mergeGlobalSearchGroups
-} from "../lib/global-search.js";
+} from "../lib/global-search";
 
 void test("global search copy localizes shortcuts and placeholder text", () => {
   const pt = getGlobalSearchCopy("pt-BR");

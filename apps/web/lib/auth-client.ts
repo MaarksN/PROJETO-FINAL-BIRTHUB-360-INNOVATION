@@ -3,7 +3,7 @@ import {
   fetchWithTimeout,
   type FetchWithTimeoutInit
 } from "@birthub/utils/fetch";
-import { resolveBrowserBffPath } from "./bff-policy.js";
+import { resolveBrowserBffPath } from "./bff-policy";
 import {
   ACTIVE_TENANT_COOKIE_NAME,
   API_CSRF_COOKIE_NAME,
@@ -16,7 +16,7 @@ import {
   readCookieValueFromHeader,
   type StoredSession,
   USER_ID_COOKIE_NAME
-} from "./session-context.js";
+} from "./session-context";
 
 const SESSION_FETCH_TIMEOUT_MS = 10_000;
 

@@ -1,11 +1,11 @@
 import {
   ProductEmptyState
-} from "../../../components/dashboard/page-fragments.js";
+} from "../../../components/dashboard/page-fragments";
 import type {
   ConversationDetail,
   ConversationFiltersState,
   ConversationListItem
-} from "./conversation.types.js";
+} from "./conversation.types";
 
 type ConversationListProps = {
   error: string | null;

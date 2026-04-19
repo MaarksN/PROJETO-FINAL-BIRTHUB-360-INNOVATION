@@ -2,8 +2,8 @@
 
 import { useState } from "react";
 
-import { fetchWithSession } from "../../../../lib/auth-client.js";
-import { DOMPurify } from "../../../../lib/dompurify.js";
+import { fetchWithSession } from "../../../../lib/auth-client";
+import { DOMPurify } from "../../../../lib/dompurify";
 
 interface MfaSetupPayload {
   otpauthUrl: string;

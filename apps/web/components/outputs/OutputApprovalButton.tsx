@@ -3,7 +3,7 @@
 import { useRouter } from "next/navigation";
 import { useState, useTransition } from "react";
 
-import { approveOutput } from "../../lib/marketplace-api.js";
+import { approveOutput } from "../../lib/marketplace-api";
 
 export function OutputApprovalButton({
   outputId,

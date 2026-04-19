@@ -5,7 +5,7 @@ import {
   buildCreateAppointmentPayload,
   createInitialAppointmentForm,
   type AppointmentFormState
-} from "../app/(dashboard)/patients/appointments-board.model.js";
+} from "../app/(dashboard)/patients/appointments-board.model";
 
 void test.skip("appointments board model seeds the patient id into the initial form", () => {
   assert.equal(createInitialAppointmentForm("patient_123").patientId, "patient_123");

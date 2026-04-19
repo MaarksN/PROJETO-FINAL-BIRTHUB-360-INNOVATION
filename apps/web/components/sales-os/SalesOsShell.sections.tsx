@@ -17,15 +17,15 @@ import type {
   SalesOsModuleDefinition,
   SalesOsModuleId,
   SalesOsTool
-} from "../../lib/sales-os/types.js";
+} from "../../lib/sales-os/types";
 import {
   accentStyle,
   readImageAsPayload,
   resolveIcon,
   startVoiceCapture,
   type SalesOsShellCopy
-} from "./shell-support.js";
-import type { SalesOsSelectedImage } from "./sales-os-shell.state.js";
+} from "./shell-support";
+import type { SalesOsSelectedImage } from "./sales-os-shell.state";
 import styles from "./sales-os.module.css";
 
 function SalesOsChatTranscript(input: {

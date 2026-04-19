@@ -2,9 +2,9 @@ import React from "react";
 import type { Metadata } from "next";
 
 import "./globals.css";
-import { LegalFooter } from "../components/legal-footer.js";
-import { getRequestLocale } from "../lib/i18n.server.js";
-import { AppProviders } from "../providers/AppProviders.js";
+import { LegalFooter } from "../components/legal-footer";
+import { getRequestLocale } from "../lib/i18n.server";
+import { AppProviders } from "../providers/AppProviders";
 
 export const metadata: Metadata = {
   description: "BirthHub 360: multitenancy, workflow engine, marketplace de agentes e billing.",

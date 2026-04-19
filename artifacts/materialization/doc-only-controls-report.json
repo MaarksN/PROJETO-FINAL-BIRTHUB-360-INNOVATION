@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-04-18T05:23:37.063Z",
+  "generatedAt": "2026-04-19T02:52:48.153Z",
   "checks": {
     "codeowners-present": {
       "status": "pass"
@@ -12,8 +12,10 @@
       "status": "pass"
     },
     "workflow-timeouts": {
-      "status": "pass",
-      "missingTimeout": []
+      "status": "warn",
+      "missingTimeout": [
+        "docker-image.yml"
+      ]
     },
     "branch-protection-baseline": {
       "status": "pass",
@@ -28,23 +30,23 @@
     "setup-node-version-pinned": {
       "status": "pass",
       "setupNodeLines": [
-        "v6",
-        "v6",
-        "v6",
-        "v6",
-        "v6",
-        "v6",
-        "v6",
-        "v6"
+        "v4",
+        "v4",
+        "v4",
+        "v4",
+        "v4",
+        "v4",
+        "v4",
+        "v4"
       ]
     },
     "setup-python-version-pinned": {
       "status": "pass",
       "setupPythonLines": [
-        "v6",
-        "v6",
-        "v6",
-        "v6"
+        "v5",
+        "v5",
+        "v5",
+        "v5"
       ]
     },
     "node-version-aligned-with-nvmrc": {
@@ -72,5 +74,7 @@
     }
   },
   "blockers": [],
-  "warnings": []
+  "warnings": [
+    "workflow-timeouts"
+  ]
 }

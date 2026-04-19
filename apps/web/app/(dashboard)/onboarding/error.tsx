@@ -1,6 +1,6 @@
 "use client";
 
-import { RouteErrorView } from "../../../components/dashboard/route-error-view.js";
+import { RouteErrorView } from "../../../components/dashboard/route-error-view";
 
 export default function OnboardingError({
   reset

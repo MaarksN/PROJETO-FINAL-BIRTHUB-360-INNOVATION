@@ -12,8 +12,8 @@ import {
 } from "react";
 import { usePathname, useSearchParams } from "next/navigation";
 
-import { getStoredSession } from "../lib/auth-client.js";
-import { useUserPreferencesStore } from "../stores/user-preferences-store.js";
+import { getStoredSession } from "../lib/auth-client";
+import { useUserPreferencesStore } from "../stores/user-preferences-store";
 import { fetchWithTimeout } from "@birthub/utils/fetch";
 
 interface AnalyticsContextValue {

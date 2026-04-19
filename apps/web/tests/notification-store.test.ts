@@ -3,7 +3,7 @@ import test from "node:test";
 
 import { JSDOM } from "jsdom";
 
-import { useNotificationStore } from "../stores/notification-store.js";
+import { useNotificationStore } from "../stores/notification-store";
 
 function restoreEnvValue(key: string, value: string | undefined) {
   if (value === undefined) {

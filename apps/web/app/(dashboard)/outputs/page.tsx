@@ -1,9 +1,9 @@
 import { getWebConfig } from "@birthub/config/web";
 import Link from "next/link";
 
-import { FeedbackWidget } from "../../../components/agents/FeedbackWidget.js";
-import { OutputApprovalButton } from "../../../components/outputs/OutputApprovalButton.js";
-import { fetchOutputDetail, fetchOutputs } from "../../../lib/marketplace-api.server.js";
+import { FeedbackWidget } from "../../../components/agents/FeedbackWidget";
+import { OutputApprovalButton } from "../../../components/outputs/OutputApprovalButton";
+import { fetchOutputDetail, fetchOutputs } from "../../../lib/marketplace-api.server";
 
 type SearchParams = Record<string, string | string[] | undefined>;
 

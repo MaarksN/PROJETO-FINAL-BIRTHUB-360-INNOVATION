@@ -1,6 +1,6 @@
-import { BrandLogo } from "../../components/brand/BrandLogo.js";
-import { LoginForm } from "../../components/login-form.js";
-import { getServerRequestId } from "../../lib/request-id.js";
+import { BrandLogo } from "../../components/brand/BrandLogo";
+import { LoginForm } from "../../components/login-form";
+import { getServerRequestId } from "../../lib/request-id";
 
 export default async function LoginPage() {
   const requestId = await getServerRequestId();

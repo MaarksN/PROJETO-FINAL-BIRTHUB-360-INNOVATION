@@ -1,12 +1,12 @@
 {
   "gates": [
     {
-      "detail": "Workspace audit failed",
+      "detail": "Workspace contract matches the canonical core lane",
       "evidence": [
         "scripts/ci/workspace-audit.mjs"
       ],
       "name": "Workspace audit",
-      "pass": false
+      "pass": true
     },
     {
       "detail": "No critical findings in the canonical go-live scope",
@@ -51,7 +51,7 @@
       "pass": false
     },
     {
-      "detail": "Current=304, regressions=304",
+      "detail": "Current=224, regressions=224",
       "evidence": [
         "artifacts/quality/dead-code/knip-report.json",
         "docs/evidence/dead-code-report.md",
@@ -89,15 +89,15 @@
       "pass": false
     },
     {
-      "detail": "Score 40 is below minimum 100",
+      "detail": "Score 50 is below minimum 100",
       "evidence": [],
       "name": "Score threshold",
       "pass": false
     }
   ],
-  "generatedAt": "2026-04-19T02:40:44.177Z",
+  "generatedAt": "2026-04-19T03:00:24.485Z",
   "minimumScore": 100,
-  "passedGates": 4,
-  "score": 40,
+  "passedGates": 5,
+  "score": 50,
   "totalGates": 10
 }

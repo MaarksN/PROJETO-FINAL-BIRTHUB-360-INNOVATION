@@ -1,4 +1,4 @@
-import { clearStoredSession, fetchWithSession } from "../../../../lib/auth-client.js";
+import { clearStoredSession, fetchWithSession } from "../../../../lib/auth-client";
 
 export const DELETE_CONFIRMATION = "EXCLUIR MINHA CONTA";
 export const PRIVACY_REQUEST_TIMEOUT_MS = 10_000;

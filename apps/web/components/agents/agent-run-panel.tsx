@@ -2,8 +2,8 @@
 
 import { useMemo, useState } from "react";
 
-import { useAnalytics } from "../../providers/AnalyticsProvider.js";
-import { FeedbackWidget } from "./FeedbackWidget.js";
+import { useAnalytics } from "../../providers/AnalyticsProvider";
+import { FeedbackWidget } from "./FeedbackWidget";
 
 interface AgentRunPanelProps {
   agentId: string;

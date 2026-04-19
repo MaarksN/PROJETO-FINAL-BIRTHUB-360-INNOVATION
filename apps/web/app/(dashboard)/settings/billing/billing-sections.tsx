@@ -4,7 +4,7 @@ import type {
   InvoicesPayload,
   MePayload,
   UsagePayload
-} from "./billing.types.js";
+} from "./billing.types";
 
 function asCurrency(cents: number, currency: string): string {
   return new Intl.NumberFormat("pt-BR", {

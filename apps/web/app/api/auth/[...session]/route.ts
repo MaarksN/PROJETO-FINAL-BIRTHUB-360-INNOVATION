@@ -1,9 +1,9 @@
-import { isSupportedSessionAction } from "../session-actions.js";
+import { isSupportedSessionAction } from "../session-actions";
 import { NextRequest, NextResponse } from "next/server";
 
 import { fetchWithTimeout } from "@birthub/utils/fetch";
 
-import { resolveApiBaseUrl } from "../../../../lib/auth-client.js";
+import { resolveApiBaseUrl } from "../../../../lib/auth-client";
 
 const AUTH_SESSION_PROXY_TIMEOUT_MS = 5_000;
 type RouteContext = { params: Promise<{ session: string[] }> };

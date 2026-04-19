@@ -17,16 +17,16 @@ import {
   YAxis
 } from "recharts";
 
-import type { SupportedLocale } from "../../lib/i18n.js";
-import type { SdrAutomaticLead } from "./sdr-automatic-data.js";
+import type { SupportedLocale } from "../../lib/i18n";
+import type { SdrAutomaticLead } from "./sdr-automatic-data";
 import type {
   LeadDashboardCopy,
   PendingTask
-} from "./sdr-automatic-dashboard.js";
+} from "./sdr-automatic-dashboard";
 import {
   buildStageColor,
   type SupportMessage
-} from "./SdrLeadScoreWorkspace.helpers.js";
+} from "./SdrLeadScoreWorkspace.helpers";
 import shellStyles from "./sdr-automatic-platform.module.css";
 import styles from "./sdr-lead-score.module.css";
 

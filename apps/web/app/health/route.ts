@@ -1,7 +1,7 @@
 import { observeHistogram, incrementCounter } from "@birthub/logger";
 import { NextResponse } from "next/server";
 
-import { evaluateWebOperationalHealth } from "../../lib/operational-health.js";
+import { evaluateWebOperationalHealth } from "../../lib/operational-health";
 
 export const dynamic = "force-dynamic";
 

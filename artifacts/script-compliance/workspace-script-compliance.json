@@ -5,7 +5,7 @@
     "template-only": "Package contains runtime-loaded templates and does not publish a standalone distributable artifact.",
     "types-only": "Package exports only types or schemas and is validated transitively by consumer typechecks."
   },
-  "generatedAt": "2026-04-19T01:45:17.797Z",
+  "generatedAt": "2026-04-19T02:53:09.763Z",
   "rows": [
     {
       "approvedBy": "Lead tecnico de plataforma",
@@ -251,6 +251,45 @@
       "owner": "Platform Engineering",
       "priority": "P2",
       "relativePath": "packages/config/package.json",
+      "reviewer": "Platform Tech Lead",
+      "risk": "low",
+      "scripts": {
+        "lint": {
+          "command": "eslint .",
+          "criterion": null,
+          "justification": null,
+          "status": "ok"
+        },
+        "typecheck": {
+          "command": "tsc -p tsconfig.json --noEmit",
+          "criterion": null,
+          "justification": null,
+          "status": "ok"
+        },
+        "test": {
+          "command": "node --import tsx --test src/**/*.test.ts",
+          "criterion": null,
+          "justification": null,
+          "status": "ok"
+        },
+        "build": {
+          "command": "tsc -p tsconfig.json",
+          "criterion": null,
+          "justification": null,
+          "status": "ok"
+        }
+      }
+    },
+    {
+      "approvedBy": "Lead tecnico de plataforma",
+      "approvedOn": "2026-03-22",
+      "deadline": "2026-03-29",
+      "directory": "packages/contracts",
+      "name": "@birthub/contracts",
+      "notes": "",
+      "owner": "Platform Engineering",
+      "priority": "P2",
+      "relativePath": "packages/contracts/package.json",
       "reviewer": "Platform Tech Lead",
       "risk": "low",
       "scripts": {
@@ -945,12 +984,12 @@
     }
   ],
   "summary": {
-    "generatedAt": "2026-04-19T01:45:17.797Z",
+    "generatedAt": "2026-04-19T02:53:09.763Z",
     "totals": {
       "missing": 0,
       "na": 0,
-      "ok": 96,
-      "workspaces": 24
+      "ok": 100,
+      "workspaces": 25
     }
   }
 }

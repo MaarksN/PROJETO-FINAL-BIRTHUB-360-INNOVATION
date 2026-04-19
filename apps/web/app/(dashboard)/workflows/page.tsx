@@ -3,12 +3,12 @@ import Link from "next/link";
 import {
   ProductEmptyState,
   ProductPageHeader
-} from "../../../components/dashboard/page-fragments.js";
-import { CreateWorkflowButton } from "../../../components/workflows/CreateWorkflowButton.js";
-import { RunWorkflowButton } from "../../../components/workflows/RunWorkflowButton.js";
-import { formatDateTime, getDictionary, translateLabel } from "../../../lib/i18n.js";
-import { getRequestLocale } from "../../../lib/i18n.server.js";
-import { fetchProductJson } from "../../../lib/product-api.server.js";
+} from "../../../components/dashboard/page-fragments";
+import { CreateWorkflowButton } from "../../../components/workflows/CreateWorkflowButton";
+import { RunWorkflowButton } from "../../../components/workflows/RunWorkflowButton";
+import { formatDateTime, getDictionary, translateLabel } from "../../../lib/i18n";
+import { getRequestLocale } from "../../../lib/i18n.server";
+import { fetchProductJson } from "../../../lib/product-api.server";
 
 type WorkflowListPayload = {
   items: Array<{

@@ -1,6 +1,6 @@
-import type { SupportedLocale } from "../../lib/i18n.js";
+import type { SupportedLocale } from "../../lib/i18n";
 
-import type { SdrAutomaticLead } from "./sdr-automatic-data.js";
+import type { SdrAutomaticLead } from "./sdr-automatic-data";
 import {
   calculateChurnRiskScore,
   getLeadDashboardCopy,
@@ -9,8 +9,8 @@ import {
   getScoreBand,
   getSequencePlan,
   resolveSlaLabel
-} from "./sdr-automatic-dashboard.js";
-import { createLeadInsightFallback } from "./sdr-automatic-support.js";
+} from "./sdr-automatic-dashboard";
+import { createLeadInsightFallback } from "./sdr-automatic-support";
 
 export type SupportMessage = {
   id: string;

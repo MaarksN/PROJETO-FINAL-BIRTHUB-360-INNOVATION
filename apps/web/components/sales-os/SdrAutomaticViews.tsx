@@ -7,14 +7,14 @@ import {
   Sparkles
 } from "lucide-react";
 
-import type { SupportedLocale } from "../../lib/i18n.js";
+import type { SupportedLocale } from "../../lib/i18n";
 import type {
   CrmRegionSnapshot,
   SdrAutomaticCopy,
   SdrAutomaticLead,
   SdrAutomaticTimeSlot
-} from "./sdr-automatic-data.js";
-import { SdrLeadScoreWorkspace } from "./SdrLeadScoreWorkspace.js";
+} from "./sdr-automatic-data";
+import { SdrLeadScoreWorkspace } from "./SdrLeadScoreWorkspace";
 import styles from "./sdr-automatic-platform.module.css";
 
 function isEnglish(locale: SupportedLocale) {

@@ -2,7 +2,7 @@
 
 import { useState, useTransition } from "react";
 
-import { fetchWithSession } from "../../lib/auth-client.js";
+import { fetchWithSession } from "../../lib/auth-client";
 
 type ManifestPolicy = {
   actions: string[];

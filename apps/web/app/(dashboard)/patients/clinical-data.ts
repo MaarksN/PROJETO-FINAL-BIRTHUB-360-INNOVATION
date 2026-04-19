@@ -1,6 +1,6 @@
 "use client";
 
-import { fetchWithSession } from "../../../lib/auth-client.js";
+import { fetchWithSession } from "../../../lib/auth-client";
 
 export type ClinicalAlert = {
   description: string;

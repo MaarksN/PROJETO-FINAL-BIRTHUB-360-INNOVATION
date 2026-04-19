@@ -1,6 +1,6 @@
 import Link from "next/link";
 
-import { BrandLogo } from "./brand/BrandLogo.js";
+import { BrandLogo } from "./brand/BrandLogo";
 
 export function LegalFooter() {
   return (

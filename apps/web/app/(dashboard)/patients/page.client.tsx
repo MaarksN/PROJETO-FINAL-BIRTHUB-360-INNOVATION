@@ -3,12 +3,12 @@
 import Link from "next/link";
 import { useEffect, useState, useTransition } from "react";
 
-import { ClinicalWorkspaceNotice } from "../../../components/dashboard/ClinicalWorkspaceNotice.js";
+import { ClinicalWorkspaceNotice } from "../../../components/dashboard/ClinicalWorkspaceNotice";
 import {
   createPatient,
   loadPatients,
   type PatientsResponse
-} from "./clinical-data.js";
+} from "./clinical-data";
 
 type CreatePatientForm = {
   birthDate: string;

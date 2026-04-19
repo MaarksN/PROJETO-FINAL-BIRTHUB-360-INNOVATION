@@ -11,6 +11,7 @@
   ],
   "ignoreBinaries": [
     "k6",
+    "rimraf",
     "powershell",
     "pytest"
   ],
@@ -18,7 +19,9 @@
     "@stryker-mutator/core",
     "@stryker-mutator/typescript-checker",
     "@commitlint/cli",
+    "@birthub/contracts",
     "@opentelemetry/auto-instrumentations-node",
+    "@opentelemetry/api",
     "@opentelemetry/exporter-trace-otlp-http",
     "@opentelemetry/resources",
     "@opentelemetry/sdk-node",
@@ -32,7 +35,10 @@
     "pino-pretty",
     "rate-limit-redis"
   ],
-  "ignoreFiles": [],
+  "ignoreFiles": [
+    "**/*.d.ts",
+    "**/__mocks__/**"
+  ],
   "ignoreIssues": {
     "apps/web/lib/auth-client.ts": [
       "exports"

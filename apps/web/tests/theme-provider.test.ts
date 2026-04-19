@@ -8,7 +8,7 @@ import { createRoot } from "react-dom/client";
 import {
   ThemeProvider,
   useThemeMode
-} from "../providers/ThemeProvider.js";
+} from "../providers/ThemeProvider";
 
 type MatchMediaResult = {
   addEventListener: () => void;

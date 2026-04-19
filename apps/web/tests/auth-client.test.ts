@@ -3,7 +3,7 @@ import test from "node:test";
 
 import { JSDOM } from "jsdom";
 
-import { fetchWithSession, resolveApiBaseUrl, toApiUrl } from "../lib/auth-client.js";
+import { fetchWithSession, resolveApiBaseUrl, toApiUrl } from "../lib/auth-client";
 
 function restoreEnvValue(key: string, value: string | undefined) {
   if (value === undefined) {

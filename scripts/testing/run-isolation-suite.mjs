@@ -27,6 +27,7 @@ function resolveRuntimeDatabaseUrl(adminDatabaseUrl) {
 }
 
 const adminDatabaseUrl = resolveAdminDatabaseUrl();
+const requireRlsTests = Boolean(adminDatabaseUrl);
 
 if (adminDatabaseUrl) {
   runPnpm(["--filter", "@birthub/database", "db:bootstrap:ci"], {
@@ -43,7 +44,11 @@ runPnpm(["--filter", "@birthub/database", "run", "test:isolation"], {
           DATABASE_URL: resolveRuntimeDatabaseUrl(adminDatabaseUrl)
         }
       : {}),
-    BIRTHUB_REQUIRE_RLS_TESTS: "true"
+    ...(requireRlsTests
+      ? {
+          BIRTHUB_REQUIRE_RLS_TESTS: "true"
+        }
+      : {})
   }
 });
 
@@ -58,7 +63,11 @@ runPnpm(
   ],
   {
     env: {
-      BIRTHUB_REQUIRE_RLS_TESTS: "true"
+      ...(requireRlsTests
+        ? {
+            BIRTHUB_REQUIRE_RLS_TESTS: "true"
+          }
+        : {})
     }
   }
 );

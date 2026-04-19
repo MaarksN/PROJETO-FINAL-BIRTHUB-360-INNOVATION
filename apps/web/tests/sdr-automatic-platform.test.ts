@@ -5,7 +5,7 @@ import {
   getSdrAutomaticConfig,
   getSdrAutomaticViewDefinitions,
   toneForScore
-} from "../components/sales-os/sdr-automatic-data.js";
+} from "../components/sales-os/sdr-automatic-data";
 
 void test("sdr automatic platform exposes the localized navigation contract", () => {
   const portuguese = getSdrAutomaticViewDefinitions(getSdrAutomaticConfig("pt-BR").copy);

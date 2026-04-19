@@ -1,6 +1,6 @@
 import { getWebConfig } from "@birthub/config/web";
 
-import { fetchBudgetEstimate, fetchBudgetUsage } from "../../../../lib/marketplace-api.server.js";
+import { fetchBudgetEstimate, fetchBudgetUsage } from "../../../../lib/marketplace-api.server";
 
 export default async function BudgetsPage() {
   const config = getWebConfig();

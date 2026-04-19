@@ -12,7 +12,7 @@ import {
   maskSecrets,
   retryWorkflowRun,
   type WorkflowExecutionSnapshot
-} from "./page.data.js";
+} from "./page.data";
 
 type WorkflowGraph = {
   edges: Edge[];

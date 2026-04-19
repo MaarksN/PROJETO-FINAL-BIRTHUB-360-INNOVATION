@@ -1,13 +1,13 @@
 import Link from "next/link";
 
-import { ProductPageHeader } from "../../../../components/dashboard/page-fragments.js";
-import { SdrAutomaticPlatform } from "../../../../components/sales-os/sdr-automatic-platform.js";
+import { ProductPageHeader } from "../../../../components/dashboard/page-fragments";
+import { SdrAutomaticPlatform } from "../../../../components/sales-os/sdr-automatic-platform";
 import {
   EXECUTIVE_PREMIUM_COLLECTION_HREF,
   EXECUTIVE_PREMIUM_SPOTLIGHT_PAGE_SIZE
-} from "../../../../lib/executive-premium.js";
-import { getRequestLocale } from "../../../../lib/i18n.server.js";
-import { fetchExecutivePremiumCollection } from "../../../../lib/marketplace-api.server.js";
+} from "../../../../lib/executive-premium";
+import { getRequestLocale } from "../../../../lib/i18n.server";
+import { fetchExecutivePremiumCollection } from "../../../../lib/marketplace-api.server";
 
 const pageCopy = {
   "en-US": {

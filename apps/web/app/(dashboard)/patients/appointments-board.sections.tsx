@@ -1,10 +1,10 @@
 import Link from "next/link";
 
-import type { AppointmentSnapshot, AppointmentsResponse } from "./clinical-data.js";
+import type { AppointmentSnapshot, AppointmentsResponse } from "./clinical-data";
 import type {
   AppointmentFormState,
   AppointmentsBoardView
-} from "./appointments-board.model.js";
+} from "./appointments-board.model";
 
 const fieldStyle = { display: "grid", gap: "0.35rem" } as const;
 const formGridStyle = {

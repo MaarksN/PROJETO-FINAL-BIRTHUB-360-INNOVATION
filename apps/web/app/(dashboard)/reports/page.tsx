@@ -4,8 +4,8 @@ import Link from "next/link";
 import {
   ProductEmptyState,
   ProductPageHeader
-} from "../../../components/dashboard/page-fragments.js";
-import { fetchOutputDetail, fetchOutputs } from "../../../lib/marketplace-api.server.js";
+} from "../../../components/dashboard/page-fragments";
+import { fetchOutputDetail, fetchOutputs } from "../../../lib/marketplace-api.server";
 
 type SearchParams = Record<string, string | string[] | undefined>;
 

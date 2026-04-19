@@ -1,9 +1,9 @@
 # Package Script Status
 
-Generated at: 2026-04-19T01:45:17.797Z
+Generated at: 2026-04-19T02:53:09.763Z
 
-- Workspaces: 24
-- Script slots ok: 96
+- Workspaces: 25
+- Script slots ok: 100
 - Script slots N/A: 0
 - Script slots missing: 0
 
@@ -25,6 +25,7 @@ Generated at: 2026-04-19T01:45:17.797Z
 | @birthub/api | apps/api | P2 | Platform Engineering | 2026-03-29 | ok | ok | ok | ok | - |
 | @birthub/auth | packages/auth | P1 | Platform Engineering | 2026-03-29 | ok | ok | ok | ok | - |
 | @birthub/config | packages/config | P2 | Platform Engineering | 2026-03-29 | ok | ok | ok | ok | - |
+| @birthub/contracts | packages/contracts | P2 | Platform Engineering | 2026-03-29 | ok | ok | ok | ok | - |
 | @birthub/conversation-core | packages/conversation-core | P2 | Platform Engineering | 2026-03-29 | ok | ok | ok | ok | - |
 | @birthub/database | packages/database | P2 | Platform Engineering | 2026-03-29 | ok | ok | ok | ok | - |
 | @birthub/domain-contracts | packages/domain-contracts | P2 | Platform Engineering | 2026-03-29 | ok | ok | ok | ok | - |

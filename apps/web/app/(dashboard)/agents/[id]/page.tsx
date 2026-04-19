@@ -1,10 +1,10 @@
 import Link from "next/link";
 import { notFound } from "next/navigation";
 
-import { ExecutivePremiumAgentCallout } from "../../../../components/agents/ExecutivePremiumAgentCallout.js";
-import { AgentDetailTabs } from "../../../../components/agents/agent-detail-tabs.js";
-import { getInstalledAgentById } from "../../../../lib/agents.js";
-import { isExecutivePremiumPack } from "../../../../lib/executive-premium.js";
+import { ExecutivePremiumAgentCallout } from "../../../../components/agents/ExecutivePremiumAgentCallout";
+import { AgentDetailTabs } from "../../../../components/agents/agent-detail-tabs";
+import { getInstalledAgentById } from "../../../../lib/agents";
+import { isExecutivePremiumPack } from "../../../../lib/executive-premium";
 
 export default async function AgentDetailPage(props: { params: Promise<{ id: string }> }) {
   const { id } = await props.params;

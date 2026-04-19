@@ -2,7 +2,7 @@ import type { Edge, Node } from "reactflow";
 
 import type { WorkflowCanvas } from "@birthub/workflows-core/nextjs";
 
-import { fetchWithSession } from "../../../../../lib/auth-client.js";
+import { fetchWithSession } from "../../../../../lib/auth-client";
 
 export type WorkflowExecutionSnapshot = {
   completedAt: string | null;

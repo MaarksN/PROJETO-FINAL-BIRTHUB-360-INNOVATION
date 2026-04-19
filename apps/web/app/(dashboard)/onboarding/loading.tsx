@@ -1,4 +1,4 @@
-import { ProductLoadingShell } from "../../../components/dashboard/page-fragments.js";
+import { ProductLoadingShell } from "../../../components/dashboard/page-fragments";
 
 export default function OnboardingLoading() {
   return (

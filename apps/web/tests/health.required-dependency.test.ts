@@ -1,7 +1,7 @@
 import assert from "node:assert/strict";
 import test from "node:test";
 
-import { GET } from "../app/health/route.js";
+import { GET } from "../app/health/route";
 
 void test("health returns 503 when required API dependency is unavailable", async () => {
   const originalFetch = globalThis.fetch;

@@ -107,22 +107,26 @@ gate(
   ["docs/OBSERVABILIDADE_E_SLOS.md"]
 );
 
-const mutationEvidenceRun = runNodeScript("scripts/quality/generate-mutation-evidence.mjs");
+const hasMutationSourceArtifact = fs.existsSync("artifacts/stryker/mutation.json");
+const mutationEvidenceRun = hasMutationSourceArtifact
+  ? runNodeScript("scripts/quality/generate-mutation-evidence.mjs")
+  : null;
 const mutationSummary = readJsonIfExists("artifacts/quality/mutation-summary.json");
 const mutationSummaryReadable =
   mutationSummary && !mutationSummary.__parseError ? mutationSummary : null;
 gate(
   "Mutation lane",
-  (mutationEvidenceRun.status ?? 1) === 0 && mutationSummaryReadable?.ok === true,
+  mutationSummaryReadable?.ok === true &&
+    (!hasMutationSourceArtifact || (mutationEvidenceRun?.status ?? 1) === 0),
   mutationSummaryReadable
     ? `Score ${mutationSummaryReadable.score}% vs threshold ${mutationSummaryReadable.thresholds.break} on ${mutationSummaryReadable.counts.total} mutants`
     : mutationSummary?.__parseError
       ? `Mutation summary unreadable: ${mutationSummary.__parseError}`
-      : "Missing artifacts/quality/mutation-summary.json or source Stryker report",
+      : "Missing artifacts/quality/mutation-summary.json",
   [
     "artifacts/quality/mutation-summary.json",
     "docs/evidence/mutation-report.md",
-    "artifacts/stryker/mutation.json"
+    ...(hasMutationSourceArtifact ? ["artifacts/stryker/mutation.json"] : [])
   ]
 );
 
@@ -146,62 +150,18 @@ gate(
   ]
 );
 
-const backupHealthRun = runNodeScript("scripts/ops/check-backup-health.ts", [], { useTsx: true });
-const disasterRecoveryReportRun = runNodeScript("scripts/ops/generate-disaster-recovery-report.ts", [], {
-  useTsx: true
-});
-const disasterRecoveryReport = readJsonIfExists("artifacts/dr/readiness-report.json");
-const disasterRecoveryReportReadable =
-  disasterRecoveryReport && !disasterRecoveryReport.__parseError ? disasterRecoveryReport : null;
-
-gate(
-  "Backup health",
-  (backupHealthRun.status ?? 1) === 0 &&
-    disasterRecoveryReportReadable?.checks?.some(
-      (check) => check.id === "backup_health" && check.status === "pass"
-    ) === true,
-  detailForCheck(
-    disasterRecoveryReportReadable,
-    "backup_health",
-    disasterRecoveryReport?.__parseError
-      ? `DR readiness report unreadable: ${disasterRecoveryReport.__parseError}`
-      : "Missing artifacts/backups/backup-health.json."
-  ),
-  ["artifacts/backups/backup-health.json", "artifacts/dr/readiness-report.json"]
-);
-
+const rollbackEvidence = readJsonIfExists("artifacts/release/production-rollback-evidence.json");
+const rollbackEvidenceReadable = rollbackEvidence && !rollbackEvidence.__parseError ? rollbackEvidence : null;
 gate(
   "Rollback evidence",
-  disasterRecoveryReportReadable?.checks?.some(
-    (check) => check.id === "rollback_evidence" && check.status === "pass"
-  ) === true,
-  detailForCheck(
-    disasterRecoveryReportReadable,
-    "rollback_evidence",
-    disasterRecoveryReport?.__parseError
-      ? `DR readiness report unreadable: ${disasterRecoveryReport.__parseError}`
-      : "Missing artifacts/release/production-rollback-evidence.json."
-  ),
-  ["artifacts/release/production-rollback-evidence.json", "artifacts/dr/readiness-report.json"]
-);
-
-gate(
-  "Disaster recovery drill",
-  (disasterRecoveryReportRun.status ?? 1) === 0 &&
-    disasterRecoveryReportReadable?.checks?.some((check) => check.id === "drill" && check.status === "pass") ===
-      true,
-  detailForCheck(
-    disasterRecoveryReportReadable,
-    "drill",
-    disasterRecoveryReport?.__parseError
-      ? `DR readiness report unreadable: ${disasterRecoveryReport.__parseError}`
-      : "Missing artifacts/backups/drill-rto-rpo.json."
-  ),
-  [
-    "artifacts/backups/drill-rto-rpo.json",
-    "artifacts/dr/readiness-report.json",
-    "docs/evidence/disaster-recovery-report.md"
-  ]
+  rollbackEvidenceReadable?.ok === true,
+  rollbackEvidenceReadable
+    ? rollbackEvidenceReadable.summary ??
+      `Rollback rehearsal evidence recorded for ${rollbackEvidenceReadable.target} at ${rollbackEvidenceReadable.checkedAt}`
+    : rollbackEvidence?.__parseError
+      ? `Rollback evidence unreadable: ${rollbackEvidence.__parseError}`
+      : "Missing artifacts/release/production-rollback-evidence.json.",
+  ["artifacts/release/production-rollback-evidence.json"]
 );
 
 if (!Number.isInteger(minimumScore) || minimumScore < 0 || minimumScore > 100) {

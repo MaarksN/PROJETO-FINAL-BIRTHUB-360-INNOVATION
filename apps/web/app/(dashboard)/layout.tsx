@@ -1,8 +1,8 @@
 import type { ReactNode } from "react";
 
-import { DashboardBillingGate } from "../../components/dashboard-billing-gate.js";
-import { Navbar } from "../../components/layout/Navbar.js";
-import { requireAuthenticatedWebSession } from "../../lib/web-session.js";
+import { DashboardBillingGate } from "../../components/dashboard-billing-gate";
+import { Navbar } from "../../components/layout/Navbar";
+import { requireAuthenticatedWebSession } from "../../lib/web-session";
 import "./dashboard.css";
 
 export default async function DashboardLayout({ children }: Readonly<{ children: ReactNode }>) {

@@ -12,11 +12,11 @@ import {
   Search,
 } from "lucide-react";
 
-import type { SupportedLocale } from "../../lib/i18n.js";
+import type { SupportedLocale } from "../../lib/i18n";
 import type {
   LeadRegionId,
   SdrAutomaticLead
-} from "./sdr-automatic-data.js";
+} from "./sdr-automatic-data";
 import {
   AVAILABLE_LEAD_COLUMNS,
   DEFAULT_LEAD_FILTERS,
@@ -24,15 +24,15 @@ import {
   type LeadDashboardCopy,
   type LeadFilters,
   type LeadScoreBandId
-} from "./sdr-automatic-dashboard.js";
+} from "./sdr-automatic-dashboard";
 import type {
   LeadInsightState,
   LeadSequenceState
-} from "./SdrLeadScoreWorkspace.helpers.js";
+} from "./SdrLeadScoreWorkspace.helpers";
 import {
   InfoTooltip,
   LeadTableCell
-} from "./SdrLeadScoreWorkspace.table.cells.js";
+} from "./SdrLeadScoreWorkspace.table.cells";
 import shellStyles from "./sdr-automatic-platform.module.css";
 import styles from "./sdr-lead-score.module.css";
 

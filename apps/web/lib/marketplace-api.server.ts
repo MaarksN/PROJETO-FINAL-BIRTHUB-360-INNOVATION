@@ -2,7 +2,7 @@ import { getWebConfig } from "@birthub/config/web";
 import { cookies } from "next/headers";
 
 import { fetchWithTimeout } from "@birthub/utils/fetch";
-import { EXECUTIVE_PREMIUM_TAG } from "./executive-premium.js";
+import { EXECUTIVE_PREMIUM_TAG } from "./executive-premium";
 
 export interface MarketplaceSearchResponse {
   facets: {

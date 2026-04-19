@@ -3,7 +3,7 @@
 import { type ReactNode, useEffect, useMemo, useState } from "react";
 import { usePathname, useRouter } from "next/navigation";
 
-import { fetchWithSession } from "../lib/auth-client.js";
+import { fetchWithSession } from "../lib/auth-client";
 
 type MeResponse = {
   plan?: {

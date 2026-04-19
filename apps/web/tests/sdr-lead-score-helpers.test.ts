@@ -5,14 +5,14 @@ import {
   buildLifecycleFunnelData,
   getChurnWatchlist,
   getRegionalPerformance
-} from "../components/sales-os/sdr-automatic-dashboard.js";
-import { getSdrAutomaticConfig } from "../components/sales-os/sdr-automatic-data.js";
+} from "../components/sales-os/sdr-automatic-dashboard";
+import { getSdrAutomaticConfig } from "../components/sales-os/sdr-automatic-data";
 import {
   buildLeadInsightDetail,
   buildScoreFillColor,
   buildSequenceStatusTone,
   buildStageColor
-} from "../components/sales-os/SdrLeadScoreWorkspace.helpers.js";
+} from "../components/sales-os/SdrLeadScoreWorkspace.helpers";
 
 void test("sdr automatic config hydrates lead scores with base score preserved", () => {
   const { leads } = getSdrAutomaticConfig("pt-BR");

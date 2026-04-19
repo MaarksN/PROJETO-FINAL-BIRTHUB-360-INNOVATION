@@ -2,14 +2,14 @@
 
 import { useMemo } from "react";
 
-import { getStoredSession } from "../../../../../lib/auth-client.js";
-import { useDeveloperWebhooksModel } from "./page.model.js";
+import { getStoredSession } from "../../../../../lib/auth-client";
+import { useDeveloperWebhooksModel } from "./page.model";
 import {
   UnauthenticatedState,
   WebhookDeliveryHistory,
   WebhookEndpointForm,
   WebhookEndpointList
-} from "./page.sections.js";
+} from "./page.sections";
 
 export default function DeveloperWebhooksPage() {
   const session = useMemo(() => getStoredSession(), []);

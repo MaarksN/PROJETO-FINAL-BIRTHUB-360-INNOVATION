@@ -1,13 +1,13 @@
-import { getWebConfig } from "../../packages/config/dist/web.js";
 import * as Sentry from "@sentry/nextjs";
 
-const config = getWebConfig();
+const dsn = process.env.NEXT_PUBLIC_SENTRY_DSN;
+const environment = process.env.NEXT_PUBLIC_ENVIRONMENT;
+const tracesSampleRate = Number(process.env.NEXT_PUBLIC_SENTRY_TRACES_SAMPLE_RATE ?? "0");
 
-if (config.NEXT_PUBLIC_SENTRY_DSN) {
+if (dsn) {
   Sentry.init({
-    dsn: config.NEXT_PUBLIC_SENTRY_DSN,
-    environment: config.NEXT_PUBLIC_ENVIRONMENT,
-    tracesSampleRate: config.NEXT_PUBLIC_SENTRY_TRACES_SAMPLE_RATE
+    dsn,
+    environment,
+    tracesSampleRate: Number.isFinite(tracesSampleRate) ? tracesSampleRate : 0
   });
 }
-

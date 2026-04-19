@@ -5,8 +5,8 @@ import {
   AppointmentsBoardFiltersSection,
   AppointmentsBoardHeader,
   AppointmentsBoardTableSection
-} from "./appointments-board.sections.js";
-import { useAppointmentsBoardModel } from "./appointments-board.model.js";
+} from "./appointments-board.sections";
+import { useAppointmentsBoardModel } from "./appointments-board.model";
 
 export function AppointmentsBoard(props: {
   description: string;

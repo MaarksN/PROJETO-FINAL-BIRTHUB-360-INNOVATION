@@ -1,15 +1,16 @@
-import { getWebConfig } from "@birthub/config/web";
 import * as Sentry from "@sentry/nextjs";
 
-const config = getWebConfig();
+const dsn = process.env.NEXT_PUBLIC_SENTRY_DSN;
+const environment = process.env.NEXT_PUBLIC_ENVIRONMENT;
+const tracesSampleRate = Number(process.env.NEXT_PUBLIC_SENTRY_TRACES_SAMPLE_RATE ?? "0");
 
-if (config.NEXT_PUBLIC_SENTRY_DSN) {
+if (dsn) {
   Sentry.init({
-    dsn: config.NEXT_PUBLIC_SENTRY_DSN,
-    environment: config.NEXT_PUBLIC_ENVIRONMENT,
+    dsn,
+    environment,
     replaysOnErrorSampleRate: 1,
     replaysSessionSampleRate: 0.1,
-    tracesSampleRate: config.NEXT_PUBLIC_SENTRY_TRACES_SAMPLE_RATE
+    tracesSampleRate: Number.isFinite(tracesSampleRate) ? tracesSampleRate : 0
   });
 }
 

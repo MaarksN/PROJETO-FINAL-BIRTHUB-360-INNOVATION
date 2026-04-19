@@ -6,8 +6,8 @@ import {
   InvoiceSection,
   PlanSummarySection,
   UsageSection
-} from "./billing-sections.js";
-import { useBillingSettings } from "./use-billing-settings.js";
+} from "./billing-sections";
+import { useBillingSettings } from "./use-billing-settings";
 
 export default function BillingSettingsPage() {
   const {

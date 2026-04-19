@@ -1,5 +1,5 @@
-import { TOOLS } from "./constants.js";
-import type { SalesOsModuleDefinition, SalesOsModuleId, SalesOsTool } from "./types.js";
+import { TOOLS } from "./constants";
+import type { SalesOsModuleDefinition, SalesOsModuleId, SalesOsTool } from "./types";
 
 export const SALES_OS_MODULES: SalesOsModuleDefinition[] = [
   {

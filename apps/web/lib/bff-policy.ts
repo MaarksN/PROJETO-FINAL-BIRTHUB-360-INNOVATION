@@ -1,7 +1,7 @@
 import {
   getProductCapabilities,
   type ProductCapabilities
-} from "./product-capabilities.js";
+} from "./product-capabilities";
 
 export const ALLOWED_BFF_PREFIXES = [
   "api/v1/admin",
