@@ -13,6 +13,8 @@ build
 **/build
 coverage
 **/coverage
+!artifacts/coverage/
+!artifacts/coverage/summary.json
 !scripts/coverage/
 !scripts/coverage/**
 playwright-report

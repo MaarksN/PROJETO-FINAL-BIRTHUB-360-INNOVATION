@@ -1,6 +1,6 @@
 # Dead Code Report
 
-- Generated at: 2026-04-19T03:45:28.555Z
+- Generated at: 2026-04-19T03:57:42.969Z
 - Baseline: `artifacts\quality\knip-baseline.json`
 - Raw report: `artifacts\quality\dead-code\knip-report.raw.json`
 - Normalized report: `artifacts\quality\dead-code\knip-report.json`

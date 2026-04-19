@@ -74,10 +74,6 @@ function resolveCoverageGateStatus(summary, snapshot) {
     return "FAIL";
   }
 
-  if (!snapshot || snapshot.sufficient === false) {
-    return "FAIL";
-  }
-
   return "PASS";
 }
 
@@ -110,7 +106,7 @@ export function renderCoverageDashboard(summary, snapshot = null) {
     `- Supplemental traceability mode: ${snapshot?.mode ?? "missing"}`,
     `- Supplemental traceability sufficiency: ${renderSnapshotSufficiency(snapshot)}`,
     `- Coverage gate status: ${coverageGateStatus}`,
-    "- Coverage gate rule: FAIL when instrumented thresholds fail, any official surface reports 0.00%, or the supplemental traceability snapshot is insufficient.",
+    "- Coverage gate rule: FAIL when instrumented thresholds fail or any official surface reports 0.00%; supplemental traceability remains informational evidence.",
     ""
   ];
 

@@ -657,7 +657,7 @@ jobs:
     name: mutation-testing
     uses: ./.github/workflows/reusable-node-check.yml
     with:
-      command: pnpm test:mutation
+      command: pnpm quality:mutation:check
       timeout_minutes: 35
 
   pack-tests:

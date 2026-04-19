@@ -139,6 +139,7 @@
     "quality:web-bundle": "node scripts/quality/generate-web-bundle-baseline.mjs",
     "quality:dead-code": "node scripts/quality/check-dead-code.mjs",
     "quality:dead-code:satellites": "node scripts/ci/run-pnpm.mjs exec knip --config knip.satellites.json",
+    "quality:mutation:check": "node scripts/quality/check-mutation-evidence.mjs",
     "test:mutation:run": "node scripts/quality/run-mutation-suite.mjs",
     "quality:mutation:evidence": "node scripts/quality/generate-mutation-evidence.mjs",
     "test:mutation": "node scripts/quality/run-stryker.mjs run",
