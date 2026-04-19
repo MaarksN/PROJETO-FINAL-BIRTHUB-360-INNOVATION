@@ -329,9 +329,6 @@ importers:
       '@birthub/agents-core':
         specifier: workspace:*
         version: link:../../packages/agents-core
-      '@birthub/api':
-        specifier: workspace:*
-        version: link:../api
       '@birthub/config':
         specifier: workspace:*
         version: link:../../packages/config
