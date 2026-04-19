@@ -11,7 +11,15 @@ function removeTsbuildinfoArtifacts(rootDirectory) {
 
   while (stack.length > 0) {
     const currentDirectory = stack.pop();
-    const entries = readdirSync(currentDirectory, { withFileTypes: true });
+    let entries;
+    try {
+      entries = readdirSync(currentDirectory, { withFileTypes: true });
+    } catch (error) {
+      console.warn(
+        `[postinstall] Skipping unreadable directory '${currentDirectory}': ${error instanceof Error ? error.message : String(error)}`
+      );
+      continue;
+    }
 
     for (const entry of entries) {
       const absolutePath = path.join(currentDirectory, entry.name);
@@ -25,7 +33,13 @@ function removeTsbuildinfoArtifacts(rootDirectory) {
       }
 
       if (entry.isFile() && entry.name.endsWith('.tsbuildinfo')) {
-        rmSync(absolutePath, { force: true });
+        try {
+          rmSync(absolutePath, { force: true });
+        } catch (error) {
+          console.warn(
+            `[postinstall] Failed to remove '${absolutePath}': ${error instanceof Error ? error.message : String(error)}`
+          );
+        }
       }
     }
   }
