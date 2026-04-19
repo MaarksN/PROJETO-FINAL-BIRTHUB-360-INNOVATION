@@ -455,7 +455,7 @@ function deriveOutputs(agentLabel: string, objectives: string[]): string[] {
     "riscos priorizados com mitigacao e nivel de confianca",
     "recomendacoes prescritivas priorizadas",
     "plano preventivo com dono, prazo e checkpoint",
-    "score premium consolidado com camadas ativadas",
+    `score premium consolidado em ${TOTAL_PREMIUM_LAYER_COUNT} camadas`,
     "memoria operacional premium salva para reutilizacao",
     "handoff governado quando houver dependencia critica",
     ...objectives
@@ -492,11 +492,11 @@ function buildSkills(agentId: string, objectives: string[]): AgentManifest["skil
     outputSchema: { type: "object" }
   }));
 
-  const premiumSkills = PREMIUM_LAYERS.map((layer) => ({
-    description: layer.description,
-    id: `${agentId}.skill.${layer.key}`,
+  const premiumSkills = PREMIUM_PILLARS.map((pillar) => ({
+    description: pillar.purpose,
+    id: `${agentId}.skill.${pillar.id}`,
     inputSchema: { type: "object" },
-    name: layer.name,
+    name: pillar.name,
     outputSchema: { type: "object" }
   }));
 
@@ -589,11 +589,6 @@ function renderPrompt(input: {
     `Missao: ${input.mission}`,
     `Contexto executivo: ${input.context}`,
     "",
-    "CAMADAS PREMIUM ATIVAS",
-    ...PREMIUM_LAYERS.map(
-      (layer, index) => `- ${index + 1}. ${layer.name}: ${layer.description}`
-    ),
-    "",
     "QUANDO ACIONAR",
     ...input.whenToUse.map((item) => `- ${item}`),
     "",
@@ -618,7 +613,7 @@ function renderPrompt(input: {
     "OBJETIVOS PRIORITARIOS",
     ...input.objectives.map((item) => `- ${item}`),
     ...[
-      "- ativar as 14 camadas premium para risco, oportunidade, memoria, governanca e execucao",
+      `- ativar as ${TOTAL_PREMIUM_LAYER_COUNT} camadas premium para comunicacao, decisao, risco, oportunidade, memoria, governanca e execucao`,
       "- produzir recomendacoes prescritivas com score de evidencia e checkpoint seguinte"
     ],
     "",
@@ -633,6 +628,8 @@ function renderPrompt(input: {
     "",
     "CHECKLIST DE QUALIDADE",
     ...input.qualityChecklist.map((item) => `- ${item}`),
+    "",
+    renderGlobalPremiumPromptAppendix(input.agentLabel),
     "",
     "APRENDIZADO COMPARTILHADO",
     ...DEFAULT_SHARED_LEARNING_BLOCK.map((item) => `- ${item}`),
@@ -690,7 +687,7 @@ function buildManifest(input: {
     agent: {
       changelog: [
         `${EXECUTIVE_COLLECTION_VERSION} - Migrated from packages/agents/executivos/${input.folderName} into the canonical executive-premium-v1 collection`,
-        `${EXECUTIVE_COLLECTION_VERSION} - Upgraded with 14 premium layers, evidence scorecard, decision memory grid and prescriptive execution`
+        `${EXECUTIVE_COLLECTION_VERSION} - Upgraded with ${TOTAL_PREMIUM_LAYER_COUNT} premium layers, communication rigor and decision intelligence`
       ],
       description: input.contractDescription,
       id: agentId,
@@ -707,8 +704,11 @@ function buildManifest(input: {
       ...inferIndustryTags(domainTags),
       ...input.sourceToolIds,
       ...input.objectives.map((item) => item.toLowerCase()),
-      ...PREMIUM_LAYERS.map((layer) => layer.keyword),
+      ...PREMIUM_PILLARS.map((pillar) => pillar.id),
       "executive premium agents",
+      "premium-100",
+      "communication-premium",
+      "decision-intelligence",
       "manifest runtime",
       "premium governance"
     ]).slice(0, 28),
@@ -814,15 +814,18 @@ function buildCollectionManifest(): AgentManifest {
     agent: {
       changelog: [
         `${EXECUTIVE_COLLECTION_VERSION} - Introduced the canonical collection for 15 executive premium agents migrated into agent-packs`,
-        `${EXECUTIVE_COLLECTION_VERSION} - Added 14 shared premium layers, evidence scorecard and decision memory grid`
+        `${EXECUTIVE_COLLECTION_VERSION} - Added ${TOTAL_PREMIUM_LAYER_COUNT} shared premium layers with communication rigor and decision intelligence`
       ],
       description:
         "Collection descriptor for the executive premium lineup migrated into the canonical agent-packs catalog with reinforced governance, evidence scoring and multi-layer premium execution.",
       id: EXECUTIVE_COLLECTION_DESCRIPTOR_ID,
       kind: "catalog",
       name: EXECUTIVE_COLLECTION_NAME,
-      prompt:
-        "Coordinate and expose the Executive Premium Agents Collection, highlighting the canonical migration into agent-packs, the 14 shared premium layers and the governed executive operating model.",
+      prompt: [
+        "Coordinate and expose the Executive Premium Agents Collection, highlighting the canonical migration into agent-packs, the premium-100 operating model and the governed executive standard.",
+        "",
+        renderGlobalPremiumPromptAppendix(EXECUTIVE_COLLECTION_NAME)
+      ].join("\n"),
       tenantId: "catalog",
       version: EXECUTIVE_COLLECTION_VERSION
     },
@@ -830,8 +833,10 @@ function buildCollectionManifest(): AgentManifest {
       "executive premium agents",
       "canonical agent-packs",
       "executive lineup",
+      "premium-100",
       "premium layers",
       "decision memory grid",
+      "communication-premium",
       "evidence scorecard",
       "governed execution"
     ],

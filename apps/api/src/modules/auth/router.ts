@@ -359,9 +359,11 @@ function registerMfaEnableRoute(router: ReturnType<typeof Router>, config: ApiCo
     requireAuthenticatedSession,
     validateBody(enableMfaRequestSchema),
     asyncHandler(async (request, response) => {
+      const organizationId = request.context.organizationId;
+      const tenantId = request.context.tenantId;
       const userId = request.context.userId;
 
-      if (!userId) {
+      if (!organizationId || !tenantId || !userId) {
         throw new ProblemDetailsError({
           detail: "Authenticated user context is required.",
           status: 401,
