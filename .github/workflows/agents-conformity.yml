@@ -20,16 +20,16 @@ jobs:
 
     steps:
       - name: Checkout
-        uses: actions/checkout@v6
+        uses: actions/checkout@v4
 
       - name: Setup pnpm
-        uses: pnpm/action-setup@v6
+        uses: pnpm/action-setup@v4
         with:
           version: 9.15.9
           standalone: true
 
       - name: Setup Node
-        uses: actions/setup-node@v6
+        uses: actions/setup-node@v4
         with:
           cache: pnpm
           cache-dependency-path: pnpm-lock.yaml
@@ -46,7 +46,7 @@ jobs:
 
       - name: Upload generated collection evidence
         if: always()
-        uses: actions/upload-artifact@v7
+        uses: actions/upload-artifact@v4
         with:
           name: agent-packs-readiness
           path: packages/agent-packs/github-agents-v1/**/readiness.json
