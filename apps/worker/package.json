@@ -9,8 +9,8 @@
     "lint": "eslint .",
     "load:test": "node --import tsx src/load/parallelLoad.test.ts",
     "start": "node dist/apps/worker/src/index.js",
-    "test": "node --import tsx --test src/**/*.test.ts test/**/*.test.ts",
-    "test:isolation": "node --import tsx --test test/**/*.test.ts",
+    "test": "node --import tsx --test --test-reporter=spec --test-reporter-destination=stdout \"src/**/*.test.ts\" \"test/**/*.test.ts\"",
+    "test:isolation": "node --import tsx --test --test-reporter=spec --test-reporter-destination=stdout \"test/**/*.test.ts\"",
     "typecheck": "tsc -p tsconfig.json --noEmit"
   },
   "dependencies": {
