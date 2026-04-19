@@ -6,18 +6,9 @@
   "main": "./dist/index.js",
   "types": "./dist/index.d.ts",
   "exports": {
-    ".": {
-      "types": "./dist/index.d.ts",
-      "default": "./dist/index.js"
-    },
-    "./metrics": {
-      "types": "./dist/metrics.d.ts",
-      "default": "./dist/metrics.js"
-    },
-    "./otel": {
-      "types": "./dist/otel.d.ts",
-      "default": "./dist/otel.js"
-    }
+    ".": "./dist/index.js",
+    "./metrics": "./dist/metrics.js",
+    "./otel": "./dist/otel.js"
   },
   "scripts": {
     "build": "tsc -p tsconfig.json",
@@ -35,7 +26,7 @@
   "devDependencies": {
     "@types/node": "^25.6.0",
     "tsx": "^4.21.0",
-    "typescript": "^6.0.3"
+    "typescript": "^5.9.3"
   },
   "files": [
     "dist"

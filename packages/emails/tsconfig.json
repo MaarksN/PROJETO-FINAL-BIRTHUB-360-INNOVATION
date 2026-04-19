@@ -1,10 +1,17 @@
 {
-  "outDir": "./dist",
   "compilerOptions": {
-  "outDir": "./dist",
-    "rootDir": ".", "exactOptionalPropertyTypes": false, "noImplicitAny": false, "useUnknownInCatchVariables": false, "strict": false, "skipLibCheck": true,
-    "paths": {
-  "outDir": "./dist", "@birthub/*": ["../../packages/*/src", "../packages/*/src", "./packages/*/src"] },
-  }
+    "target": "ES2022",
+    "module": "NodeNext",
+    "moduleResolution": "NodeNext",
+    "outDir": "dist",
+    "rootDir": ".",
+    "declaration": true,
+    "composite": true,
+    "strict": true,
+    "esModuleInterop": true,
+    "skipLibCheck": true,
+    "types": ["node"]
+  },
+  "include": ["index.ts"],
+  "exclude": ["**/*.test.ts", "**/*.spec.ts", "dist", "node_modules"]
 }
-
