@@ -23,36 +23,12 @@
   },
   "type": "module",
   "exports": {
-    ".": {
-      "types": "./dist/index.d.ts",
-      "import": "./dist/index.js",
-      "default": "./dist/index.js"
-    },
-    "./tools": {
-      "types": "./dist/tools/index.d.ts",
-      "import": "./dist/tools/index.js",
-      "default": "./dist/tools/index.js"
-    },
-    "./policy": {
-      "types": "./dist/policy/engine.d.ts",
-      "import": "./dist/policy/engine.js",
-      "default": "./dist/policy/engine.js"
-    },
-    "./manifest": {
-      "types": "./dist/manifest/index.d.ts",
-      "import": "./dist/manifest/index.js",
-      "default": "./dist/manifest/index.js"
-    },
-    "./runtime": {
-      "types": "./dist/runtime/index.d.ts",
-      "import": "./dist/runtime/index.js",
-      "default": "./dist/runtime/index.js"
-    },
-    "./skills": {
-      "types": "./dist/skills/index.d.ts",
-      "import": "./dist/skills/index.js",
-      "default": "./dist/skills/index.js"
-    }
+    ".": "./dist/index.js",
+    "./tools": "./dist/tools/index.js",
+    "./policy": "./dist/policy/engine.js",
+    "./manifest": "./dist/manifest/index.js",
+    "./runtime": "./dist/runtime/index.js",
+    "./skills": "./dist/skills/index.js"
   },
   "files": [
     "dist"

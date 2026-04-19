@@ -4,11 +4,11 @@ Use este arquivo quando qualquer `apps/*/package.json`, `packages/*/package.json
 
 ## 2026-04-19
 
-### TypeScript NodeNext package exports
+### TypeScript NodeNext bootstrap
 
-- adicionadas condicoes `types` explicitas aos `exports` de pacotes internos usados como dependencias workspace, estabilizando a resolucao TypeScript no Node 24 durante installs frios do CI.
-- cobertos `@birthub/config`, `@birthub/logger`, `@birthub/database`, `@birthub/agents-core`, `@birthub/workflows-core`, `@birthub/integrations`, `@birthub/shared-types` e `@birthub/utils`.
-- forçado `tsc -b --force` nos pacotes compilados pelo `postinstall`, evitando que `tsconfig.tsbuildinfo` versionado impeça a emissão de `dist/*.d.ts` em checkouts limpos.
+- forçado `tsc -b --force` em `@birthub/config`, `@birthub/logger`, `@birthub/database`, `@birthub/agents-core` e `@birthub/workflows-core`, evitando que `tsconfig.tsbuildinfo` versionado impeça a emissão de `dist/*.d.ts` em checkouts limpos.
+- movido o `tsBuildInfoFile` desses pacotes para `dist/`, evitando dirty-tree em jobs que executam build durante `pnpm install`.
+- mantidos os `exports` em runtime apontando para `dist/*.js`, para que runners com `tsx` não resolvam arquivos `.d.ts` como módulos executáveis.
 
 ### Database Prisma bootstrap in CI
 

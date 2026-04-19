@@ -6,26 +6,10 @@
   "main": "./dist/index.js",
   "types": "./dist/index.d.ts",
   "exports": {
-    ".": {
-      "types": "./dist/index.d.ts",
-      "import": "./dist/index.js",
-      "default": "./dist/index.js"
-    },
-    "./web": {
-      "types": "./dist/web.d.ts",
-      "import": "./dist/web.js",
-      "default": "./dist/web.js"
-    },
-    "./shared": {
-      "types": "./dist/shared.d.ts",
-      "import": "./dist/shared.js",
-      "default": "./dist/shared.js"
-    },
-    "./environment": {
-      "types": "./dist/environment.d.ts",
-      "import": "./dist/environment.js",
-      "default": "./dist/environment.js"
-    }
+    ".": "./dist/index.js",
+    "./web": "./dist/web.js",
+    "./shared": "./dist/shared.js",
+    "./environment": "./dist/environment.js"
   },
   "scripts": {
     "build": "tsc -b tsconfig.json --force",
