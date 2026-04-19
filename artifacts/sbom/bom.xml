@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<bom xmlns="http://cyclonedx.org/schema/bom/1.5" serialNumber="urn:uuid:680662f8-d3c6-ca2b-5c49-00cfc4b9e47c" version="1">
+<bom xmlns="http://cyclonedx.org/schema/bom/1.5" serialNumber="urn:uuid:246ddd08-aede-a352-0d99-88b8002aba36" version="1">
   <metadata>
-    <timestamp>2026-04-19T00:42:33.396Z</timestamp>
+    <timestamp>2026-04-19T23:03:40.333Z</timestamp>
     <tools>
       <tool>
         <vendor>BirthHub</vendor>
@@ -50,6 +50,11 @@
       <name>@birthub/config</name>
       <version>link:packages/config</version>
       <purl>pkg:npm/%40birthub%2Fconfig@link%3Apackages%2Fconfig</purl>
+    </component>
+    <component type="library" bom-ref="pkg:npm/%40birthub%2Fcontracts@link%3A..%2F..%2Fpackages%2Fcontracts">
+      <name>@birthub/contracts</name>
+      <version>link:../../packages/contracts</version>
+      <purl>pkg:npm/%40birthub%2Fcontracts@link%3A..%2F..%2Fpackages%2Fcontracts</purl>
     </component>
     <component type="library" bom-ref="pkg:npm/%40birthub%2Fdatabase@link%3A..%2F..%2Fpackages%2Fdatabase">
       <name>@birthub/database</name>
@@ -206,11 +211,6 @@
       <version>10.49.0</version>
       <purl>pkg:npm/%40sentry%2Fnode@10.49.0</purl>
     </component>
-    <component type="library" bom-ref="pkg:npm/%40stryker-mutator%2Fapi@9.6.1">
-      <name>@stryker-mutator/api</name>
-      <version>9.6.1</version>
-      <purl>pkg:npm/%40stryker-mutator%2Fapi@9.6.1</purl>
-    </component>
     <component type="library" bom-ref="pkg:npm/%40stryker-mutator%2Fcore@9.6.1">
       <name>@stryker-mutator/core</name>
       <version>9.6.1</version>
@@ -270,6 +270,11 @@
       <name>@types/ws</name>
       <version>8.18.1</version>
       <purl>pkg:npm/%40types%2Fws@8.18.1</purl>
+    </component>
+    <component type="library" bom-ref="pkg:npm/%40typescript-eslint%2Fparser@8.58.2">
+      <name>@typescript-eslint/parser</name>
+      <version>8.58.2</version>
+      <purl>pkg:npm/%40typescript-eslint%2Fparser@8.58.2</purl>
     </component>
     <component type="library" bom-ref="pkg:npm/bcryptjs@3.0.3">
       <name>bcryptjs</name>
@@ -401,6 +406,11 @@
       <version>32.2.0</version>
       <purl>pkg:npm/pipedrive@32.2.0</purl>
     </component>
+    <component type="library" bom-ref="pkg:npm/playwright@1.59.1">
+      <name>playwright</name>
+      <version>1.59.1</version>
+      <purl>pkg:npm/playwright@1.59.1</purl>
+    </component>
     <component type="library" bom-ref="pkg:npm/prettier@3.8.3">
       <name>prettier</name>
       <version>3.8.3</version>
@@ -501,10 +511,10 @@
       <version>0.28.19</version>
       <purl>pkg:npm/typedoc@0.28.19</purl>
     </component>
-    <component type="library" bom-ref="pkg:npm/typescript@6.0.3">
+    <component type="library" bom-ref="pkg:npm/typescript@5.9.3">
       <name>typescript</name>
-      <version>6.0.3</version>
-      <purl>pkg:npm/typescript@6.0.3</purl>
+      <version>5.9.3</version>
+      <purl>pkg:npm/typescript@5.9.3</purl>
     </component>
     <component type="library" bom-ref="pkg:npm/typescript-eslint@8.58.2">
       <name>typescript-eslint</name>
