@@ -254,19 +254,19 @@ jobs:
 
       - name: Checkout source from CI run
         if: steps.staging_config.outputs.configured == 'true'
-        uses: actions/checkout@v6
+        uses: actions/checkout@v4
         with:
           ref: ${{ needs.resolve-release-source.outputs.source_ref }}
 
       - name: Setup pnpm
         if: steps.staging_config.outputs.configured == 'true'
-        uses: pnpm/action-setup@v6
+        uses: pnpm/action-setup@v4
         with:
           version: 9.15.9
 
       - name: Setup Node.js
         if: steps.staging_config.outputs.configured == 'true'
-        uses: actions/setup-node@v6
+        uses: actions/setup-node@v4
         with:
           cache: pnpm
           cache-dependency-path: pnpm-lock.yaml
@@ -282,7 +282,7 @@ jobs:
 
       - name: Upload staging preflight evidence
         if: always()
-        uses: actions/upload-artifact@v7
+        uses: actions/upload-artifact@v4
         with:
           name: staging-preflight-evidence
           path: artifacts/release/staging-preflight-summary.*
@@ -304,17 +304,17 @@ jobs:
       - resolve-release-source
     steps:
       - name: Checkout immutable release source
-        uses: actions/checkout@v6
+        uses: actions/checkout@v4
         with:
           ref: ${{ needs.resolve-release-source.outputs.source_ref }}
 
       - name: Setup pnpm
-        uses: pnpm/action-setup@v6
+        uses: pnpm/action-setup@v4
         with:
           version: 9.15.9
 
       - name: Setup Node.js
-        uses: actions/setup-node@v6
+        uses: actions/setup-node@v4
         with:
           cache: pnpm
           cache-dependency-path: pnpm-lock.yaml
@@ -339,7 +339,7 @@ jobs:
             --run-id="${{ github.run_id }}"
 
       - name: Upload SBOM artifact
-        uses: actions/upload-artifact@v7
+        uses: actions/upload-artifact@v4
         with:
           name: release-sbom
           path: |
@@ -347,7 +347,7 @@ jobs:
             artifacts/sbom/sbom.spdx.json
 
       - name: Upload release manifests
-        uses: actions/upload-artifact@v7
+        uses: actions/upload-artifact@v4
         with:
           name: release-manifests
           path: |
@@ -393,17 +393,17 @@ jobs:
       WEB_BASE_URL: ${{ vars.WEB_BASE_URL }}
     steps:
       - name: Checkout immutable release source
-        uses: actions/checkout@v6
+        uses: actions/checkout@v4
         with:
           ref: ${{ needs.resolve-release-source.outputs.source_ref }}
 
       - name: Setup pnpm
-        uses: pnpm/action-setup@v6
+        uses: pnpm/action-setup@v4
         with:
           version: 9.15.9
 
       - name: Setup Node.js
-        uses: actions/setup-node@v6
+        uses: actions/setup-node@v4
         with:
           cache: pnpm
           cache-dependency-path: pnpm-lock.yaml
@@ -498,7 +498,7 @@ jobs:
         run: pnpm release:preflight:production
 
       - name: Upload production preflight evidence
-        uses: actions/upload-artifact@v7
+        uses: actions/upload-artifact@v4
         with:
           name: preflight-report
           path: artifacts/release/production-preflight-summary.*
@@ -526,7 +526,7 @@ jobs:
       worker_image: ${{ steps.refs.outputs.worker_image }}
     steps:
       - name: Checkout immutable release source
-        uses: actions/checkout@v6
+        uses: actions/checkout@v4
         with:
           ref: ${{ needs.resolve-release-source.outputs.source_ref }}
 
@@ -649,7 +649,7 @@ jobs:
           NODE
 
       - name: Upload staging rollout manifest
-        uses: actions/upload-artifact@v7
+        uses: actions/upload-artifact@v4
         with:
           name: staging-rollout-manifest
           path: |
@@ -673,17 +673,17 @@ jobs:
     environment: production
     steps:
       - name: Checkout immutable release source
-        uses: actions/checkout@v6
+        uses: actions/checkout@v4
         with:
           ref: ${{ needs.resolve-release-source.outputs.source_ref }}
 
       - name: Setup pnpm
-        uses: pnpm/action-setup@v6
+        uses: pnpm/action-setup@v4
         with:
           version: 9.15.9
 
       - name: Setup Node.js
-        uses: actions/setup-node@v6
+        uses: actions/setup-node@v4
         with:
           cache: pnpm
           cache-dependency-path: pnpm-lock.yaml
@@ -697,7 +697,7 @@ jobs:
 
       - name: Upload backup health evidence
         if: always()
-        uses: actions/upload-artifact@v7
+        uses: actions/upload-artifact@v4
         with:
           name: backup-health-report
           path: |
@@ -721,17 +721,17 @@ jobs:
     environment: production
     steps:
       - name: Checkout immutable release source
-        uses: actions/checkout@v6
+        uses: actions/checkout@v4
         with:
           ref: ${{ needs.resolve-release-source.outputs.source_ref }}
 
       - name: Setup pnpm
-        uses: pnpm/action-setup@v6
+        uses: pnpm/action-setup@v4
         with:
           version: 9.15.9
 
       - name: Setup Node.js
-        uses: actions/setup-node@v6
+        uses: actions/setup-node@v4
         with:
           cache: pnpm
           cache-dependency-path: pnpm-lock.yaml
@@ -744,7 +744,7 @@ jobs:
         run: pnpm release:smoke
 
       - name: Upload smoke evidence
-        uses: actions/upload-artifact@v7
+        uses: actions/upload-artifact@v4
         with:
           name: smoke-results
           path: artifacts/release/smoke-summary.*
@@ -765,17 +765,17 @@ jobs:
     environment: production
     steps:
       - name: Checkout immutable release source
-        uses: actions/checkout@v6
+        uses: actions/checkout@v4
         with:
           ref: ${{ needs.resolve-release-source.outputs.source_ref }}
 
       - name: Setup pnpm
-        uses: pnpm/action-setup@v6
+        uses: pnpm/action-setup@v4
         with:
           version: 9.15.9
 
       - name: Setup Node.js
-        uses: actions/setup-node@v6
+        uses: actions/setup-node@v4
         with:
           cache: pnpm
           cache-dependency-path: pnpm-lock.yaml
@@ -789,7 +789,7 @@ jobs:
 
       - name: Upload E2E evidence
         if: always()
-        uses: actions/upload-artifact@v7
+        uses: actions/upload-artifact@v4
         with:
           name: e2e-release-results
           path: |
@@ -808,17 +808,17 @@ jobs:
       - release-e2e-gate
     steps:
       - name: Checkout immutable release source
-        uses: actions/checkout@v6
+        uses: actions/checkout@v4
         with:
           ref: ${{ needs.resolve-release-source.outputs.source_ref }}
 
       - name: Setup pnpm
-        uses: pnpm/action-setup@v6
+        uses: pnpm/action-setup@v4
         with:
           version: 9.15.9
 
       - name: Setup Node.js
-        uses: actions/setup-node@v6
+        uses: actions/setup-node@v4
         with:
           cache: pnpm
           cache-dependency-path: pnpm-lock.yaml
@@ -828,25 +828,25 @@ jobs:
         run: pnpm install --frozen-lockfile
 
       - name: Download production preflight evidence
-        uses: actions/download-artifact@v8
+        uses: actions/download-artifact@v4
         with:
           name: preflight-report
           path: artifacts/release
 
       - name: Download smoke evidence
-        uses: actions/download-artifact@v8
+        uses: actions/download-artifact@v4
         with:
           name: smoke-results
           path: artifacts/release
 
       - name: Download release manifests
-        uses: actions/download-artifact@v8
+        uses: actions/download-artifact@v4
         with:
           name: release-manifests
           path: .
 
       - name: Download release SBOM
-        uses: actions/download-artifact@v8
+        uses: actions/download-artifact@v4
         with:
           name: release-sbom
           path: .
@@ -855,7 +855,7 @@ jobs:
         run: pnpm release:rollback:evidence:auto -- --target=production
 
       - name: Upload rollback rehearsal evidence
-        uses: actions/upload-artifact@v7
+        uses: actions/upload-artifact@v4
         with:
           name: rollback-rehearsal-report
           path: |
@@ -879,17 +879,17 @@ jobs:
     environment: production
     steps:
       - name: Checkout immutable release source
-        uses: actions/checkout@v6
+        uses: actions/checkout@v4
         with:
           ref: ${{ needs.resolve-release-source.outputs.source_ref }}
 
       - name: Setup pnpm
-        uses: pnpm/action-setup@v6
+        uses: pnpm/action-setup@v4
         with:
           version: 9.15.9
 
       - name: Setup Node.js
-        uses: actions/setup-node@v6
+        uses: actions/setup-node@v4
         with:
           cache: pnpm
           cache-dependency-path: pnpm-lock.yaml
@@ -899,13 +899,13 @@ jobs:
         run: pnpm install --frozen-lockfile
 
       - name: Download rollback rehearsal evidence
-        uses: actions/download-artifact@v8
+        uses: actions/download-artifact@v4
         with:
           name: rollback-rehearsal-report
           path: artifacts/release
 
       - name: Download smoke evidence
-        uses: actions/download-artifact@v8
+        uses: actions/download-artifact@v4
         with:
           name: smoke-results
           path: artifacts/release
@@ -920,7 +920,7 @@ jobs:
 
       - name: Upload disaster recovery readiness evidence
         if: always()
-        uses: actions/upload-artifact@v7
+        uses: actions/upload-artifact@v4
         with:
           name: dr-readiness-report
           path: |
@@ -1005,7 +1005,7 @@ jobs:
           EOF
 
       - name: Upload deploy manifest
-        uses: actions/upload-artifact@v7
+        uses: actions/upload-artifact@v4
         with:
           name: deploy-manifest
           path: artifacts/release/deploy-manifest.json
