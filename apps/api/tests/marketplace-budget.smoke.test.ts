@@ -113,7 +113,7 @@ void test("marketplace search returns facets and ranked agents", async () => {
 
 void test("budget endpoints require an authenticated admin session", async () => {
   const restores = [
-    stubMethod(prisma.session, "findUnique", (args: { where?: { token?: string } }) => {
+    stubMethod(prisma.session, "findFirst", (args: { where?: { token?: string } }) => {
       if (args.where?.token !== sha256("atk_admin")) {
         return Promise.resolve(null);
       }
@@ -128,9 +128,15 @@ void test("budget endpoints require an authenticated admin session", async () =>
       });
     }),
     stubMethod(prisma.session, "update", () => Promise.resolve({ id: "session_admin" })),
-    stubMethod(prisma.user, "findUnique", () => Promise.resolve({
-      id: "user_admin",
-      status: UserStatus.ACTIVE
+    stubMethod(prisma.membership, "findFirst", () => Promise.resolve({
+      organizationId: "org_1",
+      role: Role.ADMIN,
+      status: "ACTIVE",
+      tenantId: "tenant_1",
+      user: {
+        status: UserStatus.ACTIVE
+      },
+      userId: "user_admin"
     })),
     stubMethod(prisma.membership, "findUnique", () => Promise.resolve({
       organizationId: "org_1",
@@ -221,4 +227,3 @@ void test("budget endpoints require an authenticated admin session", async () =>
     }
   }
 });
-

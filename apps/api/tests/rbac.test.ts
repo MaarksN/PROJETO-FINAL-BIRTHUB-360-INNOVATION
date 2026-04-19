@@ -46,7 +46,7 @@ void test("RBAC matrix on /api/v1/users enforces role policy", async () => {
       id: "org_1",
       tenantId: "tenant_1"
     })),
-    stubMethod(prisma.session, "findUnique", (args: { where?: { token?: string } }) => {
+    stubMethod(prisma.session, "findFirst", (args: { where?: { token?: string } }) => {
       const userId = args.where?.token ? userByTokenHash[args.where.token] : undefined;
 
       if (!userId) {
@@ -83,9 +83,9 @@ void test("RBAC matrix on /api/v1/users enforces role policy", async () => {
     ])),
     stubMethod(
       prisma.membership,
-      "findUnique",
-      (args: { where?: { organizationId_userId?: { userId?: string } } }) => {
-        const userId = args.where?.organizationId_userId?.userId ?? "";
+      "findFirst",
+      (args: { where?: { userId?: string } }) => {
+        const userId = args.where?.userId ?? "";
         const role = roleByUserId[userId];
 
         if (!role) {
@@ -96,7 +96,28 @@ void test("RBAC matrix on /api/v1/users enforces role policy", async () => {
           organizationId: "org_1",
           role,
           status: MembershipStatus.ACTIVE,
+          tenantId: "tenant_1",
+          user: {
+            status: UserStatus.ACTIVE
+          },
           userId
+        });
+      }
+    ),
+    stubMethod(
+      prisma.membership,
+      "findUnique",
+      (args: { where?: { organizationId_userId?: { userId?: string } } }) => {
+        const userId = args.where?.organizationId_userId?.userId ?? "";
+        const role = roleByUserId[userId];
+
+        if (!role) {
+          return Promise.resolve(null);
+        }
+
+        return Promise.resolve({
+          role,
+          status: MembershipStatus.ACTIVE
         });
       }
     )

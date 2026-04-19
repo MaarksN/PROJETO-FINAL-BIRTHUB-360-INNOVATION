@@ -35,7 +35,7 @@ function createSessionStubs(options?: {
   };
 
   return [
-    stubMethod(prisma.session, "findUnique", (args: { where?: { token?: string } }) => {
+    stubMethod(prisma.session, "findFirst", (args: { where?: { token?: string } }) => {
       if (args.where?.token !== sha256(token)) {
         return Promise.resolve(null);
       }
@@ -50,10 +50,6 @@ function createSessionStubs(options?: {
       });
     }),
     stubMethod(prisma.session, "update", () => Promise.resolve({ id: "session_1" })),
-    stubMethod(prisma.user, "findUnique", () => Promise.resolve({
-      id: "user_1",
-      status: UserStatus.ACTIVE
-    })),
     stubMethod(prisma.organization, "findFirst", (args: { where?: { OR?: Array<Record<string, string>> } }) => {
       const references = args.where?.OR ?? [];
       const values = references.flatMap((entry) => Object.values(entry));
@@ -76,10 +72,10 @@ function createSessionStubs(options?: {
 
       return Promise.resolve(null);
     }),
-    stubMethod(prisma.membership, "findUnique", (args: {
-      where?: { organizationId_userId?: { organizationId?: string; userId?: string } };
+    stubMethod(prisma.membership, "findFirst", (args: {
+      where?: { organizationId?: string };
     }) => {
-      const organizationId = args.where?.organizationId_userId?.organizationId;
+      const organizationId = args.where?.organizationId;
       const role = organizationId ? memberships[organizationId] : null;
 
       if (!organizationId || !role) {
@@ -90,7 +86,26 @@ function createSessionStubs(options?: {
         organizationId,
         role,
         status: MembershipStatus.ACTIVE,
+        tenantId: organizationId === "org_2" ? "tenant_2" : "tenant_1",
+        user: {
+          status: UserStatus.ACTIVE
+        },
         userId: "user_1"
+      });
+    }),
+    stubMethod(prisma.membership, "findUnique", (args: {
+      where?: { organizationId_userId?: { organizationId?: string } };
+    }) => {
+      const organizationId = args.where?.organizationId_userId?.organizationId;
+      const role = organizationId ? memberships[organizationId] : null;
+
+      if (!organizationId || !role) {
+        return Promise.resolve(null);
+      }
+
+      return Promise.resolve({
+        role,
+        status: MembershipStatus.ACTIVE
       });
     })
   ];
@@ -116,7 +131,7 @@ void test("tasks reject anonymous and header-only requests", async () => {
 });
 
 void test("workflows reject header spoofing and forged bearer tokens", async () => {
-  const restore = stubMethod(prisma.session, "findUnique", () => Promise.resolve(null));
+  const restore = stubMethod(prisma.session, "findFirst", () => Promise.resolve(null));
 
   try {
     const app = createSecurityApp();
@@ -248,4 +263,3 @@ void test("dashboard endpoints reject anonymous and insufficient-role access", a
     }
   }
 });
-

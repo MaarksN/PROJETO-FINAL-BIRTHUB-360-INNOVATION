@@ -25,7 +25,7 @@ function stubMethod(target: object, key: string, value: unknown): () => void {
 void test("security sanitizes XSS payloads before queueing tasks", async () => {
   let queuedDescription: string | null = null;
   const restores = [
-    stubMethod(prisma.session, "findUnique", (args: { where?: { token?: string } }) => {
+    stubMethod(prisma.session, "findFirst", (args: { where?: { token?: string } }) => {
       if (args.where?.token !== sha256("atk_member")) {
         return Promise.resolve(null);
       }
@@ -40,9 +40,13 @@ void test("security sanitizes XSS payloads before queueing tasks", async () => {
       });
     }),
     stubMethod(prisma.session, "update", () => Promise.resolve({ id: "session_1" })),
-    stubMethod(prisma.user, "findUnique", () => Promise.resolve({
-      id: "user_1",
-      status: UserStatus.ACTIVE
+    stubMethod(prisma.membership, "findFirst", () => Promise.resolve({
+      role: "MEMBER",
+      status: "ACTIVE",
+      tenantId: "tenant_1",
+      user: {
+        status: UserStatus.ACTIVE
+      }
     })),
     stubMethod(prisma.membership, "findUnique", () => Promise.resolve({
       role: "MEMBER",
@@ -161,4 +165,3 @@ void test("security requires an authenticated session for connector OAuth callba
     })
     .expect(401);
 });
-

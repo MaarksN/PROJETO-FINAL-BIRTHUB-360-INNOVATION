@@ -237,7 +237,7 @@ void test("auth logout returns 200 for a valid session token", async () => {
   const expiresAt = new Date(Date.now() + 60_000);
   const sessionToken = "atk_valid";
   const restores = [
-    stubMethod(prisma.session, "findUnique", () => Promise.resolve({
+    stubMethod(prisma.session, "findFirst", () => Promise.resolve({
       expiresAt,
       id: "session_1",
       organizationId: "org_1",
@@ -245,9 +245,15 @@ void test("auth logout returns 200 for a valid session token", async () => {
       revokedAt: null,
       userId: "user_1"
     })),
-    stubMethod(prisma.user, "findUnique", () => Promise.resolve({
-      id: "user_1",
-      status: UserStatus.ACTIVE
+    stubMethod(prisma.membership, "findFirst", () => Promise.resolve({
+      organizationId: "org_1",
+      role: Role.MEMBER,
+      status: "ACTIVE",
+      tenantId: "tenant_1",
+      user: {
+        status: UserStatus.ACTIVE
+      },
+      userId: "user_1"
     })),
     stubMethod(prisma.membership, "findUnique", () => Promise.resolve({
       role: Role.MEMBER,
@@ -413,7 +419,7 @@ void test("setAuthCookies hardens auth cookies with Strict sameSite and secure t
 });
 void test("auth protected endpoint returns 401 for expired or invalid session tokens", async () => {
   const app = createAuthTestApp();
-  let restore = stubMethod(prisma.session, "findUnique", () => Promise.resolve({
+  let restore = stubMethod(prisma.session, "findFirst", () => Promise.resolve({
     expiresAt: new Date(Date.now() - 60_000), id: "s1", organizationId: "o1", tenantId: "t1", revokedAt: null, userId: "u1"
   }));
   let restoreMembership = stubMethod(prisma.membership, "findUnique", () => Promise.resolve({
@@ -422,7 +428,7 @@ void test("auth protected endpoint returns 401 for expired or invalid session to
   await request(app).get("/api/v1/sessions").set("Authorization", "Bearer atk_expired").expect(401);
   restore();
   restoreMembership();
-  restore = stubMethod(prisma.session, "findUnique", () => Promise.resolve(null));
+  restore = stubMethod(prisma.session, "findFirst", () => Promise.resolve(null));
   restoreMembership = stubMethod(prisma.membership, "findUnique", () => Promise.resolve({
     role: Role.MEMBER, status: "ACTIVE"
   }));
@@ -464,7 +470,7 @@ void test("createSession enforces concurrent session limit for privileged roles"
 });
 void test("authenticateRequest rejects idle-expired session", async () => {
   const restores = [
-    stubMethod(prisma.session, "findUnique", () => Promise.resolve({
+    stubMethod(prisma.session, "findFirst", () => Promise.resolve({
       expiresAt: new Date(Date.now() + 60_000),
       id: "session_idle_expired",
       lastActivityAt: new Date(Date.now() - 31 * 60_000),

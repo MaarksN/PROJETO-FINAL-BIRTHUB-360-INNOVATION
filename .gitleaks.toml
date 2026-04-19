@@ -6,3 +6,17 @@ useDefault = true
 [[allowlists]]
 description = "Example environment values"
 paths = [".env.example"]
+
+[[allowlists]]
+description = "Fixtures, examples and generated audit artifacts with non-secret placeholders"
+paths = [
+  ".env.vps.example",
+  "apps/api/tests/test-config.ts",
+  "apps/dashboard/.env.local.example",
+  "apps/dashboard/__tests__/auth.test.ts",
+  "artifacts/release/staging-preflight.env",
+  "audit/governance_inventory_complete_2026-03-29.html",
+  "packages/config/src/api.config.test.ts",
+  "packages/config/src/api.config.ts",
+  "scripts/ops/generate-vps-env.mjs"
+]

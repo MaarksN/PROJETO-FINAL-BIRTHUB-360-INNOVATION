@@ -5,6 +5,8 @@ import { enhanceManifestWithPremiumProtocol } from "../runtime/premiumProtocol.j
 import { parseAgentManifest } from "./parser.js";
 import type { AgentManifest, AgentManifestTags } from "./schema.js";
 
+export { GLOBAL_PREMIUM_PROTOCOL_MARKER } from "../runtime/premiumProtocol.js";
+
 export interface ManifestCatalogEntry {
   manifest: AgentManifest;
   manifestPath: string;
