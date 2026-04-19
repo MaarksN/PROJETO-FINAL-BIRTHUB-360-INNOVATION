@@ -37,7 +37,8 @@ export async function executeNotificationNode(
   const payload = interpolateValue(config, context);
 
   if (payload.batchKey && dispatcher) {
-    const existing = notificationBatchStore.get(payload.batchKey);
+    const batchKey = payload.batchKey;
+    const existing = notificationBatchStore.get(batchKey);
 
     if (existing) {
       existing.count += 1;
@@ -47,7 +48,7 @@ export async function executeNotificationNode(
       };
 
       return {
-        batchKey: payload.batchKey,
+        batchKey,
         batched: true,
         delivered: false,
         payload: existing.payload
@@ -55,23 +56,23 @@ export async function executeNotificationNode(
     }
 
     const timer = setTimeout(() => {
-      const entry = notificationBatchStore.get(payload.batchKey!);
+      const entry = notificationBatchStore.get(batchKey);
       if (!entry) {
         return;
       }
 
-      notificationBatchStore.delete(payload.batchKey!);
+      notificationBatchStore.delete(batchKey);
       void dispatcher.send(entry.payload);
     }, payload.batchWindowMs ?? 5000);
 
-    notificationBatchStore.set(payload.batchKey, {
+    notificationBatchStore.set(batchKey, {
       count: 1,
       payload,
       timer
     });
 
     return {
-      batchKey: payload.batchKey,
+      batchKey,
       batched: true,
       delivered: false,
       payload

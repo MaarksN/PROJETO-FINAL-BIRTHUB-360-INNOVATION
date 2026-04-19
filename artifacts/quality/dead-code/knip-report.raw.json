@@ -531,13 +531,13 @@
           "name": "hasMinimumRole",
           "line": 82,
           "col": 17,
-          "pos": 2016
+          "pos": 2013
         },
         {
           "name": "getAuthenticatedWebSession",
           "line": 90,
           "col": 23,
-          "pos": 2207
+          "pos": 2204
         }
       ],
       "duplicates": []

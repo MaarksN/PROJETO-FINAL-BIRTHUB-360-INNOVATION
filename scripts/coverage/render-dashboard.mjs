@@ -9,8 +9,13 @@ const summaryPath = path.join(repoRoot, "artifacts", "coverage", "summary.json")
 const moduleCoveragePath = path.join(repoRoot, "artifacts", "testing", "module-coverage.json");
 const outputPath = path.join(repoRoot, "docs", "evidence", "test-coverage-dashboard.md");
 
+function readJson(filePath) {
+  const raw = readFileSync(filePath, "utf8").replace(/^\uFEFF/, "");
+  return JSON.parse(raw);
+}
+
 function loadSummary() {
-  return JSON.parse(readFileSync(summaryPath, "utf8"));
+  return readJson(summaryPath);
 }
 
 function loadModuleCoverageSnapshot() {
@@ -18,7 +23,7 @@ function loadModuleCoverageSnapshot() {
     return null;
   }
 
-  return JSON.parse(readFileSync(moduleCoveragePath, "utf8"));
+  return readJson(moduleCoveragePath);
 }
 
 function formatPercent(value) {

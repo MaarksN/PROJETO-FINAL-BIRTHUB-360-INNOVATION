@@ -55,12 +55,13 @@ export function executeTransformerNode(
 ): unknown[] {
   const source = readSource(config.sourcePath, context);
   const filtered = source.filter((item) => shouldKeep(item, config.filter));
+  const mappedValue = config.map;
 
-  if (!config.map) {
+  if (!mappedValue) {
     return filtered;
   }
 
-  return filtered.map((_item) => interpolateValue(config.map!, context));
+  return filtered.map(() => interpolateValue(mappedValue, context));
 }
 
 export type { TransformerConfig };

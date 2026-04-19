@@ -220,7 +220,7 @@ jobs:
         run: |
           set -euo pipefail
           mkdir -p artifacts/security/zap
-          docker run --rm --network host \
+          docker run --rm --user root --network host \
             -v "${PWD}/artifacts/security/zap:/zap/wrk" \
             ghcr.io/zaproxy/zaproxy:stable zap-baseline.py \
             -t http://127.0.0.1:3001/login \

@@ -185,9 +185,10 @@ test("core workflow step types execute with deterministic outputs", async () => 
         execute: async (args) => {
           await Promise.resolve();
           agentCalls.push(args);
+          const brief = typeof args.input.brief === "string" ? args.input.brief : "";
           return {
             agentId: args.agentId,
-            summary: `CEO reviewed ${String(args.input.brief)}`
+            summary: `CEO reviewed ${brief}`
           };
         }
       }

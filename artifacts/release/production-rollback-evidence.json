@@ -1,5 +1,5 @@
 {
-  "checkedAt": "2026-04-18T05:27:49.764Z",
+  "checkedAt": "2026-04-19T03:45:11.535Z",
   "checks": [
     {
       "detail": "json ok=true",
@@ -8,9 +8,9 @@
       "path": "artifacts/release/production-preflight-summary.json"
     },
     {
-      "detail": "json present but ok != true",
+      "detail": "json ok=true",
       "id": "smoke",
-      "ok": false,
+      "ok": true,
       "path": "artifacts/release/smoke-summary.json"
     },
     {
@@ -58,6 +58,7 @@
   ],
   "evidenceArtifacts": [
     "artifacts/release/production-preflight-summary.json",
+    "artifacts/release/smoke-summary.json",
     "artifacts/release/source-manifest.json",
     "artifacts/release/checksums-manifest.sha256",
     "artifacts/release/release-artifact-catalog.json",
@@ -68,13 +69,13 @@
   ],
   "mode": "automated_release_rehearsal",
   "notes": null,
-  "ok": false,
+  "ok": true,
   "source": {
     "generatedAt": "2026-04-18T05:25:37.218Z",
     "sourceEvent": "workflow_dispatch",
     "sourceRef": "1616de68c7ac3d923c817be2ca6fd80e82e887a9",
     "sourceSha": "1616de68c7ac3d923c817be2ca6fd80e82e887a9"
   },
-  "summary": "Rollback rehearsal evidence is incomplete; at least one prerequisite artifact is missing or invalid.",
+  "summary": "Rollback rehearsal evidence derived from preflight, smoke, source manifest and release bundle artifacts.",
   "target": "production"
 }

@@ -530,6 +530,11 @@ jobs:
           DATABASE_URL: postgresql://postgres:postgrespassword@localhost:5432/birthub_cycle1
           DATABASE_URL_TEST: postgresql://postgres:postgrespassword@localhost:5432/birthub_cycle1
 
+      - name: Bootstrap CI database
+        run: pnpm db:bootstrap:ci
+        env:
+          DATABASE_URL: postgresql://postgres:postgrespassword@localhost:5432/birthub_cycle1
+
       - name: Run integration lane with real database
         run: pnpm test:integration
         env:

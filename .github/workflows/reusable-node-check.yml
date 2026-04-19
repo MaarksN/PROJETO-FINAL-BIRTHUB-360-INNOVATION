@@ -79,6 +79,9 @@ jobs:
             "pnpm ci:task pack-tests")
               pnpm ci:task pack-tests
               ;;
+            "pnpm test:mutation")
+              pnpm test:mutation
+              ;;
             "pnpm monorepo:doctor && RELEASE_SCORECARD_MIN_SCORE=100 pnpm release:scorecard && pnpm audit:ownership")
               pnpm monorepo:doctor
               RELEASE_SCORECARD_MIN_SCORE=100 pnpm release:scorecard

@@ -105,7 +105,10 @@ function topologicalSort(nodes: DagNode[], adjacency: Map<string, string[]>, ind
 
   const order: string[] = [];
   while (queue.length > 0) {
-    const nodeId = queue.shift()!;
+    const nodeId = queue.shift();
+    if (!nodeId) {
+      continue;
+    }
     order.push(nodeId);
 
     for (const target of adjacency.get(nodeId) ?? []) {
@@ -159,7 +162,11 @@ export function validateDag(
       throw new CyclicDependencyError([edge.source, edge.target]);
     }
 
-    adjacency.get(edge.source)!.push(edge.target);
+    const targets = adjacency.get(edge.source);
+    if (!targets) {
+      throw new InvalidGraphError(`Transition source '${edge.source}' is not initialized.`);
+    }
+    targets.push(edge.target);
     indegreeByNode.set(edge.target, (indegreeByNode.get(edge.target) ?? 0) + 1);
   }
 
@@ -189,7 +196,11 @@ export function validateDag(
   }
 
   if (requireConnected) {
-    assertConnectedFromRoot(rootNodeIds[0]!, adjacency, input.nodes);
+    const primaryRootNodeId = rootNodeIds[0];
+    if (!primaryRootNodeId) {
+      throw new InvalidGraphError("Workflow graph has no trigger/root node.");
+    }
+    assertConnectedFromRoot(primaryRootNodeId, adjacency, input.nodes);
   }
 
   const order = topologicalSort(input.nodes, adjacency, indegreeByNode);
