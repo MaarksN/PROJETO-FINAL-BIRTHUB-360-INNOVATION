@@ -1,13 +1,32 @@
 import { Role } from "@birthub/database";
 import { Router } from "express";
+import type { Request } from "express";
 
 import {
   RequireRole,
   requireAuthenticatedSession
 } from "../../common/guards/index.js";
-import { asyncHandler } from "../../lib/problem-details.js";
+import { asyncHandler, ProblemDetailsError } from "../../lib/problem-details.js";
+import type { TenantAnalyticsScope } from "./analytics.types.js";
 import { dateRangeSchema } from "./schemas.js";
 import { analyticsRouterService } from "./service.js";
+
+function getTenantAnalyticsScope(request: Request): TenantAnalyticsScope {
+  const { organizationId, tenantId } = request.context;
+
+  if (!organizationId || !tenantId) {
+    throw new ProblemDetailsError({
+      detail: "A valid tenant session is required.",
+      status: 401,
+      title: "Unauthorized"
+    });
+  }
+
+  return {
+    organizationId,
+    tenantId
+  };
+}
 
 export function createAnalyticsRouter(): Router {
   const router = Router();
@@ -18,7 +37,9 @@ export function createAnalyticsRouter(): Router {
     RequireRole(Role.ADMIN),
     asyncHandler(async (request, response) => {
       const range = dateRangeSchema.parse(request.query);
+      const scope = getTenantAnalyticsScope(request);
       const usage = await analyticsRouterService.getUsageMetrics({
+        ...scope,
         ...(range.from ? { from: new Date(range.from) } : {}),
         ...(range.to ? { to: new Date(range.to) } : {})
       });
@@ -35,8 +56,10 @@ export function createAnalyticsRouter(): Router {
     requireAuthenticatedSession,
     RequireRole(Role.ADMIN),
     asyncHandler(async (request, response) => {
+      const scope = getTenantAnalyticsScope(request);
+
       response.status(200).json({
-        metrics: await analyticsRouterService.getExecutiveMetrics(),
+        metrics: await analyticsRouterService.getExecutiveMetrics(scope),
         requestId: request.context.requestId
       });
     })
@@ -47,8 +70,10 @@ export function createAnalyticsRouter(): Router {
     requireAuthenticatedSession,
     RequireRole(Role.ADMIN),
     asyncHandler(async (request, response) => {
+      const scope = getTenantAnalyticsScope(request);
+
       response.status(200).json({
-        items: await analyticsRouterService.getCohortMetrics(),
+        items: await analyticsRouterService.getCohortMetrics(scope),
         requestId: request.context.requestId
       });
     })
@@ -60,7 +85,9 @@ export function createAnalyticsRouter(): Router {
     RequireRole(Role.ADMIN),
     asyncHandler(async (request, response) => {
       const range = dateRangeSchema.parse(request.query);
+      const scope = getTenantAnalyticsScope(request);
       const csv = await analyticsRouterService.exportBillingCsv({
+        ...scope,
         ...(range.from ? { from: new Date(range.from) } : {}),
         ...(range.to ? { to: new Date(range.to) } : {})
       });
@@ -75,8 +102,10 @@ export function createAnalyticsRouter(): Router {
     requireAuthenticatedSession,
     RequireRole(Role.ADMIN),
     asyncHandler(async (request, response) => {
+      const scope = getTenantAnalyticsScope(request);
+
       response.status(200).json({
-        metrics: await analyticsRouterService.getActiveTenantsMetrics(),
+        metrics: await analyticsRouterService.getActiveTenantsMetrics(scope),
         requestId: request.context.requestId
       });
     })
@@ -87,8 +116,10 @@ export function createAnalyticsRouter(): Router {
     requireAuthenticatedSession,
     RequireRole(Role.ADMIN),
     asyncHandler(async (request, response) => {
+      const scope = getTenantAnalyticsScope(request);
+
       response.status(200).json({
-        items: await analyticsRouterService.getCsRiskAccounts(),
+        items: await analyticsRouterService.getCsRiskAccounts(scope),
         requestId: request.context.requestId
       });
     })

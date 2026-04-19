@@ -3,3 +3,7 @@ export type DateRange = {
   to: Date;
 };
 
+export type TenantAnalyticsScope = {
+  organizationId: string;
+  tenantId: string;
+};

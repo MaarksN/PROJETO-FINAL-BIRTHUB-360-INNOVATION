@@ -2,19 +2,19 @@
   "ok": true,
   "reason": "DATABASE_URL is not configured.",
   "skipped": true,
-  "finishedAt": "2026-04-15T04:06:52.416Z",
-  "runId": "db-check-schema-drift-2026-04-15T04-06-52-416Z",
+  "finishedAt": "2026-04-19T19:18:39.160Z",
+  "runId": "db-check-schema-drift-2026-04-19T19-18-39-159Z",
   "script": "db-check-schema-drift",
-  "startedAt": "2026-04-15T04:06:52.416Z",
+  "startedAt": "2026-04-19T19:18:39.159Z",
   "status": "skipped",
   "steps": [
     {
       "critical": true,
       "durationMs": 0,
-      "finishedAt": "2026-04-15T04:06:52.416Z",
+      "finishedAt": "2026-04-19T19:18:39.160Z",
       "name": "schema drift diff",
       "reason": "DATABASE_URL is not configured.",
-      "startedAt": "2026-04-15T04:06:52.416Z",
+      "startedAt": "2026-04-19T19:18:39.160Z",
       "status": "skipped",
       "type": "check"
     }

@@ -1,18 +1,22 @@
 import { Prisma, SubscriptionStatus, prisma } from "@birthub/database";
 
-import type { DateRange } from "./analytics.types.js";
+import type { DateRange, TenantAnalyticsScope } from "./analytics.types.js";
 import { resolveDateRange } from "./analytics.utils.js";
 
 const EXECUTIVE_SUBSCRIPTION_LIMIT = 5_000;
 const BILLING_EXPORT_LIMIT = 20_000;
 const CS_RISK_ORGANIZATION_LIMIT = 2_000;
 
-export async function getExecutiveMetrics() {
+export async function getExecutiveMetrics(scope: TenantAnalyticsScope) {
   const subscriptions = await prisma.subscription.findMany({
     include: {
       plan: true
     },
-    take: EXECUTIVE_SUBSCRIPTION_LIMIT
+    take: EXECUTIVE_SUBSCRIPTION_LIMIT,
+    where: {
+      organizationId: scope.organizationId,
+      tenantId: scope.tenantId
+    }
   });
   const activeStatuses = new Set<SubscriptionStatus>([
     SubscriptionStatus.active,
@@ -37,7 +41,7 @@ export async function getExecutiveMetrics() {
   };
 }
 
-export async function getCohortMetrics() {
+export async function getCohortMetrics(scope: TenantAnalyticsScope) {
   const rows = await prisma.$queryRaw<
     Array<{
       cohort_month: Date;
@@ -78,6 +82,8 @@ export async function getCohortMetrics() {
         )
       ) AS retained_m3
     FROM "organizations" o
+    WHERE o."tenantId" = ${scope.tenantId}
+      AND o."id" = ${scope.organizationId}
     GROUP BY cohort_month
     ORDER BY cohort_month ASC
   `);
@@ -91,7 +97,7 @@ export async function getCohortMetrics() {
   }));
 }
 
-export async function exportBillingCsv(input: Partial<DateRange>) {
+export async function exportBillingCsv(input: Partial<DateRange> & TenantAnalyticsScope) {
   const { from, to } = resolveDateRange(input);
   const invoices = await prisma.invoice.findMany({
     orderBy: {
@@ -99,6 +105,8 @@ export async function exportBillingCsv(input: Partial<DateRange>) {
     },
     take: BILLING_EXPORT_LIMIT,
     where: {
+      organizationId: input.organizationId,
+      tenantId: input.tenantId,
       createdAt: {
         gte: from,
         lte: to
@@ -134,7 +142,7 @@ export async function exportBillingCsv(input: Partial<DateRange>) {
   return [headers.join(","), ...rows].join("\n");
 }
 
-export async function getCsRiskAccounts() {
+export async function getCsRiskAccounts(scope: TenantAnalyticsScope) {
   const organizations = await prisma.organization.findMany({
     include: {
       subscriptions: {
@@ -144,6 +152,10 @@ export async function getCsRiskAccounts() {
         orderBy: {
           updatedAt: "desc"
         },
+        where: {
+          organizationId: scope.organizationId,
+          tenantId: scope.tenantId
+        },
         take: 1
       },
       tenantActivityWindows: {
@@ -151,6 +163,8 @@ export async function getCsRiskAccounts() {
           computedAt: "desc"
         },
         where: {
+          organizationId: scope.organizationId,
+          tenantId: scope.tenantId,
           windowDays: 30
         }
       }
@@ -163,7 +177,11 @@ export async function getCsRiskAccounts() {
       {
         updatedAt: "desc"
       }
-    ]
+    ],
+    where: {
+      id: scope.organizationId,
+      tenantId: scope.tenantId
+    }
   });
 
   return organizations.map((organization) => {
@@ -258,4 +276,3 @@ export async function getGlobalAgentPerformance() {
     mostFailed: items.slice().sort((left, right) => right.failed - left.failed).slice(0, 10)
   };
 }
-
