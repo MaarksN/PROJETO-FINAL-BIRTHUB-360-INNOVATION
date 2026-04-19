@@ -1,5 +1,5 @@
 # Release Scorecard
-Generated at: 2026-04-19T03:57:42.982Z
+Generated at: 2026-04-19T14:26:41.186Z
 Minimum score threshold: 100
 Score: 100
 
@@ -14,6 +14,6 @@ Legacy and satellite surfaces stay outside the 2026-03-20 launch gate unless pro
 | Schema migration lock | PASS | Prisma lock present | `packages/database/prisma/migrations/migration_lock.toml` |
 | SLO baseline | PASS | SLO documentation present | `docs/OBSERVABILIDADE_E_SLOS.md` |
 | Mutation lane | PASS | Score 60.85% vs threshold 60 on 470 mutants | `artifacts/quality/mutation-summary.json`, `docs/evidence/mutation-report.md` |
-| Dead code regression | PASS | Current=41, regressions=0 | `artifacts/quality/dead-code/knip-report.json`, `docs/evidence/dead-code-report.md`, `artifacts/quality/knip-baseline.json` |
+| Dead code regression | PASS | Current=42, regressions=0 | `artifacts/quality/dead-code/knip-report.json`, `docs/evidence/dead-code-report.md`, `artifacts/quality/knip-baseline.json` |
 | Rollback evidence | PASS | Rollback rehearsal evidence derived from preflight, smoke, source manifest and release bundle artifacts. | `artifacts/release/production-rollback-evidence.json` |
 | Score threshold | PASS | Score 100 meets minimum 100 | - |

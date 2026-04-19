@@ -8,7 +8,9 @@
     "apps/worker/src/queues/agentQueue.ts"
   ],
   "dependencies": [],
-  "devDependencies": [],
+  "devDependencies": [
+    "packages/database/package.json::vitest-mock-extended"
+  ],
   "optionalPeerDependencies": [],
   "unlisted": [],
   "binaries": [],

@@ -50,7 +50,7 @@
       "pass": true
     },
     {
-      "detail": "Current=41, regressions=0",
+      "detail": "Current=42, regressions=0",
       "evidence": [
         "artifacts/quality/dead-code/knip-report.json",
         "docs/evidence/dead-code-report.md",
@@ -74,7 +74,7 @@
       "pass": true
     }
   ],
-  "generatedAt": "2026-04-19T03:57:42.982Z",
+  "generatedAt": "2026-04-19T14:26:41.186Z",
   "minimumScore": 100,
   "passedGates": 8,
   "score": 100,

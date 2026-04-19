@@ -7,6 +7,28 @@
   ],
   "issues": [
     {
+      "file": "packages/database/package.json",
+      "owners": [
+        {
+          "name": "@birthub/data-engineering"
+        }
+      ],
+      "dependencies": [],
+      "devDependencies": [
+        {
+          "name": "vitest-mock-extended",
+          "line": 57,
+          "col": 6,
+          "pos": 2771
+        }
+      ],
+      "optionalPeerDependencies": [],
+      "unlisted": [],
+      "binaries": [],
+      "exports": [],
+      "duplicates": []
+    },
+    {
       "file": "packages/agents-core/src/runtime/manifestRuntimeCore.ts",
       "owners": [],
       "dependencies": [],
@@ -56,6 +78,31 @@
       "duplicates": []
     },
     {
+      "file": "apps/worker/src/engine/runner.ts",
+      "owners": [
+        {
+          "name": "@platform-worker"
+        },
+        {
+          "name": "@platform-api"
+        }
+      ],
+      "dependencies": [],
+      "devDependencies": [],
+      "optionalPeerDependencies": [],
+      "unlisted": [],
+      "binaries": [],
+      "exports": [
+        {
+          "name": "workflowQueueNames",
+          "line": 147,
+          "col": 14,
+          "pos": 3963
+        }
+      ],
+      "duplicates": []
+    },
+    {
       "file": "apps/worker/src/agents/runtime.catalog.ts",
       "owners": [
         {
@@ -82,31 +129,6 @@
           "line": 89,
           "col": 23,
           "pos": 2494
-        }
-      ],
-      "duplicates": []
-    },
-    {
-      "file": "apps/worker/src/engine/runner.ts",
-      "owners": [
-        {
-          "name": "@platform-worker"
-        },
-        {
-          "name": "@platform-api"
-        }
-      ],
-      "dependencies": [],
-      "devDependencies": [],
-      "optionalPeerDependencies": [],
-      "unlisted": [],
-      "binaries": [],
-      "exports": [
-        {
-          "name": "workflowQueueNames",
-          "line": 147,
-          "col": 14,
-          "pos": 3963
         }
       ],
       "duplicates": []

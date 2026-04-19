@@ -90,6 +90,10 @@ jobs:
               pnpm audit:ownership
               ;;
             "pnpm test:e2e:release")
+              NEXT_PUBLIC_API_URL="${NEXT_PUBLIC_API_URL:-http://127.0.0.1:3400}" \
+              NEXT_PUBLIC_APP_URL="${NEXT_PUBLIC_APP_URL:-http://127.0.0.1:3001}" \
+              NEXT_PUBLIC_ENVIRONMENT="${NEXT_PUBLIC_ENVIRONMENT:-test}" \
+              WEB_BASE_URL="${WEB_BASE_URL:-http://127.0.0.1:3001}" \
               pnpm test:e2e:release
               ;;
             *)

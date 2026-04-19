@@ -12,6 +12,8 @@ runPnpm([
   '@birthub/agents-core',
   '--filter',
   '@birthub/workflows-core',
+  '--filter',
+  '@birthub/database',
   'build'
 ]);
 runPnpm(['--filter', '@birthub/database', 'db:generate']);

@@ -72,6 +72,10 @@ const securityHeaders = [
   {
     key: "Referrer-Policy",
     value: "strict-origin-when-cross-origin"
+  },
+  {
+    key: "Permissions-Policy",
+    value: "accelerometer=(), camera=(), geolocation=(), gyroscope=(), microphone=(), payment=(), usb=()"
   }
 ];
 
@@ -121,6 +125,15 @@ const nextConfig = {
           }
         ],
         source: "/(.*\\.(?:avif|css|gif|ico|jpg|jpeg|js|mjs|otf|png|svg|ttf|webp|woff|woff2))"
+      },
+      {
+        headers: [
+          {
+            key: "Cache-Control",
+            value: "no-store"
+          }
+        ],
+        source: "/((?!_next/static|_next/image|.*\\.(?:avif|css|gif|ico|jpg|jpeg|js|mjs|otf|png|svg|ttf|webp|woff|woff2)$).*)"
       },
       {
         headers: securityHeaders,

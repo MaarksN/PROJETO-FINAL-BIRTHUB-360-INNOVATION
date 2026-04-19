@@ -14,7 +14,7 @@ export function proxy(request: NextRequest) {
   });
 
   response.cookies.set("bh_request_id", requestId, {
-    httpOnly: false,
+    httpOnly: true,
     path: "/",
     sameSite: "lax",
     secure: secureCookie
