@@ -161,25 +161,31 @@ export async function getAgentMetrics(input: {
   const to = new Date();
   const from = new Date(to.getTime() - (input.windowMinutes ?? 60) * 60 * 1000);
 
-  const logs = await prisma.auditLog.findMany({
+  const logs = await prisma.agentExecution.findMany({
     where: {
-      action: "AGENT_EXECUTION_COMPLETED",
-      createdAt: {
+      agentId: input.agentId,
+      startedAt: {
         gte: from
       },
-      tenantId: input.tenantId,
-      targetAgentId: input.agentId
+      tenantId: input.tenantId
     }
   });
 
-  const normalized = logs.map((log) => {
-    const metadata = log.metadata && typeof log.metadata === "object" ? (log.metadata as Record<string, unknown>) : {};
-    return {
-      durationMs: typeof metadata.durationMs === "number" ? metadata.durationMs : 0,
-      status: metadata.status === "FAILED" ? "FAILED" : "SUCCESS",
-      toolCost: typeof metadata.toolCost === "number" ? metadata.toolCost : 0
-    };
-  });
+  const normalized = logs
+    .filter((log): log is typeof log & { status: "FAILED" | "SUCCESS" } => log.status !== "RUNNING" && log.status !== "WAITING_APPROVAL")
+    .map((log) => {
+      const metadata = log.metadata && typeof log.metadata === "object" ? (log.metadata as Record<string, unknown>) : {};
+      const durationMs =
+        log.completedAt instanceof Date
+          ? Math.max(0, log.completedAt.getTime() - log.startedAt.getTime())
+          : 0;
+
+      return {
+        durationMs,
+        status: log.status,
+        toolCost: typeof metadata.toolCost === "number" ? metadata.toolCost : 0
+      };
+    });
 
   const failures = normalized.filter((log) => log.status === "FAILED").length;
   const latencies = normalized.map((log) => log.durationMs);

@@ -75,8 +75,12 @@ export async function executeManifestAgentRuntime(
     policyEngine,
     workerConfig.AGENT_DEFAULT_TOOL_COST_BRL,
     {
-      sendEmailApiKey: workerConfig.SENDGRID_API_KEY,
-      sendEmailFromEmail: workerConfig.EMAIL_FROM_ADDRESS
+      ...(workerConfig.SENDGRID_API_KEY !== undefined
+        ? { sendEmailApiKey: workerConfig.SENDGRID_API_KEY }
+        : {}),
+      ...(workerConfig.EMAIL_FROM_ADDRESS !== undefined
+        ? { sendEmailFromEmail: workerConfig.EMAIL_FROM_ADDRESS }
+        : {})
     }
   );
 
