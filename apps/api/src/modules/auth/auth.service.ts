@@ -152,18 +152,12 @@ async function authenticateSession(
   config?: Pick<ApiConfig, "API_AUTH_IDLE_TIMEOUT_MINUTES"> &
     Partial<Pick<ApiConfig, "SESSION_SECRET">>
 ): Promise<AuthenticatedContext | null> {
-  const session = await prisma.session.findFirst({
+  const session = await prisma.session.findUnique({
     where: {
-      organizationId: {
-        not: ""
-      },
-      tenantId: {
-        not: ""
-      },
       token: sha256(token)
     }
   });
-  if (!session || session.revokedAt || session.expiresAt.getTime() < Date.now()) {
+  if (!session || !session.organizationId || !session.tenantId || session.revokedAt || session.expiresAt.getTime() < Date.now()) {
     return null;
   }
 
