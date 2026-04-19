@@ -50,5 +50,13 @@
     "supertest": "^7.2.2",
     "tsx": "^4.21.0",
     "typescript": "^6.0.3"
+  },
+  "exports": {
+    ".": "./dist/apps/api/src/index.js",
+    "./modules/*": "./dist/apps/api/src/modules/*.js",
+    "./lib/*": "./dist/apps/api/src/lib/*.js",
+    "./common/*": "./dist/apps/api/src/common/*.js",
+    "./modules/outputs/output.service.js": "./dist/apps/api/src/modules/outputs/output.service.js",
+    "./modules/agents/metrics.service.js": "./dist/apps/api/src/modules/agents/metrics.service.js"
   }
 }

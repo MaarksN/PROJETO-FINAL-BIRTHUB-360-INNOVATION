@@ -1,6 +1,6 @@
-Checked at: 2026-04-18T05:25:31.977Z
+Checked at: 2026-04-19T16:11:43.248Z
 Status: FAIL
-Backups dir: /home/runner/work/PROJETO-FINAL-BIRTHUB-360-INNOVATION/PROJETO-FINAL-BIRTHUB-360-INNOVATION/artifacts/backups
+Backups dir: /app/artifacts/backups
 Latest backup: missing
 Issues:
-- No backup files found in /home/runner/work/PROJETO-FINAL-BIRTHUB-360-INNOVATION/PROJETO-FINAL-BIRTHUB-360-INNOVATION/artifacts/backups.
+- No backup files found in /app/artifacts/backups.

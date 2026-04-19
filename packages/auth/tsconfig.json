@@ -18,9 +18,13 @@
     "src"
   ],
   "exclude": [
-    "**/*.test.ts",
-    "**/*.spec.ts",
+    "***.spec.ts",
     "dist",
-    "node_modules"
+    "node_modules",
+    "***.spec.ts",
+    "***.spec.ts",
+    "***.spec.ts",
+    "**/*.test.ts",
+    "**/*.spec.ts"
   ]
 }

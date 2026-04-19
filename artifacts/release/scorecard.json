@@ -51,7 +51,7 @@
       "pass": false
     },
     {
-      "detail": "Current=45, regressions=45",
+      "detail": "Current=223, regressions=223",
       "evidence": [
         "artifacts/quality/dead-code/knip-report.json",
         "docs/evidence/dead-code-report.md",
@@ -61,7 +61,7 @@
       "pass": false
     },
     {
-      "detail": "No backup files found in /home/runner/work/PROJETO-FINAL-BIRTHUB-360-INNOVATION/PROJETO-FINAL-BIRTHUB-360-INNOVATION/artifacts/backups.",
+      "detail": "No backup files found in /app/artifacts/backups.",
       "evidence": [
         "artifacts/backups/backup-health.json",
         "artifacts/dr/readiness-report.json"
@@ -79,7 +79,7 @@
       "pass": false
     },
     {
-      "detail": "DR drill artifact exists but is insufficient for auditability (scenario=automated release readiness rehearsal, backupArtifact=artifacts/backups/backup-health.json, RTO=1720m, RPO=27423m).",
+      "detail": "DR drill artifact exists but is insufficient for auditability (scenario=scheduled release rehearsal, backupArtifact=artifacts/backups/backup-health.json, RTO=0m, RPO=27423m).",
       "evidence": [
         "artifacts/backups/drill-rto-rpo.json",
         "artifacts/dr/readiness-report.json",
@@ -95,7 +95,7 @@
       "pass": false
     }
   ],
-  "generatedAt": "2026-04-18T05:23:35.566Z",
+  "generatedAt": "2026-04-19T16:11:43.746Z",
   "minimumScore": 100,
   "passedGates": 5,
   "score": 50,

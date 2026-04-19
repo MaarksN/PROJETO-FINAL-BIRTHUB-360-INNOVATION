@@ -1,10 +1,29 @@
 {
   "outDir": "./dist",
   "compilerOptions": {
-  "outDir": "./dist",
-    "rootDir": ".", "exactOptionalPropertyTypes": false, "noImplicitAny": false, "useUnknownInCatchVariables": false, "strict": false, "skipLibCheck": true,
+    "outDir": "dist",
+    "rootDir": ".",
+    "exactOptionalPropertyTypes": false,
+    "noImplicitAny": false,
+    "useUnknownInCatchVariables": false,
+    "strict": false,
+    "skipLibCheck": true,
     "paths": {
-  "outDir": "./dist", "@birthub/*": ["../../packages/*/src", "../packages/*/src", "./packages/*/src"] },
-  }
+      "outDir": "./dist",
+      "@birthub/*": [
+        "../../packages/*/src",
+        "../packages/*/src",
+        "./packages/*/src"
+      ]
+    },
+    "module": "NodeNext",
+    "moduleResolution": "NodeNext",
+    "declaration": true
+  },
+  "exclude": [
+    "**/*.test.ts",
+    "**/*.spec.ts",
+    "dist",
+    "node_modules"
+  ]
 }
-

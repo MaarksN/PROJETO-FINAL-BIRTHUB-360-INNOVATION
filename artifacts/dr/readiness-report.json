@@ -1,17 +1,17 @@
 {
   "backupHealth": {
     "backup": {
-      "directory": "/home/runner/work/PROJETO-FINAL-BIRTHUB-360-INNOVATION/PROJETO-FINAL-BIRTHUB-360-INNOVATION/artifacts/backups",
+      "directory": "/app/artifacts/backups",
       "exists": true,
       "latest": null
     },
-    "checkedAt": "2026-04-18T05:25:31.977Z",
+    "checkedAt": "2026-04-19T16:11:43.248Z",
     "directories": {
-      "backupsDir": "/home/runner/work/PROJETO-FINAL-BIRTHUB-360-INNOVATION/PROJETO-FINAL-BIRTHUB-360-INNOVATION/artifacts/backups",
+      "backupsDir": "/app/artifacts/backups",
       "walDir": null
     },
     "issues": [
-      "No backup files found in /home/runner/work/PROJETO-FINAL-BIRTHUB-360-INNOVATION/PROJETO-FINAL-BIRTHUB-360-INNOVATION/artifacts/backups."
+      "No backup files found in /app/artifacts/backups."
     ],
     "ok": false,
     "status": "fail",
@@ -26,14 +26,14 @@
     }
   },
   "blockers": [
-    "No backup files found in /home/runner/work/PROJETO-FINAL-BIRTHUB-360-INNOVATION/PROJETO-FINAL-BIRTHUB-360-INNOVATION/artifacts/backups.",
+    "No backup files found in /app/artifacts/backups.",
     "Missing or invalid artifacts/release/production-rollback-evidence.json.",
     "DR drill artifact exists but is insufficient for auditability (scenario=scheduled release rehearsal, backupArtifact=artifacts/backups/backup-health.json, RTO=0m, RPO=27423m)."
   ],
   "checks": [
     {
       "artifactPath": "artifacts/backups/backup-health.json",
-      "detail": "No backup files found in /home/runner/work/PROJETO-FINAL-BIRTHUB-360-INNOVATION/PROJETO-FINAL-BIRTHUB-360-INNOVATION/artifacts/backups.",
+      "detail": "No backup files found in /app/artifacts/backups.",
       "id": "backup_health",
       "label": "backup health",
       "status": "fail"
@@ -80,10 +80,10 @@
     "sufficient": true,
     "targetPoint": "2026-03-24T20:22:09.602Z"
   },
-  "generatedAt": "2026-04-18T05:25:33.349Z",
+  "generatedAt": "2026-04-19T16:11:43.725Z",
   "overallStatus": "fail",
   "rollbackEvidence": {
-    "checkedAt": "2026-04-12T21:25:04.389Z",
+    "checkedAt": "2026-04-18T05:27:49.764Z",
     "checks": [
       {
         "detail": "json ok=true",
@@ -92,15 +92,15 @@
         "path": "artifacts/release/production-preflight-summary.json"
       },
       {
-        "detail": "json ok=true",
+        "detail": "json present but ok != true",
         "id": "smoke",
-        "ok": true,
+        "ok": false,
         "path": "artifacts/release/smoke-summary.json"
       },
       {
-        "detail": "missing",
+        "detail": "source manifest bound to workflow_dispatch/1616de68c7ac3d923c817be2ca6fd80e82e887a9",
         "id": "source_manifest",
-        "ok": false,
+        "ok": true,
         "path": "artifacts/release/source-manifest.json"
       },
       {
@@ -142,7 +142,7 @@
     ],
     "evidenceArtifacts": [
       "artifacts/release/production-preflight-summary.json",
-      "artifacts/release/smoke-summary.json",
+      "artifacts/release/source-manifest.json",
       "artifacts/release/checksums-manifest.sha256",
       "artifacts/release/release-artifact-catalog.json",
       "artifacts/sbom/bom.xml",
@@ -153,7 +153,12 @@
     "mode": "automated_release_rehearsal",
     "notes": null,
     "ok": false,
-    "source": null,
+    "source": {
+      "generatedAt": "2026-04-18T05:25:37.218Z",
+      "sourceEvent": "workflow_dispatch",
+      "sourceRef": "1616de68c7ac3d923c817be2ca6fd80e82e887a9",
+      "sourceSha": "1616de68c7ac3d923c817be2ca6fd80e82e887a9"
+    },
     "summary": "Rollback rehearsal evidence is incomplete; at least one prerequisite artifact is missing or invalid.",
     "target": "production"
   }

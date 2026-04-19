@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<bom xmlns="http://cyclonedx.org/schema/bom/1.5" serialNumber="urn:uuid:680662f8-d3c6-ca2b-5c49-00cfc4b9e47c" version="1">
+<bom xmlns="http://cyclonedx.org/schema/bom/1.5" serialNumber="urn:uuid:776452b6-e3dd-948c-f19e-8bab0668620b" version="1">
   <metadata>
-    <timestamp>2026-04-18T16:36:37.802Z</timestamp>
+    <timestamp>2026-04-19T17:03:18.716Z</timestamp>
     <tools>
       <tool>
         <vendor>BirthHub</vendor>
@@ -35,6 +35,11 @@
       <name>@birthub/agents-core</name>
       <version>link:packages/agents-core</version>
       <purl>pkg:npm/%40birthub%2Fagents-core@link%3Apackages%2Fagents-core</purl>
+    </component>
+    <component type="library" bom-ref="pkg:npm/%40birthub%2Fapi@link%3A..%2Fapi">
+      <name>@birthub/api</name>
+      <version>link:../api</version>
+      <purl>pkg:npm/%40birthub%2Fapi@link%3A..%2Fapi</purl>
     </component>
     <component type="library" bom-ref="pkg:npm/%40birthub%2Fconfig@link%3A..%2F..%2Fpackages%2Fconfig">
       <name>@birthub/config</name>
@@ -400,6 +405,11 @@
       <name>pipedrive</name>
       <version>32.2.0</version>
       <purl>pkg:npm/pipedrive@32.2.0</purl>
+    </component>
+    <component type="library" bom-ref="pkg:npm/playwright@1.59.1">
+      <name>playwright</name>
+      <version>1.59.1</version>
+      <purl>pkg:npm/playwright@1.59.1</purl>
     </component>
     <component type="library" bom-ref="pkg:npm/prettier@3.8.3">
       <name>prettier</name>

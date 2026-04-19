@@ -1,30 +1,209 @@
 # Dead Code Report
 
-- Generated at: 2026-04-18T05:23:34.997Z
+- Generated at: 2026-04-19T16:11:42.708Z
 - Baseline: `artifacts/quality/knip-baseline.json`
 - Raw report: `artifacts/quality/dead-code/knip-report.raw.json`
 - Normalized report: `artifacts/quality/dead-code/knip-report.json`
 
 | category | baseline | current | regressions | improvements |
 | --- | ---: | ---: | ---: | ---: |
-| files | 0 | 2 | 2 | 0 |
-| dependencies | 0 | 1 | 1 | 0 |
+| files | 0 | 166 | 166 | 0 |
+| dependencies | 0 | 2 | 2 | 0 |
 | dev dependencies | 0 | 3 | 3 | 0 |
 | optional peer dependencies | 0 | 0 | 0 | 0 |
 | unlisted | 0 | 1 | 1 | 0 |
-| binaries | 0 | 0 | 0 | 0 |
-| exports | 0 | 38 | 38 | 0 |
+| binaries | 0 | 14 | 14 | 0 |
+| exports | 0 | 37 | 37 | 0 |
 | duplicates | 0 | 0 | 0 | 0 |
 
 ## Regressions
 
+- files: `apps/api/src/lib/database-availability.d.ts`
+- files: `apps/api/src/modules/agents/metrics.service.d.ts`
+- files: `apps/api/src/modules/outputs/output.service.d.ts`
+- files: `apps/api/tests/analytics-router.test.d.ts`
+- files: `apps/api/tests/analytics.utils.test.d.ts`
+- files: `apps/api/tests/apikeys.audit.test.d.ts`
+- files: `apps/api/tests/auditable.test.d.ts`
+- files: `apps/api/tests/auth-and-core-routes.test.d.ts`
+- files: `apps/api/tests/auth-routes.test.d.ts`
+- files: `apps/api/tests/auth.test.d.ts`
+- files: `apps/api/tests/auth.test.support.d.ts`
+- files: `apps/api/tests/billing.cache.test.d.ts`
+- files: `apps/api/tests/billing.checkout.test.d.ts`
+- files: `apps/api/tests/billing.grace-period.test.d.ts`
+- files: `apps/api/tests/billing.idempotency.test.d.ts`
+- files: `apps/api/tests/billing.ip-ban.test.d.ts`
+- files: `apps/api/tests/billing.paywall.test.d.ts`
+- files: `apps/api/tests/billing.proration-credit.test.d.ts`
+- files: `apps/api/tests/billing.snapshot.test.d.ts`
+- files: `apps/api/tests/billing.webhook-audit.test.d.ts`
+- files: `apps/api/tests/billing.webhook-delegation.test.d.ts`
+- files: `apps/api/tests/billing.webhook.test.d.ts`
+- files: `apps/api/tests/break-glass-router.test.d.ts`
+- files: `apps/api/tests/buffer.test.d.ts`
+- files: `apps/api/tests/cache-index.test.d.ts`
+- files: `apps/api/tests/cache-store.test.d.ts`
+- files: `apps/api/tests/clinical-router.test.d.ts`
+- files: `apps/api/tests/clinical.service.pagination.test.d.ts`
+- files: `apps/api/tests/clinical.service.test.d.ts`
+- files: `apps/api/tests/connectors-router.test.d.ts`
+- files: `apps/api/tests/consent.service.test.d.ts`
+- files: `apps/api/tests/conversations-router.test.d.ts`
+- files: `apps/api/tests/core-business-routes.test.d.ts`
+- files: `apps/api/tests/dashboard-router.test.d.ts`
+- files: `apps/api/tests/database-availability.test.d.ts`
+- files: `apps/api/tests/encryption.test.d.ts`
+- files: `apps/api/tests/environment-runtime.test.d.ts`
+- files: `apps/api/tests/external-url.test.d.ts`
+- files: `apps/api/tests/fhir-router.test.d.ts`
+- files: `apps/api/tests/fhir.service.test.d.ts`
+- files: `apps/api/tests/health.service.test.d.ts`
+- files: `apps/api/tests/health.smoke.test.d.ts`
+- files: `apps/api/tests/http-cache.test.d.ts`
+- files: `apps/api/tests/http-test-helpers.d.ts`
+- files: `apps/api/tests/installed-agents-helpers.test.d.ts`
+- files: `apps/api/tests/marketplace-budget.smoke.test.d.ts`
+- files: `apps/api/tests/metrics.service.test.d.ts`
+- files: `apps/api/tests/module-routes.test.d.ts`
+- files: `apps/api/tests/notifications-router.test.d.ts`
+- files: `apps/api/tests/openapi-contract.test.d.ts`
+- files: `apps/api/tests/pack-installer.service.test.d.ts`
+- files: `apps/api/tests/prisma-cache-invalidation.test.d.ts`
+- files: `apps/api/tests/prisma-runtime-test-helpers.d.ts`
+- files: `apps/api/tests/privacy-router.test.d.ts`
+- files: `apps/api/tests/profile-router.test.d.ts`
+- files: `apps/api/tests/queue-backpressure.test.d.ts`
+- files: `apps/api/tests/queue-client.test.d.ts`
+- files: `apps/api/tests/rbac.test.d.ts`
+- files: `apps/api/tests/retention.service.test.d.ts`
+- files: `apps/api/tests/search-router.test.d.ts`
+- files: `apps/api/tests/security.test.d.ts`
+- files: `apps/api/tests/sessions-router.test.d.ts`
+- files: `apps/api/tests/tasks-router.test.d.ts`
+- files: `apps/api/tests/tenant-auth-hardening.test.d.ts`
+- files: `apps/api/tests/webhooks.security.test.d.ts`
+- files: `apps/api/tests/workflow-retry-lineage.integration.test.d.ts`
+- files: `apps/api/tests/workflows-router.test.d.ts`
+- files: `apps/web/components/sales-os/GeographicMap.tsx`
 - files: `apps/web/components/sales-os/SdrAutomaticPlatform.tsx`
+- files: `apps/web/components/sales-os/SdrLeadScoreWorkspace.helpers.tsx`
 - files: `apps/worker/src/queues/agentQueue.ts`
+- files: `packages/agents-core/src/execution/dry-run.d.ts`
+- files: `packages/agents-core/src/execution/index.d.ts`
+- files: `packages/agents-core/src/index.d.ts`
+- files: `packages/agents-core/src/manifest/catalog.d.ts`
+- files: `packages/agents-core/src/manifest/index.d.ts`
+- files: `packages/agents-core/src/manifest/parser.d.ts`
+- files: `packages/agents-core/src/manifest/schema.d.ts`
+- files: `packages/agents-core/src/memory/memoryService.d.ts`
+- files: `packages/agents-core/src/parser/manifestParser.d.ts`
+- files: `packages/agents-core/src/policy/engine.d.ts`
+- files: `packages/agents-core/src/runtime/index.d.ts`
+- files: `packages/agents-core/src/runtime/intelligence.d.ts`
+- files: `packages/agents-core/src/runtime/intelligenceRuntime.d.ts`
+- files: `packages/agents-core/src/runtime/manifestRuntime.d.ts`
+- files: `packages/agents-core/src/runtime/manifestRuntimeBuilders.d.ts`
+- files: `packages/agents-core/src/runtime/manifestRuntimeCore.d.ts`
+- files: `packages/agents-core/src/schemas/manifest.schema.d.ts`
+- files: `packages/agents-core/src/skills/analyzerSkill.d.ts`
+- files: `packages/agents-core/src/skills/generatorSkill.d.ts`
+- files: `packages/agents-core/src/skills/index.d.ts`
+- files: `packages/agents-core/src/skills/monitorSkill.d.ts`
+- files: `packages/agents-core/src/skills/orchestratorSkill.d.ts`
+- files: `packages/agents-core/src/skills/reporterSkill.d.ts`
+- files: `packages/agents-core/src/tools/__mocks__/connectors.mock.ts`
+- files: `packages/agents-core/src/tools/baseTool.d.ts`
+- files: `packages/agents-core/src/tools/calendar.tool.d.ts`
+- files: `packages/agents-core/src/tools/crm.tool.d.ts`
+- files: `packages/agents-core/src/tools/dbReadTool.d.ts`
+- files: `packages/agents-core/src/tools/dbWriteTool.d.ts`
+- files: `packages/agents-core/src/tools/email.tool.d.ts`
+- files: `packages/agents-core/src/tools/httpTool.d.ts`
+- files: `packages/agents-core/src/tools/index.d.ts`
+- files: `packages/agents-core/src/tools/sendEmailTool.d.ts`
+- files: `packages/agents-core/src/tools/slack.tool.d.ts`
+- files: `packages/agents-core/src/tools/storage.tool.d.ts`
+- files: `packages/agents-core/src/types/index.d.ts`
+- files: `packages/config/src/api.config.d.ts`
+- files: `packages/config/src/contracts.d.ts`
+- files: `packages/config/src/database.config.d.ts`
+- files: `packages/config/src/environment.d.ts`
+- files: `packages/config/src/index.d.ts`
+- files: `packages/config/src/logger.config.d.ts`
+- files: `packages/config/src/product-capabilities.d.ts`
+- files: `packages/config/src/shared.d.ts`
+- files: `packages/config/src/web.config.d.ts`
+- files: `packages/config/src/worker.config.d.ts`
+- files: `packages/database/src/client.d.ts`
+- files: `packages/database/src/errors/exceeded-quota.error.d.ts`
+- files: `packages/database/src/errors/prisma-query-timeout.error.d.ts`
+- files: `packages/database/src/errors/tenant-required.error.d.ts`
+- files: `packages/database/src/index.d.ts`
+- files: `packages/database/src/prisma-proxy.d.ts`
+- files: `packages/database/src/repositories/access-control.d.ts`
+- files: `packages/database/src/repositories/base.repo.d.ts`
+- files: `packages/database/src/repositories/engagement.d.ts`
+- files: `packages/database/src/repositories/index.d.ts`
+- files: `packages/database/src/repositories/user-repository.d.ts`
+- files: `packages/database/src/tenant-context.d.ts`
+- files: `packages/logger/src/index.d.ts`
+- files: `packages/logger/src/metrics.d.ts`
+- files: `packages/logger/src/otel.d.ts`
+- files: `packages/queue/src/definitions.d.ts`
+- files: `packages/queue/src/dlq.d.ts`
+- files: `packages/queue/src/index.d.ts`
+- files: `packages/queue/src/job-context.d.ts`
+- files: `packages/queue/src/runtime.d.ts`
+- files: `packages/queue/src/types.d.ts`
+- files: `packages/queue/src/worker.d.ts`
+- files: `packages/queue/src/workers/agent-worker.d.ts`
+- files: `packages/queue/src/workers/base-worker.d.ts`
+- files: `packages/queue/src/workers/campaign-worker.d.ts`
+- files: `packages/queue/src/workers/index.d.ts`
+- files: `packages/queue/src/workers/report-worker.d.ts`
+- files: `packages/queue/src/workers/webhook-worker.d.ts`
+- files: `packages/shared-types/src/index.d.ts`
+- files: `packages/shared-types/src/schemas/leads.d.ts`
+- files: `packages/workflows-core/src/catalog/stepCatalog.d.ts`
+- files: `packages/workflows-core/src/errors.d.ts`
+- files: `packages/workflows-core/src/index.d.ts`
+- files: `packages/workflows-core/src/interpolation/interpolate.d.ts`
+- files: `packages/workflows-core/src/lint/semanticStepLint.d.ts`
+- files: `packages/workflows-core/src/nodes/agentExecute.d.ts`
+- files: `packages/workflows-core/src/nodes/agentHandoff.d.ts`
+- files: `packages/workflows-core/src/nodes/aiTextExtract.d.ts`
+- files: `packages/workflows-core/src/nodes/code.d.ts`
+- files: `packages/workflows-core/src/nodes/condition.d.ts`
+- files: `packages/workflows-core/src/nodes/connectorAction.d.ts`
+- files: `packages/workflows-core/src/nodes/delay.d.ts`
+- files: `packages/workflows-core/src/nodes/executeStep.d.ts`
+- files: `packages/workflows-core/src/nodes/httpRequest.d.ts`
+- files: `packages/workflows-core/src/nodes/notification.d.ts`
+- files: `packages/workflows-core/src/nodes/transformer.d.ts`
+- files: `packages/workflows-core/src/parser/dagValidator.d.ts`
+- files: `packages/workflows-core/src/schemas/step.schema.d.ts`
+- files: `packages/workflows-core/src/types.d.ts`
+- dependencies: `apps/worker/package.json::@birthub/api`
 - dependencies: `packages/logger/package.json::@opentelemetry/api`
 - devDependencies: `apps/worker/package.json::vitest-mock-extended`
 - devDependencies: `package.json::@stryker-mutator/api`
 - devDependencies: `packages/database/package.json::vitest-mock-extended`
 - unlisted: `eslint.config.mjs::@typescript-eslint/parser`
+- binaries: `packages/agent-runtime/package.json::rimraf`
+- binaries: `packages/agents-core/package.json::rimraf`
+- binaries: `packages/agents-registry/package.json::rimraf`
+- binaries: `packages/auth/package.json::rimraf`
+- binaries: `packages/config/package.json::rimraf`
+- binaries: `packages/conversation-core/package.json::rimraf`
+- binaries: `packages/database/package.json::rimraf`
+- binaries: `packages/logger/package.json::rimraf`
+- binaries: `packages/queue/package.json::rimraf`
+- binaries: `packages/security/package.json::rimraf`
+- binaries: `packages/shared-types/package.json::rimraf`
+- binaries: `packages/testing/package.json::rimraf`
+- binaries: `packages/utils/package.json::rimraf`
+- binaries: `packages/workflows-core/package.json::rimraf`
 - exports: `apps/api/src/app/pipeline.ts::mainApiPipeline`
 - exports: `apps/api/src/app/pipeline.ts::mainInfrastructurePostWebhookPipeline`
 - exports: `apps/api/src/app/pipeline.ts::mainInfrastructurePreWebhookPipeline`
@@ -62,7 +241,6 @@
 - exports: `apps/worker/src/webhooks/outbound.ts::outboundWebhookQueueName`
 - exports: `packages/agents-core/src/runtime/manifestRuntimeCore.ts::readString`
 - exports: `packages/agents-core/src/runtime/manifestRuntimeCore.ts::toolIsSensitive`
-- exports: `packages/database/src/client.ts::resolveQueryTimeoutMs`
 
 ## Improvements
 

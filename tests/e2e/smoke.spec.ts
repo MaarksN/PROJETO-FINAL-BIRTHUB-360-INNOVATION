@@ -1,6 +1,6 @@
 import { test, expect } from '@playwright/test';
 
-test('Release master gate', async ({ page }) => {
+test('healthcheck básico da aplicação', async ({ page }) => {
   const response = await page.goto('/');
   expect(response).not.toBeNull();
   expect(response?.ok()).toBeTruthy();

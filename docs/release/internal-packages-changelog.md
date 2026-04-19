@@ -32,3 +32,5 @@ Use este arquivo quando qualquer `apps/*/package.json`, `packages/*/package.json
 
 - adicionados `lint`, `typecheck`, `test` e `build` visíveis com `N/A` formal para `ae-agent-worker`, `analista-agent-worker`, `financeiro-agent-worker`, `juridico-agent-worker`, `ldr-agent-worker`, `marketing-agent-worker`, `pos_venda-agent-worker` e `sdr-agent-worker`
 - alinhada `scripts/ci/script-compliance-policy.json` com o estado real de `@birthub/shared` e `@birthub/shared-types`
+- Adjusted  and fixed CI artifacts generation
+test

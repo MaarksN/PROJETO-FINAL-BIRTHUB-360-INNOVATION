@@ -1,16 +1,16 @@
 {
   "backup": {
-    "directory": "/home/runner/work/PROJETO-FINAL-BIRTHUB-360-INNOVATION/PROJETO-FINAL-BIRTHUB-360-INNOVATION/artifacts/backups",
+    "directory": "/app/artifacts/backups",
     "exists": true,
     "latest": null
   },
-  "checkedAt": "2026-04-18T05:25:31.977Z",
+  "checkedAt": "2026-04-19T16:11:43.248Z",
   "directories": {
-    "backupsDir": "/home/runner/work/PROJETO-FINAL-BIRTHUB-360-INNOVATION/PROJETO-FINAL-BIRTHUB-360-INNOVATION/artifacts/backups",
+    "backupsDir": "/app/artifacts/backups",
     "walDir": null
   },
   "issues": [
-    "No backup files found in /home/runner/work/PROJETO-FINAL-BIRTHUB-360-INNOVATION/PROJETO-FINAL-BIRTHUB-360-INNOVATION/artifacts/backups."
+    "No backup files found in /app/artifacts/backups."
   ],
   "ok": false,
   "status": "fail",

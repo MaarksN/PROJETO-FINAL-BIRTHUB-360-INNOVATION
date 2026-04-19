@@ -41,6 +41,17 @@ jobs:
           cache-dependency-path: pnpm-lock.yaml
           node-version-file: .nvmrc
 
+      - name: Restore Next.js build cache
+        if: contains(inputs.command, 'test:e2e')
+        uses: actions/cache@v4
+        with:
+          path: |
+            apps/web/.next/cache
+          key: ${{ runner.os }}-nextjs-${{ hashFiles('**/pnpm-lock.yaml') }}-${{ hashFiles('apps/web/package.json', 'apps/web/next.config.*', 'apps/web/tsconfig.*') }}
+          restore-keys: |
+            ${{ runner.os }}-nextjs-${{ hashFiles('**/pnpm-lock.yaml') }}-
+            ${{ runner.os }}-nextjs-
+
       - name: Install dependencies
         run: pnpm install --frozen-lockfile
 
@@ -60,35 +71,26 @@ jobs:
         env:
           WORKFLOW_COMMAND: ${{ inputs.command }}
         run: |
-          case "$WORKFLOW_COMMAND" in
-            "pnpm branch:check")
-              pnpm branch:check
-              ;;
-            "pnpm ci:commitlint")
-              pnpm ci:commitlint
-              ;;
-            "pnpm security:inline-credentials")
-              pnpm security:inline-credentials
-              ;;
-            "pnpm docs:check-links")
-              pnpm docs:check-links
-              ;;
-            "pnpm hygiene:check")
-              pnpm hygiene:check
-              ;;
-            "pnpm ci:task pack-tests")
-              pnpm ci:task pack-tests
-              ;;
-            "pnpm monorepo:doctor && RELEASE_SCORECARD_MIN_SCORE=100 pnpm release:scorecard && pnpm audit:ownership")
-              pnpm monorepo:doctor
-              RELEASE_SCORECARD_MIN_SCORE=100 pnpm release:scorecard
-              pnpm audit:ownership
-              ;;
-            "pnpm test:e2e:release")
+          if [ "$WORKFLOW_COMMAND" = "pnpm test:e2e:release" ]; then
+              pnpm --filter @birthub/web build
+              pnpm exec playwright test tests/e2e/smoke.spec.ts
               pnpm test:e2e:release
-              ;;
-            *)
-              echo "Unsupported workflow command: $WORKFLOW_COMMAND" >&2
-              exit 1
-              ;;
-          esac
+          else
+              eval "$WORKFLOW_COMMAND"
+          fi
+
+      - name: Upload Playwright Report
+        if: failure() && contains(inputs.command, 'test:e2e')
+        uses: actions/upload-artifact@v4
+        with:
+          name: playwright-report
+          path: playwright-report/
+          retention-days: 7
+
+      - name: Upload test results
+        if: failure() && contains(inputs.command, 'test:e2e')
+        uses: actions/upload-artifact@v4
+        with:
+          name: test-results
+          path: test-results/
+          retention-days: 7

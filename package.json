@@ -177,7 +177,9 @@
     "release:materialize": "node --import tsx scripts/release/materialize-release.ts",
     "release:bundle": "pnpm release:sbom && pnpm release:materialize",
     "release:verify:cycle0": "bash ./scripts/release/verify-cycle0-flow.sh",
-    "release:origin:ensure": "bash ./scripts/release/configure-origin-remote.sh"
+    "release:origin:ensure": "bash ./scripts/release/configure-origin-remote.sh",
+    "start:ci": "pnpm --filter @birthub/web start:ci",
+    "build:web": "pnpm --filter @birthub/web build"
   },
   "devDependencies": {
     "@birthub/agents-core": "workspace:*",
@@ -201,6 +203,7 @@
     "jsdom": "^29.0.2",
     "knip": "^5.64.0",
     "lint-staged": "^16.4.0",
+    "playwright": "^1.59.1",
     "prettier": "^3.8.1",
     "prisma": "6.19.3",
     "tsx": "^4.21.0",

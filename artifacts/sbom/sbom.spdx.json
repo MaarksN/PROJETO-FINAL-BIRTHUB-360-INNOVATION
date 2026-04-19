@@ -3,9 +3,9 @@
   "spdxVersion": "SPDX-2.3",
   "name": "birthub-360",
   "dataLicense": "CC0-1.0",
-  "documentNamespace": "https://birthub.local/spdx/680662f8-d3c6-ca2b-5c49-00cfc4b9e47c",
+  "documentNamespace": "https://birthub.local/spdx/776452b6-e3dd-948c-f19e-8bab0668620b",
   "creationInfo": {
-    "created": "2026-04-18T16:36:37.804Z",
+    "created": "2026-04-19T17:03:18.718Z",
     "creators": [
       "Tool: release-sbom-generator@1.0.0"
     ]
@@ -86,6 +86,21 @@
           "referenceCategory": "PACKAGE-MANAGER",
           "referenceType": "purl",
           "referenceLocator": "pkg:npm/%40birthub%2Fagents-core@link%3Apackages%2Fagents-core"
+        }
+      ]
+    },
+    {
+      "SPDXID": "SPDXRef-Package-d6a198e46dd77f66",
+      "name": "@birthub/api",
+      "versionInfo": "link:../api",
+      "downloadLocation": "NOASSERTION",
+      "filesAnalyzed": false,
+      "supplier": "NOASSERTION",
+      "externalRefs": [
+        {
+          "referenceCategory": "PACKAGE-MANAGER",
+          "referenceType": "purl",
+          "referenceLocator": "pkg:npm/%40birthub%2Fapi@link%3A..%2Fapi"
         }
       ]
     },
@@ -1181,6 +1196,21 @@
           "referenceCategory": "PACKAGE-MANAGER",
           "referenceType": "purl",
           "referenceLocator": "pkg:npm/pipedrive@32.2.0"
+        }
+      ]
+    },
+    {
+      "SPDXID": "SPDXRef-Package-ee265378866ff733",
+      "name": "playwright",
+      "versionInfo": "1.59.1",
+      "downloadLocation": "NOASSERTION",
+      "filesAnalyzed": false,
+      "supplier": "NOASSERTION",
+      "externalRefs": [
+        {
+          "referenceCategory": "PACKAGE-MANAGER",
+          "referenceType": "purl",
+          "referenceLocator": "pkg:npm/playwright@1.59.1"
         }
       ]
     },
