@@ -1,15 +1,24 @@
 import type { ApiConfig } from "@birthub/config";
+import {
+  getConnectorProviderDefinition,
+  listConnectorProviderDefinitions,
+  type ConnectorProviderDefinition
+} from "@birthub/integrations";
 import { prisma } from "@birthub/database";
 
 import { enqueueCrmSync } from "../engagement/queues.js";
+import { ProblemDetailsError } from "../../lib/problem-details.js";
 import { createConnectSession, finalizeConnectSession } from "./service.oauth.js";
 import {
   normalizeCredentials,
   parseConnectorOauthState,
+  providerSupportsAuthType,
   resolveConnectorAccount,
+  resolveDefaultConnectorAuthType,
   sanitizeConnectorAccount,
   toJsonValue,
   upsertCredentials,
+  type ConnectorAuthType,
   type ConnectorCredentialsRecord,
   type ConnectorOauthState,
   type ConnectorProvider
@@ -56,9 +65,15 @@ export const connectorsService = {
     return accounts.map((account) => sanitizeConnectorAccount(account));
   },
 
+  listProviderCatalog(): ConnectorProviderDefinition[] {
+    return listConnectorProviderDefinitions().sort((left, right) =>
+      left.displayName.localeCompare(right.displayName)
+    );
+  },
+
   async upsertConnector(input: {
     accountKey?: string | undefined;
-    authType?: string | undefined;
+    authType?: ConnectorAuthType | undefined;
     credentials?: ConnectorCredentialsRecord | undefined;
     displayName?: string | undefined;
     externalAccountId?: string | undefined;
@@ -69,25 +84,43 @@ export const connectorsService = {
     status?: string | undefined;
     tenantId: string;
   }) {
+    const providerDefinition = getConnectorProviderDefinition(input.provider);
+    const authType = input.authType ?? resolveDefaultConnectorAuthType(input.provider);
+    if (!providerSupportsAuthType(input.provider, authType)) {
+      throw new ProblemDetailsError({
+        detail: `Connector provider '${input.provider}' does not support auth type '${authType}'.`,
+        status: 409,
+        title: "Connector Auth Type Not Supported"
+      });
+    }
+
     const account = await prisma.connectorAccount.upsert({
       create: {
         accountKey: input.accountKey ?? "primary",
-        authType: input.authType ?? "oauth",
+        authType,
         ...(input.displayName ? { displayName: input.displayName } : {}),
         ...(input.externalAccountId ? { externalAccountId: input.externalAccountId } : {}),
         ...(input.metadata ? { metadata: toJsonValue(input.metadata) } : {}),
         organizationId: input.organizationId,
         provider: input.provider,
-        ...(input.scopes ? { scopes: toJsonValue(input.scopes) } : {}),
+        ...(input.scopes
+          ? { scopes: toJsonValue(input.scopes) }
+          : providerDefinition.defaultScopes
+            ? { scopes: toJsonValue([...providerDefinition.defaultScopes]) }
+            : {}),
         status: input.status ?? "active",
         tenantId: input.tenantId
       },
       update: {
-        authType: input.authType ?? "oauth",
+        authType,
         ...(input.displayName ? { displayName: input.displayName } : {}),
         ...(input.externalAccountId ? { externalAccountId: input.externalAccountId } : {}),
         ...(input.metadata ? { metadata: toJsonValue(input.metadata) } : {}),
-        ...(input.scopes ? { scopes: toJsonValue(input.scopes) } : {}),
+        ...(input.scopes
+          ? { scopes: toJsonValue(input.scopes) }
+          : providerDefinition.defaultScopes
+            ? { scopes: toJsonValue([...providerDefinition.defaultScopes]) }
+            : {}),
         status: input.status ?? "active"
       },
       where: {
@@ -130,6 +163,7 @@ export const connectorsService = {
     scope?: string | undefined;
     tenantId: string;
   }) {
+    const providerDefinition = getConnectorProviderDefinition(input.provider);
     const account = await resolveConnectorAccount({
       accountKey: input.accountKey,
       organizationId: input.organizationId,
@@ -183,10 +217,10 @@ export const connectorsService = {
     }
 
     return {
+      implementationStage: providerDefinition.implementationStage,
       provider: input.provider,
       queued,
       scope
     };
   }
 };
-

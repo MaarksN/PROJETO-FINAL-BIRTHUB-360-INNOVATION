@@ -20,6 +20,7 @@
     "@birthub/agents-core": "workspace:*",
     "@birthub/config": "workspace:*",
     "@birthub/database": "workspace:*",
+    "@birthub/integrations": "workspace:*",
     "@birthub/logger": "workspace:*",
     "@birthub/queue": "workspace:*",
     "@birthub/workflows-core": "workspace:*",
