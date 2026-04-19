@@ -175,7 +175,17 @@ function validateLink(filePath, rawTarget) {
 }
 
 for (const scanRoot of scanRoots) {
-  collectMarkdownFiles(path.join(repoRoot, scanRoot));
+  const absoluteScanRoot = path.join(repoRoot, scanRoot);
+  if (!fs.existsSync(absoluteScanRoot)) {
+    warnings.push({
+      file: absoluteScanRoot,
+      link: scanRoot,
+      reason: "Configured documentation scan root is missing; skipped"
+    });
+    continue;
+  }
+
+  collectMarkdownFiles(absoluteScanRoot);
 }
 
 for (const markdownFile of markdownFiles) {
