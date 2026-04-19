@@ -158,7 +158,7 @@ const dictionaries: Record<SupportedLocale, Dictionary> = {
       themeDescription:
         "Escolha o visual do dashboard com contraste, brilho e superficies ajustadas para light e dark mode.",
       themeHeading: "Tema do dashboard",
-      title: "Preferencias de notificacao"
+      title: "Notificacoes e consentimento"
     },
     navbar: {
       activateDarkTheme: "Ativar tema escuro",
@@ -348,7 +348,7 @@ const dictionaries: Record<SupportedLocale, Dictionary> = {
       themeDescription:
         "Choose the dashboard look with customized contrast, glow, and surfaces for light and dark modes.",
       themeHeading: "Dashboard theme",
-      title: "Notification preferences"
+      title: "Notifications and consent"
     },
     navbar: {
       activateDarkTheme: "Switch to dark theme",

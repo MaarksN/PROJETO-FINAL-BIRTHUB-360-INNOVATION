@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useMemo } from "react";
+import { useEffect, useMemo, useState } from "react";
 import { useRouter } from "next/navigation";
 
 import { getStoredSession } from "../../../../lib/auth-client";
@@ -152,7 +152,9 @@ export default function NotificationPreferencesPage() {
   const { dictionary, formatDateTime } = useI18n();
   const copy = dictionary.notificationPreferencesPage;
   const { mode, setMode } = useThemeMode();
-  const session = useMemo(() => getStoredSession(), []);
+  const [session, setSession] = useState<ReturnType<typeof getStoredSession> | null | undefined>(
+    undefined
+  );
   const preferences = useUserPreferencesStore((state) => state.preferences);
   const prefError = useUserPreferencesStore((state) => state.error);
   const prefHydrated = useUserPreferencesStore((state) => state.hydrated);
@@ -169,6 +171,10 @@ export default function NotificationPreferencesPage() {
   const markAllAsRead = useNotificationStore((state) => state.markAllAsRead);
 
   useEffect(() => {
+    setSession(getStoredSession());
+  }, []);
+
+  useEffect(() => {
     if (!session) {
       return;
     }
@@ -176,6 +182,10 @@ export default function NotificationPreferencesPage() {
     void hydratePreferences();
     void refreshFeed();
   }, [hydratePreferences, refreshFeed, session]);
+
+  if (session === undefined) {
+    return <main aria-busy="true" style={{ padding: "1.5rem" }} />;
+  }
 
   if (!session) {
     return (
@@ -193,7 +203,10 @@ export default function NotificationPreferencesPage() {
       <section className="hero-card">
         <span className="badge">{copy.badge}</span>
         <h1>{copy.title}</h1>
-        <p style={{ marginBottom: 0 }}>{copy.description}</p>
+        <p style={{ marginBottom: 0 }}>
+          <strong>Preferencias de notificacao</strong> centralizadas para email, feed in-app,
+          idioma da interface e consentimento de analytics.
+        </p>
       </section>
 
       <section className="panel">

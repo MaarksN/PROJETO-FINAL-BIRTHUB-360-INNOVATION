@@ -1,7 +1,7 @@
 "use client";
 
 import Link from "next/link";
-import { useMemo } from "react";
+import { useEffect, useState } from "react";
 
 import { getStoredSession } from "../lib/auth-client";
 import { useI18n } from "../providers/I18nProvider";
@@ -13,9 +13,15 @@ export function CookieConsentBanner() {
   const isSaving = useUserPreferencesStore((state) => state.isSaving);
   const preferences = useUserPreferencesStore((state) => state.preferences);
   const update = useUserPreferencesStore((state) => state.update);
-  const session = useMemo(() => getStoredSession(), []);
+  const [session, setSession] = useState<ReturnType<typeof getStoredSession> | null | undefined>(
+    undefined
+  );
 
-  if (!session || !hydrated || preferences.cookieConsent !== "PENDING") {
+  useEffect(() => {
+    setSession(getStoredSession());
+  }, []);
+
+  if (session === undefined || !session || !hydrated || preferences.cookieConsent !== "PENDING") {
     return null;
   }
 
