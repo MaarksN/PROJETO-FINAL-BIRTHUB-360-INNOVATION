@@ -21,8 +21,10 @@ const coreTestWorkspaces = [
 ];
 
 // packages/testing exercises the database runtime through the package surface,
-// so we bootstrap the database build once before the workspace test sweep.
+// and queue tests consume shared-types from its built package export.
+// We bootstrap both builds once before the workspace test sweep.
 runPnpm(["--filter", "@birthub/database", "build"]);
+runPnpm(["--filter", "@birthub/shared-types", "build"]);
 
 for (const workspace of coreTestWorkspaces) {
   run(portableNodeExecutable, ["--import", "tsx", "--test", ...workspace.args], {

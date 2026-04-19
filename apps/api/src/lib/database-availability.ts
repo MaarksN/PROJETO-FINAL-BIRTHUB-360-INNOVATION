@@ -40,10 +40,16 @@ export function hasExplicitDatabaseUrl(env: NodeJS.ProcessEnv = getEnvironmentSo
 }
 
 export function isDatabaseUnavailableError(error: unknown): boolean {
+  const errorWithCode =
+    error && typeof error === "object" && "code" in error
+      ? (error as { code?: unknown })
+      : null;
+
   return (
     error instanceof Error &&
     (error.name === "PrismaClientInitializationError" ||
       error.name === "PrismaClientRustPanicError" ||
+      errorWithCode?.code === "ECONNREFUSED" ||
       error.message.includes("Environment variable not found: DATABASE_URL") ||
       error.message.includes("Authentication failed against database server") ||
       error.message.includes("ECONNREFUSED") ||
