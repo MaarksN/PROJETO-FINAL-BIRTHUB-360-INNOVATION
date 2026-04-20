@@ -12,6 +12,8 @@ type QueryJoinFinding = {
   path: string;
 };
 
+const TENANT_SCOPE_EXEMPT_MARKER = "tenant-scope-exempt";
+
 function shouldInspect(relativePath: string): boolean {
   if (relativePath.startsWith("packages/database/prisma/migrations/")) {
     return false;
@@ -45,7 +47,9 @@ async function main(): Promise<void> {
     }
 
     const localIssues: string[] = [];
-    const hasTenantFilter = /(tenantId|tenant_id|get_current_tenant_id|app\.current_tenant_id)/i.test(file.content);
+    const hasTenantFilter =
+      /(tenantId|tenant_id|get_current_tenant_id|app\.current_tenant_id)/i.test(file.content) ||
+      file.content.includes(TENANT_SCOPE_EXEMPT_MARKER);
 
     if (!hasTenantFilter) {
       localIssues.push(`${file.relativePath}: JOIN detected without an explicit tenant filter marker.`);

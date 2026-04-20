@@ -257,6 +257,20 @@ export function skipUnlessFhirFacadeEnabled() {
 }
 
 export async function bootstrapSession(page: Page): Promise<void> {
+  const baseUrl =
+    process.env.PLAYWRIGHT_BASE_URL ??
+    process.env.WEB_BASE_URL ??
+    process.env.NEXT_PUBLIC_APP_URL ??
+    "http://127.0.0.1:3001";
+
+  await page.context().addCookies([
+    {
+      name: "bh360_locale",
+      url: baseUrl,
+      value: "pt-BR"
+    }
+  ]);
+
   await page.addInitScript(() => {
     localStorage.setItem("bh_access_token", "access-e2e-token");
     localStorage.setItem("bh_csrf_token", "csrf-e2e");

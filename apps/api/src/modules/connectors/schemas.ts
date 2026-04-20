@@ -15,7 +15,7 @@ export const providerSchema = z
   })
   .transform((value) => value as ConnectorProviderSlug);
 
-export const authTypeSchema = z
+const authTypeSchema = z
   .string()
   .trim()
   .min(1)
@@ -78,4 +78,3 @@ export type ConnectPayload = z.infer<typeof connectSchema>;
 export type CallbackPayload = z.infer<typeof callbackSchema>;
 export type SyncPayload = z.infer<typeof syncSchema>;
 export type UpsertConnectorPayload = z.infer<typeof upsertConnectorSchema>;
-export type ConnectorAuthPayload = z.infer<typeof authTypeSchema>;

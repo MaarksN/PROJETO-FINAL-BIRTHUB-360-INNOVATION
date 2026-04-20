@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-04-02T12:00:00.000Z",
+  "generatedAt": "2026-04-19T00:00:00.000Z",
   "migrations": {
     "20260313000100_cycle1_foundation": {
       "environments": [
@@ -960,6 +960,66 @@
       "severity": "P1",
       "strategy": {
         "backwardCompatible": true,
+        "batching": {
+          "required": false
+        },
+        "expandContract": true,
+        "transactional": true
+      },
+      "validation": {
+        "driftChecked": true,
+        "rlsReviewed": true,
+        "rollbackTested": true,
+        "viewsAndRoutinesReviewed": true
+      }
+    },
+    "20260419000100_phase1_schema_drift_reconciliation": {
+      "environments": [
+        "dev",
+        "staging",
+        "prod"
+      ],
+      "estimatedDurationMinutes": 10,
+      "impact": "medium",
+      "maintenanceWindowSlaMinutes": 30,
+      "notes": "Reconciles schema-only workflow/privacy changes with the migration history by materializing workflow revisions, dry-run execution metadata, legacy LGPD cleanup, and primary-key naming alignment required by CI drift checks.",
+      "owner": "Platform Data",
+      "postMigrationChecklist": [
+        "drift_check",
+        "fk_index_audit",
+        "integrity_health_check",
+        "migration_state_report",
+        "release_smoke",
+        "rls_audit"
+      ],
+      "preProductionChecklist": [
+        "backup_confirmed",
+        "maintenance_window",
+        "rollback_validated",
+        "stakeholder_notice"
+      ],
+      "review": {
+        "approverRoles": [
+          "DBA",
+          "DB_LEAD"
+        ],
+        "reviewer": "Database Lead"
+      },
+      "rollback": {
+        "strategy": "Rollback only with a validated snapshot: revert the workflow_revisions table and isDryRun column, then restore the legacy LGPD fields from backup if any downstream flow still depends on them.",
+        "steps": [
+          "Pause deployment and confirm the latest backup plus migration-state evidence.",
+          "Validate whether workflow revision endpoints or dry-run execution metadata are already being consumed.",
+          "Restore the previous snapshot if schema consumers regress, then rehydrate the removed LGPD fields from backup before reopening traffic.",
+          "Replay drift, RLS, and release smoke checks before resuming normal deploys."
+        ],
+        "testedEnvironments": [
+          "staging"
+        ]
+      },
+      "severity": "P1",
+      "strategy": {
+        "backwardCompatible": false,
         "batching": {
           "required": false
         },

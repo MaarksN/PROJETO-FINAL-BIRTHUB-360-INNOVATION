@@ -11,7 +11,7 @@ export function createCircuitBreaker<TI extends unknown[], TO>(
   action: (...args: TI) => Promise<TO>,
   options: CircuitBreakerOptions
 ): CircuitBreaker<TI, TO> {
-  const breaker = new CircuitBreaker(action, {
+  const breaker = new CircuitBreaker<TI, TO>(action, {
     timeout: options.timeout ?? 10_000,
     errorThresholdPercentage: options.errorThresholdPercentage ?? 50,
     resetTimeout: options.resetTimeout ?? 30_000,

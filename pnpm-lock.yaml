@@ -128,6 +128,9 @@ importers:
       '@birthub/database':
         specifier: workspace:*
         version: link:../../packages/database
+      '@birthub/integrations':
+        specifier: workspace:*
+        version: link:../../packages/integrations
       '@birthub/logger':
         specifier: workspace:*
         version: link:../../packages/logger

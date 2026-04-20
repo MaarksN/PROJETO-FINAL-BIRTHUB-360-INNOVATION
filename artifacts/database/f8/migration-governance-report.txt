@@ -15,3 +15,4 @@ PASS 20260402000100_cycle12_ci_schema_alignment :: risks=none :: findings=0
 PASS 20260407000300_phase1_lgpd_user_preferences :: risks=none :: findings=0
 PASS 20260408000100_phase1_user_preference_locale :: risks=none :: findings=0
 PASS 20260410000100_phase1_workflow_revision_rls :: risks=none :: findings=0
+PASS 20260419000100_phase1_schema_drift_reconciliation :: risks=drop_column :: findings=0

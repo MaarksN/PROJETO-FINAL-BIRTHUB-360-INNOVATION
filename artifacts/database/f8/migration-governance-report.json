@@ -1,5 +1,5 @@
 {
-  "checkedAt": "2026-04-19T19:18:37.750Z",
+  "checkedAt": "2026-04-19T23:42:05.287Z",
   "issues": [],
   "migrations": [
     {
@@ -115,6 +115,14 @@
       "issues": [],
       "migration": "20260410000100_phase1_workflow_revision_rls",
       "riskFlags": [],
+      "viewsOrRoutines": []
+    },
+    {
+      "issues": [],
+      "migration": "20260419000100_phase1_schema_drift_reconciliation",
+      "riskFlags": [
+        "drop_column"
+      ],
       "viewsOrRoutines": []
     }
   ],

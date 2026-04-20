@@ -97,70 +97,70 @@ function listChangedFiles(baseRef) {
     .map((line) => line.trim())
     .filter(Boolean)
     .map(normalizeRepoPath);
-
   return [...new Set(files)];
 }
-
 function loadJson(relativePath) {
   return JSON.parse(readFileSync(path.join(projectRoot, relativePath), "utf8"));
 }
-
 function listInternalManifests(trackedFiles) {
   return trackedFiles.filter((file) => internalManifestPattern.test(file));
 }
-
 function readManifest(relativePath) {
   return loadJson(relativePath);
 }
-
 function readManifestFromRef(ref, relativePath) {
   const content = gitCapture(["show", `${ref}:${relativePath}`], true);
-  return content ? JSON.parse(content) : null;
+  if (!content) {
+    return {
+      manifest: null,
+      status: "missing"
+    };
+  }
+  try {
+    return {
+      manifest: JSON.parse(content),
+      status: "ok"
+    };
+  } catch {
+    return {
+      manifest: null,
+      status: "invalid"
+    };
+  }
 }
-
 function collectInternalPackageNames(manifestPaths) {
   const names = new Set();
-
   for (const manifestPath of manifestPaths) {
     const manifest = readManifest(manifestPath);
     if (typeof manifest.name === "string" && manifest.name.trim()) {
       names.add(manifest.name.trim());
     }
   }
-
   return names;
 }
-
 function ensureSemver(value) {
   return typeof value === "string" && /^\d+\.\d+\.\d+(?:[-+][A-Za-z0-9.-]+)?$/u.test(value);
 }
-
 function checkManifestVersions(manifestPaths) {
   const issues = [];
-
   for (const manifestPath of manifestPaths) {
     const manifest = readManifest(manifestPath);
     if (!ensureSemver(manifest.version)) {
       issues.push(`${manifestPath} must declare an explicit semver version.`);
     }
   }
-
   return issues;
 }
-
 function checkWorkspaceProtocol(manifestPaths, internalPackageNames) {
   const issues = [];
-
   for (const manifestPath of manifestPaths) {
     const manifest = readManifest(manifestPath);
-
     for (const field of packageJsonFields) {
       const dependencies = manifest[field] ?? {};
       for (const [dependencyName, dependencyRange] of Object.entries(dependencies)) {
         if (!internalPackageNames.has(dependencyName)) {
           continue;
         }
-
         if (typeof dependencyRange !== "string" || !dependencyRange.startsWith("workspace:")) {
           issues.push(
             `${manifestPath} must reference internal dependency ${dependencyName} via workspace: protocol.`
@@ -169,16 +169,13 @@ function checkWorkspaceProtocol(manifestPaths, internalPackageNames) {
       }
     }
   }
-
   return issues;
 }
-
 function resolveDependencyLicense(dependencyName, manifestPath) {
   const searchRoots = [
     projectRoot,
     path.dirname(path.join(projectRoot, manifestPath))
   ];
-
   for (const searchRoot of searchRoots) {
     try {
       const manifestFile = require.resolve(`${dependencyName}/package.json`, { paths: [searchRoot] });
@@ -188,32 +185,28 @@ function resolveDependencyLicense(dependencyName, manifestPath) {
       continue;
     }
   }
-
   return null;
 }
-
 function findAddedExternalDependencies(changedFiles, internalPackageNames, baseRef) {
   const issues = [];
   const changedManifestPaths = changedFiles.filter((file) => internalManifestPattern.test(file));
-
   if (changedManifestPaths.length === 0) {
     return issues;
   }
-
   const approvalRegisterChanged = changedFiles.includes(dependencyApprovalRegister);
-
   for (const manifestPath of changedManifestPaths) {
     const currentManifest = readManifest(manifestPath);
-    const previousManifest = baseRef
+    const previousManifestSnapshot = baseRef
       ? readManifestFromRef(baseRef, manifestPath)
       : readManifestFromRef("HEAD", manifestPath);
-
+    if (previousManifestSnapshot.status === "invalid") {
+      continue;
+    }
+    const previousManifest = previousManifestSnapshot.manifest;
     const addedDependencies = [];
-
     for (const field of packageJsonFields) {
       const previousDependencies = previousManifest?.[field] ?? {};
       const currentDependencies = currentManifest[field] ?? {};
-
       for (const dependencyName of Object.keys(currentDependencies)) {
         if (internalPackageNames.has(dependencyName) || dependencyName in previousDependencies) {
           continue;
@@ -221,11 +214,9 @@ function findAddedExternalDependencies(changedFiles, internalPackageNames, baseR
         addedDependencies.push(dependencyName);
       }
     }
-
     if (addedDependencies.length === 0) {
       continue;
     }
-
     if (!approvalRegisterChanged) {
       issues.push(
         `${manifestPath} adds external dependencies (${addedDependencies.join(", ")}); update ${dependencyApprovalRegister}.`
@@ -246,7 +237,6 @@ function findAddedExternalDependencies(changedFiles, internalPackageNames, baseR
       }
     }
   }
-
   return issues;
 }
 
