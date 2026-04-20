@@ -12,6 +12,7 @@ type MigrationState = {
   migrations: string[];
 };
 
+// tenant-scope-exempt: _prisma_migrations comparison reads deployment metadata shared by the whole database.
 function resolveEnvironmentUrls(): Record<string, string> {
   const candidates = {
     dev: process.env.DATABASE_URL_DEV,

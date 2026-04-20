@@ -25,6 +25,7 @@ type TableOptionRow = {
   reloptions: string[] | null;
 };
 
+// tenant-scope-exempt: pg_stat_* and pg_class audits read PostgreSQL catalog metadata, not tenant rows.
 function looksDisposableDatabase(url: string): boolean {
   return /(localhost|127\.0\.0\.1|shadow|test|validation)/i.test(url);
 }

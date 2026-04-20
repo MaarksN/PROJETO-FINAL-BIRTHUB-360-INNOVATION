@@ -11,6 +11,7 @@ type ConstraintRow = {
   table_name: string;
 };
 
+// tenant-scope-exempt: pg_constraint audits validate global FK metadata, not tenant-owned records.
 async function main(): Promise<void> {
   if (!process.env.DATABASE_URL) {
     const report = {
