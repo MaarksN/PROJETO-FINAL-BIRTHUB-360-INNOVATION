@@ -8,6 +8,54 @@ import {
   mockExecutionFeedback
 } from "./support";
 
+async function mockBillingVisibility(page: import("@playwright/test").Page): Promise<void> {
+  await page.route("**/api/v1/me", async (route) => {
+    await route.fulfill({
+      body: JSON.stringify({
+        plan: {
+          creditBalanceCents: 4200,
+          currentPeriodEnd: "2026-04-13T00:00:00.000Z",
+          isPaid: true,
+          name: "Professional",
+          status: "active"
+        }
+      }),
+      contentType: "application/json",
+      status: 200
+    });
+  });
+  await page.route("**/api/v1/billing/usage", async (route) => {
+    await route.fulfill({
+      body: JSON.stringify({
+        usage: [
+          { metric: "agent.tokens", quantity: 1800 },
+          { metric: "workflow.runs", quantity: 44 }
+        ]
+      }),
+      contentType: "application/json",
+      status: 200
+    });
+  });
+  await page.route("**/api/v1/billing/invoices", async (route) => {
+    await route.fulfill({
+      body: JSON.stringify({
+        items: [
+          {
+            amountPaidCents: 14900,
+            createdAt: "2026-03-13T00:00:00.000Z",
+            currency: "usd",
+            id: "inv_01",
+            invoicePdfUrl: "https://example.com/invoice.pdf",
+            status: "paid"
+          }
+        ]
+      }),
+      contentType: "application/json",
+      status: 200
+    });
+  });
+}
+
 test.beforeEach(async ({ baseURL }) => {
   if (!baseURL) {
     throw new Error(
@@ -67,55 +115,11 @@ test.describe("Release master smoke flow", () => {
   test("C2 pricing, checkout mock and billing visibility", async ({ page }) => {
     await bootstrapSession(page);
     await mockDemoWorkflowRuns(page);
+    await mockBillingVisibility(page);
     await page.route("**/billing/checkout**", async (route) => {
       await route.fulfill({
         body: JSON.stringify({
           url: "http://127.0.0.1:3001/billing/success"
-        }),
-        contentType: "application/json",
-        status: 200
-      });
-    });
-    await page.route("**/api/v1/me", async (route) => {
-      await route.fulfill({
-        body: JSON.stringify({
-          plan: {
-            creditBalanceCents: 4200,
-            currentPeriodEnd: "2026-04-13T00:00:00.000Z",
-            isPaid: true,
-            name: "Professional",
-            status: "active"
-          }
-        }),
-        contentType: "application/json",
-        status: 200
-      });
-    });
-    await page.route("**/api/v1/billing/usage", async (route) => {
-      await route.fulfill({
-        body: JSON.stringify({
-          usage: [
-            { metric: "agent.tokens", quantity: 1800 },
-            { metric: "workflow.runs", quantity: 44 }
-          ]
-        }),
-        contentType: "application/json",
-        status: 200
-      });
-    });
-    await page.route("**/api/v1/billing/invoices", async (route) => {
-      await route.fulfill({
-        body: JSON.stringify({
-          items: [
-            {
-              amountPaidCents: 14900,
-              createdAt: "2026-03-13T00:00:00.000Z",
-              currency: "usd",
-              id: "inv_01",
-              invoicePdfUrl: "https://example.com/invoice.pdf",
-              status: "paid"
-            }
-          ]
         }),
         contentType: "application/json",
         status: 200
@@ -131,20 +135,26 @@ test.describe("Release master smoke flow", () => {
     await expect(page).toHaveURL(/\/billing\/success$/);
     await expect(page.getByText("Assinatura ativada com sucesso")).toBeVisible();
 
-    await page.goto("/settings/billing");
-    await expect(page.getByText("Plano atual, renovacao e consumo")).toBeVisible();
+    const workspacePage = await page.context().newPage();
+    await bootstrapSession(workspacePage);
+    await mockDemoWorkflowRuns(workspacePage);
+    await mockBillingVisibility(workspacePage);
+    await page.close();
 
-    await page.goto("/workflows/demo/edit");
-    await expect(page).toHaveURL(/\/workflows\/demo\/edit$/);
-    await expect(page.getByRole("button", { name: "Organizar Canvas" })).toBeVisible();
-    await expect(page.getByText("Node Sidebar")).toBeVisible();
+    await workspacePage.goto("/settings/billing");
+    await expect(workspacePage.getByText("Plano atual, renovacao e consumo")).toBeVisible();
 
-    await page.goto("/workflows/demo/runs");
-    await expect(page.getByText("Workflow Runs - demo")).toBeVisible();
-    await expect(page.getByText("Visual Debugger")).toBeVisible();
+    await workspacePage.goto("/workflows/demo/edit");
+    await expect(workspacePage).toHaveURL(/\/workflows\/demo\/edit$/);
+    await expect(workspacePage.getByRole("button", { name: "Organizar Canvas" })).toBeVisible();
+    await expect(workspacePage.getByText("Node Sidebar")).toBeVisible();
 
-    await page.goto("/billing/cancel");
-    await expect(page.getByText("Nenhuma cobranca foi realizada")).toBeVisible();
+    await workspacePage.goto("/workflows/demo/runs");
+    await expect(workspacePage.getByText("Workflow Runs - demo")).toBeVisible();
+    await expect(workspacePage.getByText("Visual Debugger")).toBeVisible();
+
+    await workspacePage.goto("/billing/cancel");
+    await expect(workspacePage.getByText("Nenhuma cobranca foi realizada")).toBeVisible();
   });
 
   test("C3 notification center and consent settings stay operational", async ({ page }) => {
