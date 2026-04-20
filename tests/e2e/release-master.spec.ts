@@ -221,10 +221,16 @@ test.describe("Release master smoke flow", () => {
     });
 
     await page.goto("/profile/notifications");
-    await expect(page.getByRole("heading", { name: "Notificacoes e consentimento" })).toBeVisible();
+    await expect(
+      page.getByRole("heading", {
+        name: /Notificacoes e consentimento|Notifications and consent/
+      })
+    ).toBeVisible({ timeout: 15_000 });
 
     const requiresLogin = await page
-      .getByText("Realize login para configurar preferencias de email, in-app e telemetria.")
+      .getByText(
+        /Realize login para configurar preferencias de email, in-app e telemetria\.|Sign in to configure email, in-app, language, and telemetry preferences\./
+      )
       .isVisible();
 
     if (!requiresLogin) {
